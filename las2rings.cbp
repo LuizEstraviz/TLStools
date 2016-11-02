@@ -22,6 +22,8 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="LASlib/inc" />
+					<Add directory="LASzip/src" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -32,6 +34,45 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="LASlib/src/fopen_compressed.cpp" />
+		<Unit filename="LASlib/src/lasfilter.cpp" />
+		<Unit filename="LASlib/src/lasreader.cpp" />
+		<Unit filename="LASlib/src/lasreader_asc.cpp" />
+		<Unit filename="LASlib/src/lasreader_bil.cpp" />
+		<Unit filename="LASlib/src/lasreader_bin.cpp" />
+		<Unit filename="LASlib/src/lasreader_dtm.cpp" />
+		<Unit filename="LASlib/src/lasreader_las.cpp" />
+		<Unit filename="LASlib/src/lasreader_qfit.cpp" />
+		<Unit filename="LASlib/src/lasreader_shp.cpp" />
+		<Unit filename="LASlib/src/lasreader_txt.cpp" />
+		<Unit filename="LASlib/src/lasreaderbuffered.cpp" />
+		<Unit filename="LASlib/src/lasreadermerged.cpp" />
+		<Unit filename="LASlib/src/lasreaderpipeon.cpp" />
+		<Unit filename="LASlib/src/lastransform.cpp" />
+		<Unit filename="LASlib/src/lasutility.cpp" />
+		<Unit filename="LASlib/src/laswaveform13reader.cpp" />
+		<Unit filename="LASlib/src/laswaveform13writer.cpp" />
+		<Unit filename="LASlib/src/laswriter.cpp" />
+		<Unit filename="LASlib/src/laswriter_bin.cpp" />
+		<Unit filename="LASlib/src/laswriter_las.cpp" />
+		<Unit filename="LASlib/src/laswriter_qfit.cpp" />
+		<Unit filename="LASlib/src/laswriter_txt.cpp" />
+		<Unit filename="LASlib/src/laswriter_wrl.cpp" />
+		<Unit filename="LASlib/src/laswritercompatible.cpp" />
+		<Unit filename="LASzip/src/arithmeticdecoder.cpp" />
+		<Unit filename="LASzip/src/arithmeticencoder.cpp" />
+		<Unit filename="LASzip/src/arithmeticmodel.cpp" />
+		<Unit filename="LASzip/src/integercompressor.cpp" />
+		<Unit filename="LASzip/src/lasindex.cpp" />
+		<Unit filename="LASzip/src/lasinterval.cpp" />
+		<Unit filename="LASzip/src/lasquadtree.cpp" />
+		<Unit filename="LASzip/src/lasreaditemcompressed_v1.cpp" />
+		<Unit filename="LASzip/src/lasreaditemcompressed_v2.cpp" />
+		<Unit filename="LASzip/src/lasreadpoint.cpp" />
+		<Unit filename="LASzip/src/laswriteitemcompressed_v1.cpp" />
+		<Unit filename="LASzip/src/laswriteitemcompressed_v2.cpp" />
+		<Unit filename="LASzip/src/laswritepoint.cpp" />
+		<Unit filename="LASzip/src/laszip.cpp" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />

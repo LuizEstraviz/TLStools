@@ -1,0 +1,115 @@
+# depslib dependency file v1.0
+1478109540 source:c:\users\caioh\desktop\dev2\laslibexample2\laszip\src\arithmeticdecoder.cpp
+	"arithmeticdecoder.hpp"
+	<string.h>
+	<assert.h>
+	"arithmeticmodel.hpp"
+
+1478109540 c:\users\caioh\desktop\dev2\laslibexample2\laszip\src\arithmeticdecoder.hpp
+	"mydefs.hpp"
+	"bytestreamin.hpp"
+
+1478109544 c:\users\caioh\desktop\dev2\laslibexample2\laszip\src\mydefs.hpp
+
+1478109540 c:\users\caioh\desktop\dev2\laslibexample2\laszip\src\bytestreamin.hpp
+	"mydefs.hpp"
+
+1478109540 c:\users\caioh\desktop\dev2\laslibexample2\laszip\src\arithmeticmodel.hpp
+	<stdio.h>
+	<stdlib.h>
+	"mydefs.hpp"
+
+1478109540 source:c:\users\caioh\desktop\dev2\laslibexample2\laszip\src\arithmeticencoder.cpp
+	"arithmeticencoder.hpp"
+	<string.h>
+	<assert.h>
+	<stdio.h>
+	"arithmeticmodel.hpp"
+
+1478109540 c:\users\caioh\desktop\dev2\laslibexample2\laszip\src\arithmeticencoder.hpp
+	"mydefs.hpp"
+	"bytestreamout.hpp"
+
+1478109540 c:\users\caioh\desktop\dev2\laslibexample2\laszip\src\bytestreamout.hpp
+	"mydefs.hpp"
+
+1478109540 source:c:\users\caioh\desktop\dev2\laslibexample2\laszip\src\arithmeticmodel.cpp
+	"arithmeticmodel.hpp"
+	<stdio.h>
+	<stdlib.h>
+
+1478109540 source:c:\users\caioh\desktop\dev2\laslibexample2\laszip\src\integercompressor.cpp
+	"integercompressor.hpp"
+	<stdlib.h>
+	<assert.h>
+	<math.h>
+
+1478109540 c:\users\caioh\desktop\dev2\laslibexample2\laszip\src\integercompressor.hpp
+	"arithmeticencoder.hpp"
+	"arithmeticdecoder.hpp"
+
+1478111266 source:c:\users\caioh\desktop\dev2\laslibexample2\laszip\src\lasindex.cpp
+	"lasindex.hpp"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"lasquadtree.hpp"
+	"lasinterval.hpp"
+	"lasreadpoint.hpp"
+	"lasreader.hpp"
+	"bytestreamin_file.hpp"
+	"bytestreamout_file.hpp"
+	<unordered_map>
+	<tr1/unordered_map>
+	<hash_map>
+
+1478109540 c:\users\caioh\desktop\dev2\laslibexample2\laszip\src\lasindex.hpp
+	"mydefs.hpp"
+
+1478109540 c:\users\caioh\desktop\dev2\laslibexample2\laszip\src\lasquadtree.hpp
+	"mydefs.hpp"
+
+1478109540 c:\users\caioh\desktop\dev2\laslibexample2\laszip\src\lasinterval.hpp
+	"mydefs.hpp"
+
+1478109541 c:\users\caioh\desktop\dev2\laslibexample2\laszip\src\lasreadpoint.hpp
+	"mydefs.hpp"
+	"laszip.hpp"
+	"bytestreamin.hpp"
+
+1478109543 c:\users\caioh\desktop\dev2\laslibexample2\laszip\src\laszip.hpp
+
+1478109548 c:\users\caioh\desktop\dev2\laslibexample2\laslib\inc\lasreader.hpp
+	"lasdefinitions.hpp"
+	"laswaveform13reader.hpp"
+
+1478109548 c:\users\caioh\desktop\dev2\laslibexample2\laslib\inc\lasdefinitions.hpp
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<assert.h>
+	"mydefs.hpp"
+	"laszip.hpp"
+	"laspoint.hpp"
+
+1478109540 c:\users\caioh\desktop\dev2\laslibexample2\laszip\src\laspoint.hpp
+	"lasquantizer.hpp"
+	"lasattributer.hpp"
+
+1478109540 c:\users\caioh\desktop\dev2\laslibexample2\laszip\src\lasquantizer.hpp
+	"mydefs.hpp"
+
+1478109540 c:\users\caioh\desktop\dev2\laslibexample2\laszip\src\lasattributer.hpp
+	"mydefs.hpp"
+
+1478109549 c:\users\caioh\desktop\dev2\laslibexample2\laslib\inc\laswaveform13reader.hpp
+	"lasdefinitions.hpp"
+
+1478109540 c:\users\caioh\desktop\dev2\laslibexample2\laszip\src\bytestreamin_file.hpp
+	"bytestreamin.hpp"
+	<stdio.h>
+
+1478109540 c:\users\caioh\desktop\dev2\laslibexample2\laszip\src\bytestreamout_file.hpp
+	"bytestreamout.hpp"
+	<stdio.h>
+

@@ -1,0 +1,391 @@
+# depslib dependency file v1.0
+1478109550 source:e:\profissional\pagef2016\las2rings\laslib\src\fopen_compressed.cpp
+	<stdio.h>
+	<string.h>
+	<io.h>
+	<fcntl.h>
+	<process.h>
+	<windows.h>
+
+1478109550 source:e:\profissional\pagef2016\las2rings\laslib\src\lasfilter.cpp
+	"lasfilter.hpp"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<map>
+
+1478109548 e:\profissional\pagef2016\las2rings\laslib\inc\lasfilter.hpp
+	"lasdefinitions.hpp"
+
+1478109548 e:\profissional\pagef2016\las2rings\laslib\inc\lasdefinitions.hpp
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<assert.h>
+	"mydefs.hpp"
+	"laszip.hpp"
+	"laspoint.hpp"
+
+1478109544 e:\profissional\pagef2016\las2rings\laszip\src\mydefs.hpp
+
+1478109543 e:\profissional\pagef2016\las2rings\laszip\src\laszip.hpp
+
+1478109540 e:\profissional\pagef2016\las2rings\laszip\src\laspoint.hpp
+	"lasquantizer.hpp"
+	"lasattributer.hpp"
+
+1478109540 e:\profissional\pagef2016\las2rings\laszip\src\lasquantizer.hpp
+	"mydefs.hpp"
+
+1478109540 e:\profissional\pagef2016\las2rings\laszip\src\lasattributer.hpp
+	"mydefs.hpp"
+
+1478109550 source:e:\profissional\pagef2016\las2rings\laslib\src\lasreader.cpp
+	"lasreader.hpp"
+	"lasindex.hpp"
+	"lasfilter.hpp"
+	"lastransform.hpp"
+	"lasreader_las.hpp"
+	"lasreader_bin.hpp"
+	"lasreader_shp.hpp"
+	"lasreader_qfit.hpp"
+	"lasreader_asc.hpp"
+	"lasreader_bil.hpp"
+	"lasreader_dtm.hpp"
+	"lasreader_txt.hpp"
+	"lasreadermerged.hpp"
+	"lasreaderbuffered.hpp"
+	"lasreaderpipeon.hpp"
+	<stdlib.h>
+	<string.h>
+	<windows.h>
+	<windows.h>
+
+1478109548 e:\profissional\pagef2016\las2rings\laslib\inc\lasreader.hpp
+	"lasdefinitions.hpp"
+	"laswaveform13reader.hpp"
+
+1478109549 e:\profissional\pagef2016\las2rings\laslib\inc\laswaveform13reader.hpp
+	"lasdefinitions.hpp"
+
+1478109540 e:\profissional\pagef2016\las2rings\laszip\src\lasindex.hpp
+	"mydefs.hpp"
+
+1478109549 e:\profissional\pagef2016\las2rings\laslib\inc\lastransform.hpp
+	"lasdefinitions.hpp"
+
+1478109549 e:\profissional\pagef2016\las2rings\laslib\inc\lasreader_las.hpp
+	"lasreader.hpp"
+	<stdio.h>
+	<fstream.h>
+	<istream>
+	<fstream>
+
+1478109549 e:\profissional\pagef2016\las2rings\laslib\inc\lasreader_bin.hpp
+	"lasreader.hpp"
+	<stdio.h>
+
+1478109549 e:\profissional\pagef2016\las2rings\laslib\inc\lasreader_shp.hpp
+	"lasreader.hpp"
+	<stdio.h>
+
+1478109549 e:\profissional\pagef2016\las2rings\laslib\inc\lasreader_qfit.hpp
+	"lasreader.hpp"
+	<stdio.h>
+
+1478109548 e:\profissional\pagef2016\las2rings\laslib\inc\lasreader_asc.hpp
+	"lasreader.hpp"
+	<stdio.h>
+
+1478109548 e:\profissional\pagef2016\las2rings\laslib\inc\lasreader_bil.hpp
+	"lasreader.hpp"
+	<stdio.h>
+
+1478109549 e:\profissional\pagef2016\las2rings\laslib\inc\lasreader_dtm.hpp
+	"lasreader.hpp"
+	<stdio.h>
+
+1478109549 e:\profissional\pagef2016\las2rings\laslib\inc\lasreader_txt.hpp
+	"lasreader.hpp"
+	<stdio.h>
+
+1478109549 e:\profissional\pagef2016\las2rings\laslib\inc\lasreadermerged.hpp
+	"lasreader_las.hpp"
+	"lasreader_bin.hpp"
+	"lasreader_shp.hpp"
+	"lasreader_qfit.hpp"
+	"lasreader_asc.hpp"
+	"lasreader_bil.hpp"
+	"lasreader_dtm.hpp"
+	"lasreader_txt.hpp"
+
+1478109549 e:\profissional\pagef2016\las2rings\laslib\inc\lasreaderbuffered.hpp
+	"lasreader.hpp"
+
+1478109549 e:\profissional\pagef2016\las2rings\laslib\inc\lasreaderpipeon.hpp
+	"lasreader.hpp"
+	"laswriter.hpp"
+
+1478109549 e:\profissional\pagef2016\las2rings\laslib\inc\laswriter.hpp
+	"lasdefinitions.hpp"
+	"lasutility.hpp"
+	"laswaveform13writer.hpp"
+
+1478109549 e:\profissional\pagef2016\las2rings\laslib\inc\lasutility.hpp
+	"lasdefinitions.hpp"
+
+1478109549 e:\profissional\pagef2016\las2rings\laslib\inc\laswaveform13writer.hpp
+	"lasdefinitions.hpp"
+
+1478109550 source:e:\profissional\pagef2016\las2rings\laslib\src\lasreader_asc.cpp
+	"lasreader_asc.hpp"
+	<stdlib.h>
+	<string.h>
+	<windows.h>
+
+1478109550 source:e:\profissional\pagef2016\las2rings\laslib\src\lasreader_bil.cpp
+	"lasreader_bil.hpp"
+	<stdlib.h>
+	<string.h>
+	<windows.h>
+
+1478109550 source:e:\profissional\pagef2016\las2rings\laslib\src\lasreader_bin.cpp
+	"lasreader_bin.hpp"
+	"bytestreamin.hpp"
+	"bytestreamin_file.hpp"
+	<stdlib.h>
+	<string.h>
+	<windows.h>
+
+1478109540 e:\profissional\pagef2016\las2rings\laszip\src\bytestreamin.hpp
+	"mydefs.hpp"
+
+1478109540 e:\profissional\pagef2016\las2rings\laszip\src\bytestreamin_file.hpp
+	"bytestreamin.hpp"
+	<stdio.h>
+
+1478109550 source:e:\profissional\pagef2016\las2rings\laslib\src\lasreader_dtm.cpp
+	"lasreader_dtm.hpp"
+	<stdlib.h>
+	<string.h>
+	<windows.h>
+
+1478109550 source:e:\profissional\pagef2016\las2rings\laslib\src\lasreader_las.cpp
+	"lasreader_las.hpp"
+	"bytestreamin.hpp"
+	"bytestreamin_file.hpp"
+	"bytestreamin_istream.hpp"
+	"lasreadpoint.hpp"
+	"lasindex.hpp"
+	<fcntl.h>
+	<io.h>
+	<stdlib.h>
+	<string.h>
+
+1478109540 e:\profissional\pagef2016\las2rings\laszip\src\bytestreamin_istream.hpp
+	"bytestreamin.hpp"
+	<fstream.h>
+	<istream>
+	<fstream>
+
+1478109541 e:\profissional\pagef2016\las2rings\laszip\src\lasreadpoint.hpp
+	"mydefs.hpp"
+	"laszip.hpp"
+	"bytestreamin.hpp"
+
+1478109550 source:e:\profissional\pagef2016\las2rings\laslib\src\lasreader_qfit.cpp
+	"lasreader_qfit.hpp"
+	"bytestreamin.hpp"
+	"bytestreamin_file.hpp"
+	<stdlib.h>
+	<string.h>
+	<windows.h>
+
+1478109550 source:e:\profissional\pagef2016\las2rings\laslib\src\lasreader_shp.cpp
+	"lasreader_shp.hpp"
+	<stdlib.h>
+	<string.h>
+	<windows.h>
+
+1478109550 source:e:\profissional\pagef2016\las2rings\laslib\src\lasreader_txt.cpp
+	"lasreader_txt.hpp"
+	<stdlib.h>
+	<string.h>
+	<windows.h>
+
+1478109550 source:e:\profissional\pagef2016\las2rings\laslib\src\lasreaderbuffered.cpp
+	"lasreaderbuffered.hpp"
+	"lasindex.hpp"
+	"lasfilter.hpp"
+	"lastransform.hpp"
+	<stdlib.h>
+	<string.h>
+
+1478109550 source:e:\profissional\pagef2016\las2rings\laslib\src\lasreadermerged.cpp
+	"lasreadermerged.hpp"
+	"lasindex.hpp"
+	"lasfilter.hpp"
+	"lastransform.hpp"
+	<stdlib.h>
+	<string.h>
+
+1478109550 source:e:\profissional\pagef2016\las2rings\laslib\src\lasreaderpipeon.cpp
+	"lasreaderpipeon.hpp"
+	"lasindex.hpp"
+	"lasfilter.hpp"
+	"lastransform.hpp"
+	"laswriter_las.hpp"
+	<stdlib.h>
+	<string.h>
+
+1478109549 e:\profissional\pagef2016\las2rings\laslib\inc\laswriter_las.hpp
+	"laswriter.hpp"
+	<stdio.h>
+	<fstream.h>
+	<istream>
+	<fstream>
+
+1478109550 source:e:\profissional\pagef2016\las2rings\laslib\src\lastransform.cpp
+	"lastransform.hpp"
+	"lasfilter.hpp"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+
+1478109550 source:e:\profissional\pagef2016\las2rings\laslib\src\lasutility.cpp
+	"lasutility.hpp"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1478109550 source:e:\profissional\pagef2016\las2rings\laslib\src\laswaveform13reader.cpp
+	"laswaveform13reader.hpp"
+	"bytestreamin_file.hpp"
+	"arithmeticdecoder.hpp"
+	"integercompressor.hpp"
+
+1478109540 e:\profissional\pagef2016\las2rings\laszip\src\arithmeticdecoder.hpp
+	"mydefs.hpp"
+	"bytestreamin.hpp"
+
+1478109540 e:\profissional\pagef2016\las2rings\laszip\src\integercompressor.hpp
+	"arithmeticencoder.hpp"
+	"arithmeticdecoder.hpp"
+
+1478109540 e:\profissional\pagef2016\las2rings\laszip\src\arithmeticencoder.hpp
+	"mydefs.hpp"
+	"bytestreamout.hpp"
+
+1478109540 e:\profissional\pagef2016\las2rings\laszip\src\bytestreamout.hpp
+	"mydefs.hpp"
+
+1478109550 source:e:\profissional\pagef2016\las2rings\laslib\src\laswaveform13writer.cpp
+	"laswaveform13writer.hpp"
+	"bytestreamout_file.hpp"
+	"arithmeticencoder.hpp"
+	"integercompressor.hpp"
+
+1478109540 e:\profissional\pagef2016\las2rings\laszip\src\bytestreamout_file.hpp
+	"bytestreamout.hpp"
+	<stdio.h>
+
+1478109550 source:e:\profissional\pagef2016\las2rings\laslib\src\laswriter.cpp
+	"laswriter.hpp"
+	"laswriter_las.hpp"
+	"laswriter_bin.hpp"
+	"laswriter_qfit.hpp"
+	"laswriter_wrl.hpp"
+	"laswriter_txt.hpp"
+	<stdlib.h>
+	<string.h>
+
+1478109549 e:\profissional\pagef2016\las2rings\laslib\inc\laswriter_bin.hpp
+	"laswriter.hpp"
+	<stdio.h>
+
+1478109550 e:\profissional\pagef2016\las2rings\laslib\inc\laswriter_qfit.hpp
+	"laswriter.hpp"
+	<stdio.h>
+
+1478109550 e:\profissional\pagef2016\las2rings\laslib\inc\laswriter_wrl.hpp
+	"laswriter.hpp"
+	<stdio.h>
+
+1478109550 e:\profissional\pagef2016\las2rings\laslib\inc\laswriter_txt.hpp
+	"laswriter.hpp"
+	<stdio.h>
+
+1478109550 source:e:\profissional\pagef2016\las2rings\laslib\src\laswriter_bin.cpp
+	"laswriter_bin.hpp"
+	"bytestreamout_file.hpp"
+	<fcntl.h>
+	<io.h>
+	<stdlib.h>
+	<string.h>
+
+1478109550 source:e:\profissional\pagef2016\las2rings\laslib\src\laswriter_las.cpp
+	"laswriter_las.hpp"
+	"bytestreamout_nil.hpp"
+	"bytestreamout_file.hpp"
+	"bytestreamout_ostream.hpp"
+	"laswritepoint.hpp"
+	<fcntl.h>
+	<io.h>
+	<stdlib.h>
+	<string.h>
+
+1478109540 e:\profissional\pagef2016\las2rings\laszip\src\bytestreamout_nil.hpp
+	"bytestreamout.hpp"
+	<stdio.h>
+
+1478109540 e:\profissional\pagef2016\las2rings\laszip\src\bytestreamout_ostream.hpp
+	"bytestreamout.hpp"
+	<fstream.h>
+	<istream>
+	<fstream>
+
+1478109543 e:\profissional\pagef2016\las2rings\laszip\src\laswritepoint.hpp
+	"mydefs.hpp"
+	"laszip.hpp"
+	"bytestreamout.hpp"
+
+1478109550 source:e:\profissional\pagef2016\las2rings\laslib\src\laswriter_qfit.cpp
+	"laswriter_qfit.hpp"
+	"bytestreamout_file.hpp"
+	<fcntl.h>
+	<io.h>
+	<stdlib.h>
+	<string.h>
+
+1478109550 source:e:\profissional\pagef2016\las2rings\laslib\src\laswriter_txt.cpp
+	"laswriter_txt.hpp"
+	<stdlib.h>
+	<string.h>
+
+1478109550 source:e:\profissional\pagef2016\las2rings\laslib\src\laswriter_wrl.cpp
+	"laswriter_wrl.hpp"
+	<stdlib.h>
+	<string.h>
+
+1478109551 source:e:\profissional\pagef2016\las2rings\laslib\src\laswritercompatible.cpp
+	"laswritercompatible.hpp"
+	"bytestreamout_array.hpp"
+	"bytestreamin_array.hpp"
+
+1478109550 e:\profissional\pagef2016\las2rings\laslib\inc\laswritercompatible.hpp
+	"laswriter.hpp"
+
+1478109540 e:\profissional\pagef2016\las2rings\laszip\src\bytestreamout_array.hpp
+	"bytestreamout.hpp"
+	<stdlib.h>
+	<string.h>
+
+1478109540 e:\profissional\pagef2016\las2rings\laszip\src\bytestreamin_array.hpp
+	"bytestreamin.hpp"
+
+1478104664 source:e:\profissional\pagef2016\las2rings\main.cpp
+	<getopt.h>
+	<stdlib.h>
+	<iostream>
+
