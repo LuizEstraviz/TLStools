@@ -5,6 +5,7 @@
 *.obj
 /bin
 /obj
+/doxygen
 
 # Precompiled Headers
 *.gch

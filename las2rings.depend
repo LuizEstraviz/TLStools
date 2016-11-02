@@ -384,8 +384,350 @@
 1478109540 e:\profissional\pagef2016\las2rings\laszip\src\bytestreamin_array.hpp
 	"bytestreamin.hpp"
 
-1478104664 source:e:\profissional\pagef2016\las2rings\main.cpp
+1478125696 source:e:\profissional\pagef2016\las2rings\main.cpp
 	<getopt.h>
 	<stdlib.h>
 	<iostream>
+	"lasreader.hpp"
+	"laswriter.hpp"
+	"lasreader.hpp"
+
+1478109540 source:e:\profissional\pagef2016\las2rings\laszip\src\arithmeticdecoder.cpp
+	"arithmeticdecoder.hpp"
+	<string.h>
+	<assert.h>
+	"arithmeticmodel.hpp"
+
+1478109540 e:\profissional\pagef2016\las2rings\laszip\src\arithmeticmodel.hpp
+	<stdio.h>
+	<stdlib.h>
+	"mydefs.hpp"
+
+1478109540 source:e:\profissional\pagef2016\las2rings\laszip\src\arithmeticencoder.cpp
+	"arithmeticencoder.hpp"
+	<string.h>
+	<assert.h>
+	<stdio.h>
+	"arithmeticmodel.hpp"
+
+1478109540 source:e:\profissional\pagef2016\las2rings\laszip\src\arithmeticmodel.cpp
+	"arithmeticmodel.hpp"
+	<stdio.h>
+	<stdlib.h>
+
+1478109540 source:e:\profissional\pagef2016\las2rings\laszip\src\integercompressor.cpp
+	"integercompressor.hpp"
+	<stdlib.h>
+	<assert.h>
+	<math.h>
+
+1478111266 source:e:\profissional\pagef2016\las2rings\laszip\src\lasindex.cpp
+	"lasindex.hpp"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"lasquadtree.hpp"
+	"lasinterval.hpp"
+	"lasreadpoint.hpp"
+	"lasreader.hpp"
+	"bytestreamin_file.hpp"
+	"bytestreamout_file.hpp"
+	<unordered_map>
+	<tr1/unordered_map>
+	<hash_map>
+
+1478109540 e:\profissional\pagef2016\las2rings\laszip\src\lasquadtree.hpp
+	"mydefs.hpp"
+
+1478109540 e:\profissional\pagef2016\las2rings\laszip\src\lasinterval.hpp
+	"mydefs.hpp"
+
+1478111275 source:e:\profissional\pagef2016\las2rings\laszip\src\lasinterval.cpp
+	"lasinterval.hpp"
+	"bytestreamin.hpp"
+	"bytestreamout.hpp"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<map>
+	<set>
+	<unordered_map>
+	<tr1/unordered_map>
+	<hash_map>
+
+1478109540 source:e:\profissional\pagef2016\las2rings\laszip\src\lasquadtree.cpp
+	"lasquadtree.hpp"
+	"bytestreamin.hpp"
+	"bytestreamout.hpp"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<vector>
+
+1478109540 source:e:\profissional\pagef2016\las2rings\laszip\src\lasreaditemcompressed_v1.cpp
+	"lasreaditemcompressed_v1.hpp"
+	"laszip_common_v1.hpp"
+	<assert.h>
+	<string.h>
+
+1478109541 e:\profissional\pagef2016\las2rings\laszip\src\lasreaditemcompressed_v1.hpp
+	"lasreaditem.hpp"
+	"arithmeticdecoder.hpp"
+	"integercompressor.hpp"
+
+1478109540 e:\profissional\pagef2016\las2rings\laszip\src\lasreaditem.hpp
+	"mydefs.hpp"
+
+1478109543 e:\profissional\pagef2016\las2rings\laszip\src\laszip_common_v1.hpp
+	"mydefs.hpp"
+
+1478109541 source:e:\profissional\pagef2016\las2rings\laszip\src\lasreaditemcompressed_v2.cpp
+	"lasreaditemcompressed_v2.hpp"
+	<assert.h>
+	<string.h>
+
+1478109541 e:\profissional\pagef2016\las2rings\laszip\src\lasreaditemcompressed_v2.hpp
+	"lasreaditem.hpp"
+	"arithmeticdecoder.hpp"
+	"integercompressor.hpp"
+	"laszip_common_v2.hpp"
+
+1478109543 e:\profissional\pagef2016\las2rings\laszip\src\laszip_common_v2.hpp
+
+1478109541 source:e:\profissional\pagef2016\las2rings\laszip\src\lasreadpoint.cpp
+	"lasreadpoint.hpp"
+	"arithmeticdecoder.hpp"
+	"lasreaditemraw.hpp"
+	"lasreaditemcompressed_v1.hpp"
+	"lasreaditemcompressed_v2.hpp"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1478109541 e:\profissional\pagef2016\las2rings\laszip\src\lasreaditemraw.hpp
+	"lasreaditem.hpp"
+	<assert.h>
+
+1478109543 source:e:\profissional\pagef2016\las2rings\laszip\src\laswriteitemcompressed_v1.cpp
+	"laswriteitemcompressed_v1.hpp"
+	"laszip_common_v1.hpp"
+	<assert.h>
+	<string.h>
+
+1478109543 e:\profissional\pagef2016\las2rings\laszip\src\laswriteitemcompressed_v1.hpp
+	"laswriteitem.hpp"
+	"arithmeticencoder.hpp"
+	"integercompressor.hpp"
+
+1478109543 e:\profissional\pagef2016\las2rings\laszip\src\laswriteitem.hpp
+	"mydefs.hpp"
+
+1478109543 source:e:\profissional\pagef2016\las2rings\laszip\src\laswriteitemcompressed_v2.cpp
+	"laswriteitemcompressed_v2.hpp"
+	<assert.h>
+	<string.h>
+
+1478109543 e:\profissional\pagef2016\las2rings\laszip\src\laswriteitemcompressed_v2.hpp
+	"laswriteitem.hpp"
+	"arithmeticencoder.hpp"
+	"integercompressor.hpp"
+	"laszip_common_v2.hpp"
+
+1478109543 source:e:\profissional\pagef2016\las2rings\laszip\src\laswritepoint.cpp
+	"laswritepoint.hpp"
+	"arithmeticencoder.hpp"
+	"laswriteitemraw.hpp"
+	"laswriteitemcompressed_v1.hpp"
+	"laswriteitemcompressed_v2.hpp"
+	<string.h>
+	<stdlib.h>
+
+1478109543 e:\profissional\pagef2016\las2rings\laszip\src\laswriteitemraw.hpp
+	"laswriteitem.hpp"
+	<assert.h>
+
+1478109543 source:e:\profissional\pagef2016\las2rings\laszip\src\laszip.cpp
+	"laszip.hpp"
+	"mydefs.hpp"
+	<assert.h>
+	<string.h>
+	<stdlib.h>
+	<stdio.h>
+
+1478120168 source:e:\profissional\pagef2016\las2rings\unittest++\assertexception.cpp
+	"AssertException.h"
+
+1478120168 e:\profissional\pagef2016\las2rings\unittest++\assertexception.h
+	"Config.h"
+	"HelperMacros.h"
+	<exception>
+
+1478120168 e:\profissional\pagef2016\las2rings\unittest++\config.h
+
+1478120168 e:\profissional\pagef2016\las2rings\unittest++\helpermacros.h
+	"Config.h"
+
+1478120168 source:e:\profissional\pagef2016\las2rings\unittest++\checks.cpp
+	"Checks.h"
+	<cstring>
+
+1478120168 e:\profissional\pagef2016\las2rings\unittest++\checks.h
+	"Config.h"
+	"TestResults.h"
+	"MemoryOutStream.h"
+
+1478120169 e:\profissional\pagef2016\las2rings\unittest++\testresults.h
+	"HelperMacros.h"
+
+1478120168 e:\profissional\pagef2016\las2rings\unittest++\memoryoutstream.h
+	"Config.h"
+	"HelperMacros.h"
+	<sstream>
+	<cstddef>
+
+1478120168 source:e:\profissional\pagef2016\las2rings\unittest++\currenttest.cpp
+	"CurrentTest.h"
+	<cstddef>
+
+1478120168 e:\profissional\pagef2016\las2rings\unittest++\currenttest.h
+	"HelperMacros.h"
+
+1478120168 source:e:\profissional\pagef2016\las2rings\unittest++\deferredtestreporter.cpp
+	"Config.h"
+	"DeferredTestReporter.h"
+	"TestDetails.h"
+
+1478120168 e:\profissional\pagef2016\las2rings\unittest++\deferredtestreporter.h
+	"Config.h"
+	"TestReporter.h"
+	"DeferredTestResult.h"
+	<vector>
+
+1478120169 e:\profissional\pagef2016\las2rings\unittest++\testreporter.h
+	"HelperMacros.h"
+
+1478120168 e:\profissional\pagef2016\las2rings\unittest++\deferredtestresult.h
+	"Config.h"
+	"HelperMacros.h"
+	<string>
+	<vector>
+
+1478120168 e:\profissional\pagef2016\las2rings\unittest++\testdetails.h
+	"HelperMacros.h"
+
+1478120168 source:e:\profissional\pagef2016\las2rings\unittest++\deferredtestresult.cpp
+	"Config.h"
+	"DeferredTestResult.h"
+	<cstring>
+
+1478120168 source:e:\profissional\pagef2016\las2rings\unittest++\memoryoutstream.cpp
+	"MemoryOutStream.h"
+	<cstring>
+	<cstdio>
+
+1478120169 e:\profissional\pagef2016\las2rings\unittest++\unittest++.h
+	"UnitTestPP.h"
+
+1478120169 e:\profissional\pagef2016\las2rings\unittest++\unittestpp.h
+	"Config.h"
+	"TestMacros.h"
+	"CheckMacros.h"
+	"RequireMacros.h"
+	"TestRunner.h"
+	"TimeConstraint.h"
+	"ReportAssert.h"
+
+1478120169 e:\profissional\pagef2016\las2rings\unittest++\testmacros.h
+	"Config.h"
+	"TestSuite.h"
+	"ExceptionMacros.h"
+	"ExecuteTest.h"
+	"AssertException.h"
+	"TestDetails.h"
+	"MemoryOutStream.h"
+	"Posix/SignalTranslator.h"
+
+1478120169 e:\profissional\pagef2016\las2rings\unittest++\testsuite.h
+
+1478120168 e:\profissional\pagef2016\las2rings\unittest++\exceptionmacros.h
+	"Config.h"
+
+1478120168 e:\profissional\pagef2016\las2rings\unittest++\executetest.h
+	"Config.h"
+	"ExceptionMacros.h"
+	"TestDetails.h"
+	"TestResults.h"
+	"MemoryOutStream.h"
+	"AssertException.h"
+	"RequiredCheckException.h"
+	"CurrentTest.h"
+	"ReportAssertImpl.h"
+	"Posix/SignalTranslator.h"
+
+1478120168 e:\profissional\pagef2016\las2rings\unittest++\requiredcheckexception.h
+	"Config.h"
+	"HelperMacros.h"
+	<exception>
+
+1478120168 e:\profissional\pagef2016\las2rings\unittest++\reportassertimpl.h
+	"Config.h"
+	"HelperMacros.h"
+	<csetjmp>
+
+1478120169 e:\profissional\pagef2016\las2rings\unittest++\posix\signaltranslator.h
+	<setjmp.h>
+	<signal.h>
+
+1478120168 e:\profissional\pagef2016\las2rings\unittest++\checkmacros.h
+	"HelperMacros.h"
+	"ExceptionMacros.h"
+	"Checks.h"
+	"AssertException.h"
+	"RequiredCheckException.h"
+	"MemoryOutStream.h"
+	"TestDetails.h"
+	"CurrentTest.h"
+	"ReportAssertImpl.h"
+
+1478120168 e:\profissional\pagef2016\las2rings\unittest++\requiremacros.h
+	"RequiredCheckTestReporter.h"
+
+1478120168 e:\profissional\pagef2016\las2rings\unittest++\requiredchecktestreporter.h
+	"HelperMacros.h"
+	"ThrowingTestReporter.h"
+
+1478120169 e:\profissional\pagef2016\las2rings\unittest++\throwingtestreporter.h
+	"TestReporter.h"
+
+1478120169 e:\profissional\pagef2016\las2rings\unittest++\testrunner.h
+	"Test.h"
+	"TestList.h"
+	"CurrentTest.h"
+
+1478120168 e:\profissional\pagef2016\las2rings\unittest++\test.h
+	"TestDetails.h"
+
+1478120168 e:\profissional\pagef2016\las2rings\unittest++\testlist.h
+	"HelperMacros.h"
+
+1478120169 e:\profissional\pagef2016\las2rings\unittest++\timeconstraint.h
+	"TimeHelpers.h"
+	"HelperMacros.h"
+	"TestDetails.h"
+
+1478120169 e:\profissional\pagef2016\las2rings\unittest++\timehelpers.h
+	"Config.h"
+	"Posix/TimeHelpers.h"
+	"Win32/TimeHelpers.h"
+
+1478120169 e:\profissional\pagef2016\las2rings\unittest++\posix\timehelpers.h
+	<sys/time.h>
+
+1478120169 e:\profissional\pagef2016\las2rings\unittest++\win32\timehelpers.h
+	"../Config.h"
+	"../HelperMacros.h"
+
+1478120168 e:\profissional\pagef2016\las2rings\unittest++\reportassert.h
+	"HelperMacros.h"
 

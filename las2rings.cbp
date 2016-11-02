@@ -6,24 +6,61 @@
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
-			<Target title="Debug">
+			<Target title="Debug (POSIX)">
 				<Option output="bin/Debug/las2rings" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add option="-D_DEBUG" />
+					<Add option="-D_POSIX" />
+					<Add directory="LASlib/inc" />
+					<Add directory="LASzip/src" />
+					<Add directory="UnitTest++" />
 				</Compiler>
 			</Target>
-			<Target title="Release">
+			<Target title="Release (POSIX)">
 				<Option output="bin/Release/las2rings" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-D_POSIX" />
 					<Add directory="LASlib/inc" />
 					<Add directory="LASzip/src" />
+					<Add directory="UnitTest++" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+			<Target title="Debug (Win)">
+				<Option output="bin/Debug/las2rings" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-D_DEBUG" />
+					<Add option="-D_WIN32" />
+					<Add directory="LASlib/inc" />
+					<Add directory="LASzip/src" />
+					<Add directory="UnitTest++" />
+				</Compiler>
+			</Target>
+			<Target title="Release (Win)">
+				<Option output="bin/Release/las2rings" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-D_WIN32" />
+					<Add directory="LASlib/inc" />
+					<Add directory="LASzip/src" />
+					<Add directory="UnitTest++" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -34,50 +71,24 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="LASlib/src/fopen_compressed.cpp" />
-		<Unit filename="LASlib/src/lasfilter.cpp" />
-		<Unit filename="LASlib/src/lasreader.cpp" />
-		<Unit filename="LASlib/src/lasreader_asc.cpp" />
-		<Unit filename="LASlib/src/lasreader_bil.cpp" />
-		<Unit filename="LASlib/src/lasreader_bin.cpp" />
-		<Unit filename="LASlib/src/lasreader_dtm.cpp" />
-		<Unit filename="LASlib/src/lasreader_las.cpp" />
-		<Unit filename="LASlib/src/lasreader_qfit.cpp" />
-		<Unit filename="LASlib/src/lasreader_shp.cpp" />
-		<Unit filename="LASlib/src/lasreader_txt.cpp" />
-		<Unit filename="LASlib/src/lasreaderbuffered.cpp" />
-		<Unit filename="LASlib/src/lasreadermerged.cpp" />
-		<Unit filename="LASlib/src/lasreaderpipeon.cpp" />
-		<Unit filename="LASlib/src/lastransform.cpp" />
-		<Unit filename="LASlib/src/lasutility.cpp" />
-		<Unit filename="LASlib/src/laswaveform13reader.cpp" />
-		<Unit filename="LASlib/src/laswaveform13writer.cpp" />
-		<Unit filename="LASlib/src/laswriter.cpp" />
-		<Unit filename="LASlib/src/laswriter_bin.cpp" />
-		<Unit filename="LASlib/src/laswriter_las.cpp" />
-		<Unit filename="LASlib/src/laswriter_qfit.cpp" />
-		<Unit filename="LASlib/src/laswriter_txt.cpp" />
-		<Unit filename="LASlib/src/laswriter_wrl.cpp" />
-		<Unit filename="LASlib/src/laswritercompatible.cpp" />
-		<Unit filename="LASzip/src/arithmeticdecoder.cpp" />
-		<Unit filename="LASzip/src/arithmeticencoder.cpp" />
-		<Unit filename="LASzip/src/arithmeticmodel.cpp" />
-		<Unit filename="LASzip/src/integercompressor.cpp" />
-		<Unit filename="LASzip/src/lasindex.cpp" />
-		<Unit filename="LASzip/src/lasinterval.cpp" />
-		<Unit filename="LASzip/src/lasquadtree.cpp" />
-		<Unit filename="LASzip/src/lasreaditemcompressed_v1.cpp" />
-		<Unit filename="LASzip/src/lasreaditemcompressed_v2.cpp" />
-		<Unit filename="LASzip/src/lasreadpoint.cpp" />
-		<Unit filename="LASzip/src/laswriteitemcompressed_v1.cpp" />
-		<Unit filename="LASzip/src/laswriteitemcompressed_v2.cpp" />
-		<Unit filename="LASzip/src/laswritepoint.cpp" />
-		<Unit filename="LASzip/src/laszip.cpp" />
+		<Linker>
+			<Add library="libLASlib.a" />
+			<Add directory="lib" />
+		</Linker>
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
 			<debugger />
+			<DoxyBlocks>
+				<comment_style block="0" line="0" />
+				<doxyfile_project />
+				<doxyfile_build />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot />
+				<general />
+			</DoxyBlocks>
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

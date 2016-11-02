@@ -9,22 +9,26 @@
  *     Basic structure + options and arguments
  *
  * Programmers:
- *     Luiz Estraviz, Caio Hakamada, Tiago do Conto
+ *     Luiz Estraviz, Caio Hamamura, Tiago do Conto
  * *****************************************************/
 
 #include <getopt.h>    // getopt_long()
 #include <stdlib.h>    // exit()
 #include <iostream>    // std::cout
+#include "lasreader.hpp"
+#include "laswriter.hpp"
 
 bool       is_square = false;
 std::string inpf_las = "DummyInputFileName.txt";
 std::string outf_las = "DummyOutputFileName.txt";
 
-/* **************************************************
-   Function: PrintHelp()
-   Prints help when argument -h or --help is used, or
-   when an undefined argument is used
-   **************************************************/
+
+   /** \brief Function: PrintHelp()
+    *
+    * Prints help when argument -h or --help is used, or
+    * when an undefined argument is used
+    */
+
 void PrintHelp()
 {
     std::cout <<
@@ -174,8 +178,25 @@ void ProcessArgs(int argc, char** argv)
  *    as an array of strings, the first of which is
  *    the program's name
  * ************************************************* */
+#include "lasreader.hpp"
+
+using namespace std;
 int main(int argc, char **argv)
 {
+    LASreadOpener lasreadopener;
+    lasreadopener.set_file_name("5points_14.las");
+    LASreader* lasreader = lasreadopener.open();
+    cout << "Leitura dos pontos" << endl;
+    int i = 0;
+    while (lasreader->read_point()) {
+        i++;
+        cout << "Ponto " << i << ": "
+            << lasreader->get_x()
+            << "  " << lasreader->get_y()
+            << "  " << lasreader->get_z() << endl;
+    }
+    lasreader->close();
+
     ProcessArgs(argc, argv);
     return 0;
 }
