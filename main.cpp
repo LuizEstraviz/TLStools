@@ -179,21 +179,34 @@ void ProcessArgs(int argc, char** argv)
  *    the program's name
  * ************************************************* */
 #include "lasreader.hpp"
+#include "lasfilter.hpp"
 
 using namespace std;
 int main(int argc, char **argv)
 {
+    int* indexes;
+    int max_index = 0;
+
+
     LASreadOpener lasreadopener;
     lasreadopener.set_file_name("5points_14.las");
+
     LASreader* lasreader = lasreadopener.open();
+    LASfilter* filter = new LASfilter();
+
+
+    filter->addClipBox(0, 0, 62.4, lasreader->get_max_x()+1, lasreader->get_max_y()+1, 65);
+    lasreader->set_filter(filter);
+
     cout << "Leitura dos pontos" << endl;
     int i = 0;
+
     while (lasreader->read_point()) {
         i++;
         cout << "Ponto " << i << ": "
-            << lasreader->get_x()
-            << "  " << lasreader->get_y()
-            << "  " << lasreader->get_z() << endl;
+        << lasreader->get_x()
+        << "  " << lasreader->get_y()
+        << "  " << lasreader->get_z() << endl;
     }
     lasreader->close();
 

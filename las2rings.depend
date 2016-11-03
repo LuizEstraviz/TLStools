@@ -14,10 +14,10 @@
 	<string.h>
 	<map>
 
-1478109548 e:\profissional\pagef2016\las2rings\laslib\inc\lasfilter.hpp
+1478126970 e:\profissional\pagef2016\las2rings\laslib\inc\lasfilter.hpp
 	"lasdefinitions.hpp"
 
-1478109548 e:\profissional\pagef2016\las2rings\laslib\inc\lasdefinitions.hpp
+1478126970 e:\profissional\pagef2016\las2rings\laslib\inc\lasdefinitions.hpp
 	<stdio.h>
 	<string.h>
 	<stdlib.h>
@@ -26,18 +26,18 @@
 	"laszip.hpp"
 	"laspoint.hpp"
 
-1478109544 e:\profissional\pagef2016\las2rings\laszip\src\mydefs.hpp
+1478126971 e:\profissional\pagef2016\las2rings\laszip\src\mydefs.hpp
 
-1478109543 e:\profissional\pagef2016\las2rings\laszip\src\laszip.hpp
+1478126971 e:\profissional\pagef2016\las2rings\laszip\src\laszip.hpp
 
-1478109540 e:\profissional\pagef2016\las2rings\laszip\src\laspoint.hpp
+1478126970 e:\profissional\pagef2016\las2rings\laszip\src\laspoint.hpp
 	"lasquantizer.hpp"
 	"lasattributer.hpp"
 
-1478109540 e:\profissional\pagef2016\las2rings\laszip\src\lasquantizer.hpp
+1478126970 e:\profissional\pagef2016\las2rings\laszip\src\lasquantizer.hpp
 	"mydefs.hpp"
 
-1478109540 e:\profissional\pagef2016\las2rings\laszip\src\lasattributer.hpp
+1478126970 e:\profissional\pagef2016\las2rings\laszip\src\lasattributer.hpp
 	"mydefs.hpp"
 
 1478109550 source:e:\profissional\pagef2016\las2rings\laslib\src\lasreader.cpp
@@ -61,11 +61,11 @@
 	<windows.h>
 	<windows.h>
 
-1478109548 e:\profissional\pagef2016\las2rings\laslib\inc\lasreader.hpp
+1478126970 e:\profissional\pagef2016\las2rings\laslib\inc\lasreader.hpp
 	"lasdefinitions.hpp"
 	"laswaveform13reader.hpp"
 
-1478109549 e:\profissional\pagef2016\las2rings\laslib\inc\laswaveform13reader.hpp
+1478126970 e:\profissional\pagef2016\las2rings\laslib\inc\laswaveform13reader.hpp
 	"lasdefinitions.hpp"
 
 1478109540 e:\profissional\pagef2016\las2rings\laszip\src\lasindex.hpp
@@ -126,15 +126,15 @@
 	"lasreader.hpp"
 	"laswriter.hpp"
 
-1478109549 e:\profissional\pagef2016\las2rings\laslib\inc\laswriter.hpp
+1478126970 e:\profissional\pagef2016\las2rings\laslib\inc\laswriter.hpp
 	"lasdefinitions.hpp"
 	"lasutility.hpp"
 	"laswaveform13writer.hpp"
 
-1478109549 e:\profissional\pagef2016\las2rings\laslib\inc\lasutility.hpp
+1478126970 e:\profissional\pagef2016\las2rings\laslib\inc\lasutility.hpp
 	"lasdefinitions.hpp"
 
-1478109549 e:\profissional\pagef2016\las2rings\laslib\inc\laswaveform13writer.hpp
+1478126970 e:\profissional\pagef2016\las2rings\laslib\inc\laswaveform13writer.hpp
 	"lasdefinitions.hpp"
 
 1478109550 source:e:\profissional\pagef2016\las2rings\laslib\src\lasreader_asc.cpp
@@ -384,13 +384,14 @@
 1478109540 e:\profissional\pagef2016\las2rings\laszip\src\bytestreamin_array.hpp
 	"bytestreamin.hpp"
 
-1478125696 source:e:\profissional\pagef2016\las2rings\main.cpp
+1478142528 source:e:\profissional\pagef2016\las2rings\main.cpp
 	<getopt.h>
 	<stdlib.h>
 	<iostream>
 	"lasreader.hpp"
 	"laswriter.hpp"
 	"lasreader.hpp"
+	"lasfilter.hpp"
 
 1478109540 source:e:\profissional\pagef2016\las2rings\laszip\src\arithmeticdecoder.cpp
 	"arithmeticdecoder.hpp"
@@ -731,7 +732,7 @@
 1478120168 e:\profissional\pagef2016\las2rings\unittest++\reportassert.h
 	"HelperMacros.h"
 
-1478126971 source:c:\users\caioh\desktop\profissional\pagef2016\las2rings\main.cpp
+1478138748 source:c:\users\caioh\desktop\profissional\pagef2016\las2rings\main.cpp
 	<getopt.h>
 	<stdlib.h>
 	<iostream>

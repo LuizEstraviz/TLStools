@@ -18,6 +18,7 @@
 					<Add directory="LASlib/inc" />
 					<Add directory="LASzip/src" />
 					<Add directory="UnitTest++" />
+					<Add directory="include" />
 				</Compiler>
 			</Target>
 			<Target title="Release (POSIX)">
@@ -31,6 +32,7 @@
 					<Add directory="LASlib/inc" />
 					<Add directory="LASzip/src" />
 					<Add directory="UnitTest++" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -48,6 +50,7 @@
 					<Add directory="LASlib/inc" />
 					<Add directory="LASzip/src" />
 					<Add directory="UnitTest++" />
+					<Add directory="include" />
 				</Compiler>
 			</Target>
 			<Target title="Release (Win)">
@@ -61,6 +64,7 @@
 					<Add directory="LASlib/inc" />
 					<Add directory="LASzip/src" />
 					<Add directory="UnitTest++" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
