@@ -781,7 +781,7 @@
 1478126970 c:\users\caioh\desktop\profissional\pagef2016\las2rings\laslib\inc\laswaveform13writer.hpp
 	"lasdefinitions.hpp"
 
-1478627191 source:c:\las2rings\main.cpp
+1478631018 source:c:\las2rings\main.cpp
 	<getopt.h>
 	<stdlib.h>
 	<iostream>
@@ -794,7 +794,7 @@
 	<stdio.h>
 	<stdlib.h>
 	<unordered_map>
-	<vector>
+	<set>
 
 1478601784 c:\las2rings\laslib\inc\lasreader.hpp
 	"lasdefinitions.hpp"

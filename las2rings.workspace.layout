@@ -2,5 +2,5 @@
 <CodeBlocks_workspace_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveProject path="las2rings.cbp" />
-	<PreferredTarget name="Release (Win)" />
+	<PreferredTarget name="Debug (Win)" />
 </CodeBlocks_workspace_layout_file>
