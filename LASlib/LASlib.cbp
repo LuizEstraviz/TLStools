@@ -7,7 +7,7 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Release (Win)">
-				<Option output="E:/PROFISSIONAL/PAGeF2016/las2rings/LASlib/Release/LASlib" prefix_auto="1" extension_auto="1" />
+				<Option output="Release/LASlib" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="" />
 				<Option object_output="Release" />
 				<Option type="2" />
@@ -32,7 +32,7 @@
 				</ExtraCommands>
 			</Target>
 			<Target title="Debug (Win)">
-				<Option output="E:/PROFISSIONAL/PAGeF2016/las2rings/LASlib/Debug/LASlib" prefix_auto="1" extension_auto="1" />
+				<Option output="Debug/LASlib" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="" />
 				<Option object_output="Debug" />
 				<Option type="2" />
@@ -52,7 +52,7 @@
 					<Add directory="../laszip/stl" />
 				</Compiler>
 				<ExtraCommands>
-					<Add after="cp Debug/libLASlib.a ../lib/libLASlib.a" />
+					<Add after="cp ./Debug/libLASlib.a ../lib/libLASlib.a" />
 				</ExtraCommands>
 			</Target>
 		</Build>
