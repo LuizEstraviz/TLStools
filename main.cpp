@@ -10,6 +10,7 @@
  *
  * Programmers:
  *     Luiz Estraviz, Caio Hamamura, Tiago do Conto
+ *     Martin Isenburg <martin@rapidlasso.com>
  * *****************************************************/
 
 #include <getopt.h>    // getopt_long()
