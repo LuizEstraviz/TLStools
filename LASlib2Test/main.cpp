@@ -2,19 +2,20 @@
 
 #include "include/catch.hpp"
 #include "lasreader.hpp"
+#include "Las2Rings.h"
 
 using namespace std;
 
 
 TEST_CASE( "Trying to read las", "[]" )
 {
-    CHAR* file_path = "../5points_14.las";
+    string file_path = "../5points_14.las";
     LASreadOpener lasreadopener;
-    lasreadopener.set_file_name(file_path);
+    lasreadopener.set_file_name(file_path.c_str());
 
 
     SECTION("File exists") {
-        bool result = std::ifstream(file_path).good();
+        bool result = std::ifstream(file_path.c_str()).good();
         REQUIRE( result );
     }
 
@@ -31,4 +32,12 @@ TEST_CASE( "Trying to read las", "[]" )
         lasreader->close();
     }
 
+    SECTION("LAS2Rings")
+    {
+        SECTION("Can create")
+        {
+            Las2Rings* las2rings = new Las2Rings();
+            delete las2rings;
+        }
+    }
 }

@@ -5,7 +5,7 @@
 			<Depends filename="LASlib/LASlib.cbp" />
 		</Project>
 		<Project filename="LASlib/LASlib.cbp" />
-		<Project filename="E:/PROFISSIONAL/PAGeF2016/las2rings/LASlib2Test/LASlib2Test.cbp">
+		<Project filename="LASlib2Test/LASlib2Test.cbp">
 			<Depends filename="LASlib/LASlib.cbp" />
 		</Project>
 	</Workspace>

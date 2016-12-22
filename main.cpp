@@ -187,6 +187,7 @@ void ProcessArgs(int argc, char** argv)
 #include <stdlib.h>
 #include <unordered_map>
 #include <set>
+#include <Las2Rings.h>
 
 typedef union I32I32I64 { I32 i32[2]; I64 i64; } I32I32I64;
 
@@ -216,6 +217,8 @@ static void add_count(my_counts* counts, I32 pos_x, I32 pos_y)
 
 int main(int argc, char **argv)
 {
+    Las2Rings las2rings;
+    cout << las2rings.getHelp() << endl;
     F32 step_xy = 0.025f;
     F32 step_z = 1.0f;
     F32 c_density = 0.1f;
@@ -225,7 +228,7 @@ int main(int argc, char **argv)
     F32 r_incr = step_xy;
     U32 min_hough_votes = 2;
 
-    string file_path = "C:/LAStools/data/lcer.laz";
+    string file_path = "5points_14.las";
 
     LASreadOpener lasreadopener;
     lasreadopener.set_file_name(file_path.c_str());
