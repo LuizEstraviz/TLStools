@@ -44,7 +44,6 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-std=c++11" />
 					<Add option="-g" />
 					<Add option="-D_DEBUG" />
 					<Add option="-D_WIN32" />
@@ -73,13 +72,19 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-std=c++11" />
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Linker>
 			<Add library="libLASlib.a" />
 			<Add directory="lib" />
+			<Add directory="LASlib/lib" />
 		</Linker>
+		<Unit filename="include/Las2Rings.h" />
+		<Unit filename="include/TLStoolsBase.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/Las2Rings.cpp" />
+		<Unit filename="src/TLStoolsBase.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

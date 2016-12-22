@@ -27,7 +27,7 @@
 					<Add directory="../laszip/stl" />
 				</Compiler>
 				<ExtraCommands>
-					<Add after="cp Release/libLASlib.a ../lib/libLASlib.a" />
+					<Add after="cmd /C copy Release\libLASlib.a lib\libLASlib.a" />
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
@@ -52,7 +52,7 @@
 					<Add directory="../laszip/stl" />
 				</Compiler>
 				<ExtraCommands>
-					<Add after="cp ./Debug/libLASlib.a ../lib/libLASlib.a" />
+					<Add after="cmd /C copy Debug\libLASlib.a lib\libLASlib.a" />
 				</ExtraCommands>
 			</Target>
 		</Build>

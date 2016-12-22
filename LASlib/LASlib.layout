@@ -2,6 +2,16 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Release (Win)" />
+	<File name="inc\lasdefinitions.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="28976" topLine="788" />
+		</Cursor>
+	</File>
+	<File name="inc\lasreader_bil.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="59" />
+		</Cursor>
+	</File>
 	<File name="..\LASzip\src\lasinterval.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="3293" topLine="108" />
@@ -17,19 +27,9 @@
 			<Cursor1 position="76626" topLine="1409" />
 		</Cursor>
 	</File>
-	<File name="src\lasreader.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\LASzip\src\lasindex.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="49519" topLine="1330" />
-		</Cursor>
-	</File>
-	<File name="inc\lasreader_bil.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="59" />
-		</Cursor>
-	</File>
-	<File name="inc\lasreader.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3425" topLine="67" />
+			<Cursor1 position="3556" topLine="144" />
 		</Cursor>
 	</File>
 	<File name="..\LASzip\src\laszip.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -37,14 +37,14 @@
 			<Cursor1 position="4709" topLine="183" />
 		</Cursor>
 	</File>
-	<File name="inc\lasdefinitions.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\lasreader.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="28976" topLine="788" />
+			<Cursor1 position="49519" topLine="1330" />
 		</Cursor>
 	</File>
-	<File name="..\LASzip\src\lasindex.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="inc\lasreader.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3556" topLine="144" />
+			<Cursor1 position="3425" topLine="67" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
