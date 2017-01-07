@@ -217,8 +217,6 @@ static void add_count(my_counts* counts, I32 pos_x, I32 pos_y)
 
 int main(int argc, char **argv)
 {
-    Las2Rings las2rings;
-    cout << las2rings.getHelp() << endl;
     F32 step_xy = 0.025f;
     F32 step_z = 1.0f;
     F32 c_density = 0.1f;
@@ -230,47 +228,61 @@ int main(int argc, char **argv)
 
     string file_path = "5points_14.las";
 
+    // Start reader with file_path
     LASreadOpener lasreadopener;
     lasreadopener.set_file_name(file_path.c_str());
 
- //   CHAR argv [] = { "-keep_z", "62.4", "65", "-filtered_transform", "-set_classification", "22" };
 
+    // Setup filter
+    // TODO: should come from command-line parameters
     CHAR* MY_other_argv[4];
-
-    MY_other_argv[0] = (CHAR*)malloc(1000); strcpy(MY_other_argv[0], " ");
-    MY_other_argv[1] = (CHAR*)malloc(1000); strcpy(MY_other_argv[1], "-keep_z");
-    MY_other_argv[2] = (CHAR*)malloc(1000); strcpy(MY_other_argv[2], "1.0");
-    MY_other_argv[3] = (CHAR*)malloc(1000); strcpy(MY_other_argv[3], "1.99");
-
+    MY_other_argv[0] = (CHAR*)malloc(1); strcpy(MY_other_argv[0], " ");
+    MY_other_argv[1] = strcpy(MY_other_argv[1], "-keep_z");
+    MY_other_argv[2] = (CHAR*)malloc(1); strcpy(MY_other_argv[2], "62.14");
+    MY_other_argv[3] = (CHAR*)malloc(1); strcpy(MY_other_argv[3], "62.17");
     lasreadopener.parse(4, MY_other_argv);
+
+    // Open reader
     LASreader* lasreader = lasreadopener.open();
 
     cout << "Point reading" << endl;
-    I32 p_count = 0;
 
+    I32 points_count = 0;
+
+    // Slices and counts will be stored in unordered maps.
+    // Each Z slice will have a counter of how many points there are
+    // for each x and y slice.
     my_slices slices;
     my_slices::iterator slice_iterator;
     my_counts* slice_counts = 0;
     my_counts::iterator slice_count_iterator;
 
     // populate counters
-
     I32 min_z = I32_MAX;
     I32 max_z = I32_MIN;
 
+    // Type that converts between two int and long
     I32I32I64 i32i32i64;
     I32 pos_x;
     I32 pos_y;
 
     while (lasreader->read_point())
     {
+#if _DEBUG
+        cout << "x: " << lasreader->get_x() << ", "
+             << "y: " << lasreader->get_y() << ", "
+             << "z: " << lasreader->get_z()
+             << endl;
+#endif
+
+      // Find out in which Z slice current point will lie
         I32 pos_z = I32_FLOOR(lasreader->get_z()/step_z);
 
+        // Update min and max z (slice number)
         if (pos_z < min_z) min_z = pos_z;
         if (pos_z > max_z) max_z = pos_z;
 
         // find the slice with correct pos_z
-
         slice_iterator = slices.find(pos_z);
         if (slice_iterator != slices.end())
         {
@@ -291,17 +303,15 @@ int main(int argc, char **argv)
 
         add_count(slice_counts, pos_x, pos_y);
 
-        p_count++;
+        points_count++;
     }
 
-    fprintf(stderr, "total points %d [%d,%d]\n", p_count, min_z, max_z);
+    fprintf(stderr, "total points %d [%d,%d]\n", points_count, min_z, max_z);
 
     lasreader->close();
 
-    #define DEBUG TRUE
 
-    if (DEBUG)
-    {
+    #if _DEBUG
         // produce debug output for current slice
 
         if (slice_counts && (slice_counts->size()))
@@ -339,7 +349,7 @@ int main(int argc, char **argv)
             laswriter->close(TRUE);
             delete laswriter;
         }
-    }
+    #endif // _DEBUG
 
     // process all slices
 
