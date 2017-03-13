@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="LASlib" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Win32 Release">
+				<Option output="C:/Users/Tiago/Desktop/TLStools/LAStools/LASlib/Release/LASlib" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Release" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-W" />
+					<Add option="-fexceptions" />
+					<Add option="-O2" />
+					<Add option="-DWIN32" />
+					<Add option="-DNDEBUG" />
+					<Add option="-D_MBCS" />
+					<Add option="-D_LIB" />
+					<Add directory="../laszip/src" />
+					<Add directory="inc" />
+					<Add directory="../laszip/inc" />
+					<Add directory="../laszip/stl" />
+				</Compiler>
+				<ExtraCommands>
+					<Add after="copy Release\LASlib.lib lib\LASlib.lib" />
+				</ExtraCommands>
+			</Target>
+			<Target title="Win32 Debug">
+				<Option output="C:/Users/Tiago/Desktop/TLStools/LAStools/LASlib/Debug/LASlib" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Debug" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-W" />
+					<Add option="-fexceptions" />
+					<Add option="-g" />
+					<Add option="-DWIN32" />
+					<Add option="-D_DEBUG" />
+					<Add option="-D_MBCS" />
+					<Add option="-D_LIB" />
+					<Add directory="../laszip/src" />
+					<Add directory="inc" />
+					<Add directory="../laszip/inc" />
+					<Add directory="../laszip/stl" />
+				</Compiler>
+				<ExtraCommands>
+					<Add after="copy Debug\LASlib.lib lib\LASlibD.lib" />
+				</ExtraCommands>
+			</Target>
+		</Build>
+		<Unit filename="../LASzip/src/arithmeticdecoder.cpp" />
+		<Unit filename="../LASzip/src/arithmeticdecoder.hpp" />
+		<Unit filename="../LASzip/src/arithmeticencoder.cpp" />
+		<Unit filename="../LASzip/src/arithmeticencoder.hpp" />
+		<Unit filename="../LASzip/src/arithmeticmodel.cpp" />
+		<Unit filename="../LASzip/src/arithmeticmodel.hpp" />
+		<Unit filename="../LASzip/src/bytestreamin.hpp" />
+		<Unit filename="../LASzip/src/bytestreamin_array.hpp" />
+		<Unit filename="../LASzip/src/bytestreamin_file.hpp" />
+		<Unit filename="../LASzip/src/bytestreamin_istream.hpp" />
+		<Unit filename="../LASzip/src/bytestreamout.hpp" />
+		<Unit filename="../LASzip/src/bytestreamout_array.hpp" />
+		<Unit filename="../LASzip/src/bytestreamout_file.hpp" />
+		<Unit filename="../LASzip/src/bytestreamout_nil.hpp" />
+		<Unit filename="../LASzip/src/bytestreamout_ostream.hpp" />
+		<Unit filename="../LASzip/src/integercompressor.cpp" />
+		<Unit filename="../LASzip/src/integercompressor.hpp" />
+		<Unit filename="../LASzip/src/lasattributer.hpp" />
+		<Unit filename="../LASzip/src/lasindex.cpp" />
+		<Unit filename="../LASzip/src/lasindex.hpp" />
+		<Unit filename="../LASzip/src/lasinterval.cpp" />
+		<Unit filename="../LASzip/src/lasinterval.hpp" />
+		<Unit filename="../LASzip/src/laspoint.hpp" />
+		<Unit filename="../LASzip/src/lasquadtree.cpp" />
+		<Unit filename="../LASzip/src/lasquadtree.hpp" />
+		<Unit filename="../LASzip/src/lasquantizer.hpp" />
+		<Unit filename="../LASzip/src/lasreaditem.hpp" />
+		<Unit filename="../LASzip/src/lasreaditemcompressed_v1.cpp" />
+		<Unit filename="../LASzip/src/lasreaditemcompressed_v1.hpp" />
+		<Unit filename="../LASzip/src/lasreaditemcompressed_v2.cpp" />
+		<Unit filename="../LASzip/src/lasreaditemcompressed_v2.hpp" />
+		<Unit filename="../LASzip/src/lasreaditemraw.hpp" />
+		<Unit filename="../LASzip/src/lasreadpoint.cpp" />
+		<Unit filename="../LASzip/src/lasreadpoint.hpp" />
+		<Unit filename="../LASzip/src/laswriteitem.hpp" />
+		<Unit filename="../LASzip/src/laswriteitemcompressed_v1.cpp" />
+		<Unit filename="../LASzip/src/laswriteitemcompressed_v1.hpp" />
+		<Unit filename="../LASzip/src/laswriteitemcompressed_v2.cpp" />
+		<Unit filename="../LASzip/src/laswriteitemcompressed_v2.hpp" />
+		<Unit filename="../LASzip/src/laswriteitemraw.hpp" />
+		<Unit filename="../LASzip/src/laswritepoint.cpp" />
+		<Unit filename="../LASzip/src/laswritepoint.hpp" />
+		<Unit filename="../LASzip/src/laszip.cpp" />
+		<Unit filename="../LASzip/src/laszip.hpp" />
+		<Unit filename="../LASzip/src/laszip_common_v1.hpp" />
+		<Unit filename="../LASzip/src/laszip_common_v2.hpp" />
+		<Unit filename="../LASzip/src/mydefs.hpp" />
+		<Unit filename="inc/lasdefinitions.hpp" />
+		<Unit filename="inc/lasfilter.hpp" />
+		<Unit filename="inc/lasreader.hpp" />
+		<Unit filename="inc/lasreader_asc.hpp" />
+		<Unit filename="inc/lasreader_bil.hpp" />
+		<Unit filename="inc/lasreader_bin.hpp" />
+		<Unit filename="inc/lasreader_dtm.hpp" />
+		<Unit filename="inc/lasreader_las.hpp" />
+		<Unit filename="inc/lasreader_qfit.hpp" />
+		<Unit filename="inc/lasreader_shp.hpp" />
+		<Unit filename="inc/lasreader_txt.hpp" />
+		<Unit filename="inc/lasreaderbuffered.hpp" />
+		<Unit filename="inc/lasreadermerged.hpp" />
+		<Unit filename="inc/lasreaderpipeon.hpp" />
+		<Unit filename="inc/lastransform.hpp" />
+		<Unit filename="inc/lasutility.hpp" />
+		<Unit filename="inc/laswaveform13reader.hpp" />
+		<Unit filename="inc/laswaveform13writer.hpp" />
+		<Unit filename="inc/laswriter.hpp" />
+		<Unit filename="inc/laswriter_bin.hpp" />
+		<Unit filename="inc/laswriter_las.hpp" />
+		<Unit filename="inc/laswriter_qfit.hpp" />
+		<Unit filename="inc/laswriter_txt.hpp" />
+		<Unit filename="inc/laswriter_wrl.hpp" />
+		<Unit filename="inc/laswritercompatible.hpp" />
+		<Unit filename="src/fopen_compressed.cpp" />
+		<Unit filename="src/lasfilter.cpp" />
+		<Unit filename="src/lasreader.cpp" />
+		<Unit filename="src/lasreader_asc.cpp" />
+		<Unit filename="src/lasreader_bil.cpp" />
+		<Unit filename="src/lasreader_bin.cpp" />
+		<Unit filename="src/lasreader_dtm.cpp" />
+		<Unit filename="src/lasreader_las.cpp" />
+		<Unit filename="src/lasreader_qfit.cpp" />
+		<Unit filename="src/lasreader_shp.cpp" />
+		<Unit filename="src/lasreader_txt.cpp" />
+		<Unit filename="src/lasreaderbuffered.cpp" />
+		<Unit filename="src/lasreadermerged.cpp" />
+		<Unit filename="src/lasreaderpipeon.cpp" />
+		<Unit filename="src/lastransform.cpp" />
+		<Unit filename="src/lasutility.cpp" />
+		<Unit filename="src/laswaveform13reader.cpp" />
+		<Unit filename="src/laswaveform13writer.cpp" />
+		<Unit filename="src/laswriter.cpp" />
+		<Unit filename="src/laswriter_bin.cpp" />
+		<Unit filename="src/laswriter_las.cpp" />
+		<Unit filename="src/laswriter_qfit.cpp" />
+		<Unit filename="src/laswriter_txt.cpp" />
+		<Unit filename="src/laswriter_wrl.cpp" />
+		<Unit filename="src/laswritercompatible.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

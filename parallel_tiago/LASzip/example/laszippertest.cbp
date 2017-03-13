@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="laszippertest" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Win32 Release">
+				<Option output="C:/Users/Tiago/Desktop/TLStools/LAStools/LASzip/example/Release/laszippertest" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Release" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-W" />
+					<Add option="-fexceptions" />
+					<Add option="-O2" />
+					<Add option="-DWIN32" />
+					<Add option="-DNDEBUG" />
+					<Add option="-D_CONSOLE" />
+					<Add option="-D_MBCS" />
+					<Add directory="../src" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../src" />
+				</ResourceCompiler>
+				<Linker>
+					<Add library="kernel32" />
+					<Add library="user32" />
+					<Add library="gdi32" />
+					<Add library="winspool" />
+					<Add library="comdlg32" />
+					<Add library="advapi32" />
+					<Add library="shell32" />
+					<Add library="ole32" />
+					<Add library="oleaut32" />
+					<Add library="uuid" />
+					<Add library="odbc32" />
+					<Add library="odbccp32" />
+				</Linker>
+				<ExtraCommands>
+					<Add after="copy Release\laszippertest.exe laszippertest.exe" />
+				</ExtraCommands>
+			</Target>
+			<Target title="Win32 Debug">
+				<Option output="C:/Users/Tiago/Desktop/TLStools/LAStools/LASzip/example/Debug/laszippertest" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Debug" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-W" />
+					<Add option="-fexceptions" />
+					<Add option="-g" />
+					<Add option="-DWIN32" />
+					<Add option="-D_DEBUG" />
+					<Add option="-D_CONSOLE" />
+					<Add option="-D_MBCS" />
+					<Add directory="../src" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../../src" />
+				</ResourceCompiler>
+				<Linker>
+					<Add library="kernel32" />
+					<Add library="user32" />
+					<Add library="gdi32" />
+					<Add library="winspool" />
+					<Add library="comdlg32" />
+					<Add library="advapi32" />
+					<Add library="shell32" />
+					<Add library="ole32" />
+					<Add library="oleaut32" />
+					<Add library="uuid" />
+					<Add library="odbc32" />
+					<Add library="odbccp32" />
+				</Linker>
+				<ExtraCommands>
+					<Add after="copy Debug\laszippertest.exe laszippertest.exe" />
+				</ExtraCommands>
+			</Target>
+		</Build>
+		<Unit filename="../src/arithmeticdecoder.cpp" />
+		<Unit filename="../src/arithmeticdecoder.hpp" />
+		<Unit filename="../src/arithmeticencoder.cpp" />
+		<Unit filename="../src/arithmeticencoder.hpp" />
+		<Unit filename="../src/arithmeticmodel.cpp" />
+		<Unit filename="../src/arithmeticmodel.hpp" />
+		<Unit filename="../src/bytestreamin.hpp" />
+		<Unit filename="../src/bytestreamin_file.hpp" />
+		<Unit filename="../src/bytestreamin_istream.hpp" />
+		<Unit filename="../src/bytestreamout.hpp" />
+		<Unit filename="../src/bytestreamout_file.hpp" />
+		<Unit filename="../src/bytestreamout_nil.hpp" />
+		<Unit filename="../src/bytestreamout_ostream.hpp" />
+		<Unit filename="../src/entropydecoder.hpp" />
+		<Unit filename="../src/entropyencoder.hpp" />
+		<Unit filename="../src/integercompressor.cpp" />
+		<Unit filename="../src/integercompressor.hpp" />
+		<Unit filename="../src/lasreaditem.hpp" />
+		<Unit filename="../src/lasreaditemcompressed_v1.cpp" />
+		<Unit filename="../src/lasreaditemcompressed_v1.hpp" />
+		<Unit filename="../src/lasreaditemcompressed_v2.cpp" />
+		<Unit filename="../src/lasreaditemcompressed_v2.hpp" />
+		<Unit filename="../src/lasreaditemraw.hpp" />
+		<Unit filename="../src/lasreadpoint.cpp" />
+		<Unit filename="../src/lasreadpoint.hpp" />
+		<Unit filename="../src/lasunzipper.cpp" />
+		<Unit filename="../src/lasunzipper.hpp" />
+		<Unit filename="../src/laswriteitem.hpp" />
+		<Unit filename="../src/laswriteitemcompressed_v1.cpp" />
+		<Unit filename="../src/laswriteitemcompressed_v1.hpp" />
+		<Unit filename="../src/laswriteitemcompressed_v2.cpp" />
+		<Unit filename="../src/laswriteitemcompressed_v2.hpp" />
+		<Unit filename="../src/laswriteitemraw.hpp" />
+		<Unit filename="../src/laswritepoint.cpp" />
+		<Unit filename="../src/laswritepoint.hpp" />
+		<Unit filename="../src/laszip.cpp" />
+		<Unit filename="../src/laszip.hpp" />
+		<Unit filename="../src/laszip_common_v2.hpp" />
+		<Unit filename="../src/laszipper.cpp" />
+		<Unit filename="../src/laszipper.hpp" />
+		<Unit filename="../src/mydefs.hpp" />
+		<Unit filename="laszippertest.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

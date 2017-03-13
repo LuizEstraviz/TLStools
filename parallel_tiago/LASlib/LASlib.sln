@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LASlib", "LASlib.vcxproj", "{16889ED2-EFF4-40B8-9AFC-F60EF8F96AAD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lasexample", "example\lasexample.vcxproj", "{A837984E-8F4C-4711-9EC9-BD81A3CC31DB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lasexample_add_rgb", "example\lasexample_add_rgb.vcxproj", "{01DA6F91-A587-45C7-9BEC-0995A9D06056}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lasexample_write_only", "example\lasexample_write_only.vcxproj", "{E07A3CAE-76D5-438E-BB43-E26FEB8D9377}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "laszippertest", "..\LASzip\example\laszippertest.vcxproj", "{AF45C70C-8DED-42BB-98C4-E909F6BA2B15}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+		Template|x86 = Template|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{16889ED2-EFF4-40B8-9AFC-F60EF8F96AAD}.Debug|x86.ActiveCfg = Debug|Win32
+		{16889ED2-EFF4-40B8-9AFC-F60EF8F96AAD}.Debug|x86.Build.0 = Debug|Win32
+		{16889ED2-EFF4-40B8-9AFC-F60EF8F96AAD}.Release|x86.ActiveCfg = Release|Win32
+		{16889ED2-EFF4-40B8-9AFC-F60EF8F96AAD}.Release|x86.Build.0 = Release|Win32
+		{16889ED2-EFF4-40B8-9AFC-F60EF8F96AAD}.Template|x86.ActiveCfg = Release|Win32
+		{16889ED2-EFF4-40B8-9AFC-F60EF8F96AAD}.Template|x86.Build.0 = Release|Win32
+		{A837984E-8F4C-4711-9EC9-BD81A3CC31DB}.Debug|x86.ActiveCfg = Debug|Win32
+		{A837984E-8F4C-4711-9EC9-BD81A3CC31DB}.Debug|x86.Build.0 = Debug|Win32
+		{A837984E-8F4C-4711-9EC9-BD81A3CC31DB}.Release|x86.ActiveCfg = Release|Win32
+		{A837984E-8F4C-4711-9EC9-BD81A3CC31DB}.Release|x86.Build.0 = Release|Win32
+		{A837984E-8F4C-4711-9EC9-BD81A3CC31DB}.Template|x86.ActiveCfg = Template|Win32
+		{A837984E-8F4C-4711-9EC9-BD81A3CC31DB}.Template|x86.Build.0 = Template|Win32
+		{01DA6F91-A587-45C7-9BEC-0995A9D06056}.Debug|x86.ActiveCfg = Debug|Win32
+		{01DA6F91-A587-45C7-9BEC-0995A9D06056}.Debug|x86.Build.0 = Debug|Win32
+		{01DA6F91-A587-45C7-9BEC-0995A9D06056}.Release|x86.ActiveCfg = Release|Win32
+		{01DA6F91-A587-45C7-9BEC-0995A9D06056}.Release|x86.Build.0 = Release|Win32
+		{01DA6F91-A587-45C7-9BEC-0995A9D06056}.Template|x86.ActiveCfg = Template|Win32
+		{01DA6F91-A587-45C7-9BEC-0995A9D06056}.Template|x86.Build.0 = Template|Win32
+		{E07A3CAE-76D5-438E-BB43-E26FEB8D9377}.Debug|x86.ActiveCfg = Debug|Win32
+		{E07A3CAE-76D5-438E-BB43-E26FEB8D9377}.Debug|x86.Build.0 = Debug|Win32
+		{E07A3CAE-76D5-438E-BB43-E26FEB8D9377}.Release|x86.ActiveCfg = Release|Win32
+		{E07A3CAE-76D5-438E-BB43-E26FEB8D9377}.Release|x86.Build.0 = Release|Win32
+		{E07A3CAE-76D5-438E-BB43-E26FEB8D9377}.Template|x86.ActiveCfg = Template|Win32
+		{E07A3CAE-76D5-438E-BB43-E26FEB8D9377}.Template|x86.Build.0 = Template|Win32
+		{AF45C70C-8DED-42BB-98C4-E909F6BA2B15}.Debug|x86.ActiveCfg = Debug|Win32
+		{AF45C70C-8DED-42BB-98C4-E909F6BA2B15}.Debug|x86.Build.0 = Debug|Win32
+		{AF45C70C-8DED-42BB-98C4-E909F6BA2B15}.Release|x86.ActiveCfg = Release|Win32
+		{AF45C70C-8DED-42BB-98C4-E909F6BA2B15}.Release|x86.Build.0 = Release|Win32
+		{AF45C70C-8DED-42BB-98C4-E909F6BA2B15}.Template|x86.ActiveCfg = Template|Win32
+		{AF45C70C-8DED-42BB-98C4-E909F6BA2B15}.Template|x86.Build.0 = Template|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
