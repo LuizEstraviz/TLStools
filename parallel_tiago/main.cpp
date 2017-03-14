@@ -13,7 +13,7 @@
 #include <typeinfo>
 #include <fstream>
 #include <algorithm>
-#include <string>
+#include <string.h>
 #include <sstream>
 
 /*
@@ -72,6 +72,31 @@ class HoughCircle{
         int n_votes;
 };
 
+class HoughCenters{
+    public:
+        vector<HoughCircle> circles;
+        int main_circle;
+        double avg_x;
+        double avg_y;
+        float aggregate_radius;
+        double low_z;
+        double up_z;
+
+        void getCenters(){
+            double ax = 0, ay = 0;
+            main_circle = 0;
+            for(unsigned i = 0; i < circles.size(); ++i){
+                ax += circles[i].x_center;
+                ay += circles[i].y_center;
+
+                if(circles[i].n_votes > circles[main_circle].n_votes){
+                    main_circle = i;
+                }
+            }
+            avg_x = ax / circles.size();
+            avg_y = ay / circles.size();
+        }
+};
 /*** functions ***/
 
 /*
@@ -105,6 +130,15 @@ vector<string> str_split(string str){
     return tokens;
 }
 */
+
+//output suffix
+string outputNameAppend(string path, string suffix = "_result.txt"){
+
+    unsigned last_dot = path.find_last_of(".");
+    string new_path = path.substr(0, last_dot) + suffix;
+
+    return new_path;
+}
 
 //returns all points in between two heights and their x,y range
 Slice getSlice(string file, string lower = "1.0", string upper = "2.0"){
@@ -343,6 +377,7 @@ vector<HoughCircle> getCenters(Raster* raster, float max_radius = 0.5, float min
     }
 
     //make circles centered in every valid pixel
+    vector<HoughCenters> g_circles;
     vint votes;
     HoughCircle hc;
     vector<double> center;
@@ -400,10 +435,92 @@ vector<HoughCircle> getCenters(Raster* raster, float max_radius = 0.5, float min
 
 }
 
+vector<HoughCenters> getPreciseCenters(vector<HoughCircle>* circles, float dist = 1.5){
+
+    vector<HoughCenters> centers;
+    int len = (*circles).size();
+
+    do{
+        vector<HoughCircle> temp = {};
+        double x = (*circles)[0].x_center;
+        double y = (*circles)[0].y_center;
+
+        for(int i = (*circles).size()-1; i >= 0 ; --i ){
+            float curr_dist = sqrt( pow((*circles)[i].x_center - x, 2) + pow((*circles)[i].y_center - y, 2) );
+
+            if(curr_dist >= dist) continue;
+
+            temp.push_back( (*circles)[i] );
+            (*circles).erase((*circles).begin() + i);
+        }
+
+        HoughCenters ict;
+        ict.circles = temp;
+        ict.aggregate_radius = dist;
+        ict.getCenters();
+        centers.push_back( ict );
+
+        len = (*circles).size();
+
+    }while(len > 0);
+
+    return centers;
+
+};
+
+void saveCloud(vector<HoughCircle>* coordinates, double pos_z = 1.5, string file_path = "pontos.laz"){
+
+                string format;
+                unsigned pt = file_path.find_last_of(".");
+                format = file_path.substr(pt+1);
+
+                LASwriteOpener laswriteopener;
+                laswriteopener.make_numbered_file_name(file_path.c_str(), 1);
+
+                int format_macro;
+
+                if(format == "las"){
+                    format_macro = LAS_TOOLS_FORMAT_LAS;
+                }else if(format == "laz"){
+                    format_macro = LAS_TOOLS_FORMAT_LAZ;
+                }else{
+                    format_macro = LAS_TOOLS_FORMAT_TXT;
+                }
+
+                laswriteopener.set_format(format_macro);
+
+                LASheader lasheader;
+                lasheader.point_data_format = 0;
+                lasheader.point_data_record_length = 20;
+                LASpoint laspoint;
+                laspoint.init(&lasheader, lasheader.point_data_format, lasheader.point_data_record_length, &lasheader);
+                LASwriter* laswriter = laswriteopener.open(&lasheader);
+
+                laspoint.set_z(pos_z);
+
+                vector<HoughCircle>::iterator point;
+                point = coordinates->begin();
+                while (point != coordinates->end())
+                {
+                    laspoint.set_x( (*point).x_center );
+                    laspoint.set_y( (*point).y_center );
+                    laswriter->write_point(&laspoint);
+                    laswriter->update_inventory(&laspoint);
+
+                    point++;
+                }
+
+                laswriter->update_header(&lasheader, TRUE);
+                laswriter->close(TRUE);
+
+                delete laswriter;
+
+}
+
 void printHelp(){
 
     cout <<
-        "\n\n# /*** TLStools - las2rings ***/\n# /*** Command line arguments ***/\n\n"
+        "\n# /*** TLStools - las2rings ***/\n# /*** Command line arguments ***/\n\n"
         "# -i --input         : input file path\n"
         "# -o --output        : output file path (.txt)\n"
         "# -t --tree          : is single tree\n"
@@ -415,7 +532,7 @@ void printHelp(){
         "# -d --density       : minimum density to consider on the Hough transform\n"
         "# -v --votes         : minimum votes count at the output\n"
         "# -O --output-cloud  : save a las/laz/txt cloud output\n"
-        "# -? -h --help        : print help\n";
+        "# -? -h --help       : print help\n";
 
         exit(1);
 
@@ -426,8 +543,8 @@ void printHelp(){
 
 struct CommandLine {
 
-    string file_path;      /* -i option, input file */
-    string output_path;    /* -o option, output file */
+    string file_path;            /* -i option, input file */
+    string output_path;          /* -o option, output file */
     bool single_tree;            /* -t option, is single tree */
     bool one_slice;              /* -s option, take only one slice */
     string lower_slice;          /* -l option, lower height */
@@ -436,7 +553,7 @@ struct CommandLine {
     double  max_radius;          /* -r option, maximum radius to test */
     double  min_density;         /* -d option, minimum density to consider on the Hough transform */
     int  min_votes;              /* -v option, minimum votes count at the output */
-    string output_las;     /* -O option, save a las/laz/txt output */
+    string output_las;           /* -O option, save a las/laz/txt output */
     bool help;                   /* -h/? option, get help */
 
 } globalArgs;
@@ -445,17 +562,18 @@ static const char *optString = "i:o:tsl:u:p:r:d:v:O:h?";
 
 static const struct option longOpts[] = {
     { "input", required_argument, NULL, 'i' },
-    { "output", optional_argument, NULL, 'o' },
+    { "output", required_argument, NULL, 'o' },
     { "tree", no_argument, NULL, 't' },
     { "one-slice", no_argument, NULL, 's' },
-    { "lower", optional_argument, NULL, 'l' },
-    { "upper", optional_argument, NULL, 'u' },
-    { "pixel", optional_argument, NULL, 'p' },
-    { "radius", optional_argument, NULL, 'r' },
-    { "density", optional_argument, NULL, 'd' },
-    { "votes", optional_argument, NULL, 'v' },
-    { "output-cloud", optional_argument, NULL, 'O' },
-    { "help", no_argument, NULL, 'h' }
+    { "lower", required_argument, NULL, 'l' },
+    { "upper", required_argument, NULL, 'u' },
+    { "pixel", required_argument, NULL, 'p' },
+    { "radius", required_argument, NULL, 'r' },
+    { "density", required_argument, NULL, 'd' },
+    { "votes", required_argument, NULL, 'v' },
+    { "output-cloud", required_argument, NULL, 'O' },
+    { "help", no_argument, NULL, 'h' },
+    {NULL, no_argument, NULL, 0}
 };
 
 /*************************************************************************************************************/
@@ -463,19 +581,23 @@ static const struct option longOpts[] = {
 int main(int argc, char *argv[])
 {
     /** define global variables **/
+    globalArgs.file_path = " ";
     globalArgs.help = false;
     globalArgs.lower_slice = "1.0";
     globalArgs.max_radius = 0.5;
-    globalArgs.min_density = 0.2;
+    globalArgs.min_density = 0.1;
     globalArgs.min_votes = 3;
     globalArgs.one_slice = true;
     globalArgs.output_las = " ";
-    globalArgs.output_path = "output.txt";
+    globalArgs.output_path = " ";
     globalArgs.pixel_size = 0.025;
     globalArgs.single_tree = false;
     globalArgs.upper_slice = "2.0";
 
-    int opt = getopt_long( argc, argv, optString, longOpts, 0 );
+    int opt = 0;
+	int longIndex = 0;
+
+    opt = getopt_long( argc, argv, optString, longOpts, &longIndex );
     while( opt != -1 ) {
         switch( opt ) {
             case 'i':
@@ -531,32 +653,50 @@ int main(int argc, char *argv[])
                 break;
         }
 
-        opt = getopt_long( argc, argv, optString, longOpts, 0 );
+        opt = getopt_long( argc, argv, optString, longOpts, &longIndex );
     }
 
+    /** print help **/
     if(globalArgs.help){
         printHelp();
         return 0;
     }
 
-    if(globalArgs.single_tree && !globalArgs.one_slice){
-
-    }
-
-    //cout << argc << " : " << argv[0] << " : " << argv[1] << " : " << argv[2] <<endl;
 
     //globalArgs.file_path = "lcer.las";
 
-    cout << "# reading point cloud" <<endl;
+
+    if(globalArgs.file_path == " "){
+        cout << "\n# input file missing.\n";
+        printHelp();
+        return 0;
+    }
+
+    /** rename output **/
+    if(globalArgs.output_path == " "){
+        globalArgs.output_path = outputNameAppend(globalArgs.file_path);
+    }
+
+    if(globalArgs.output_las == " "){
+        globalArgs.output_las = outputNameAppend(globalArgs.file_path, "_cloud.las");
+    }
+
+
+    cout << "# reading point cloud" << endl;
     Slice slc = getSlice(globalArgs.file_path, globalArgs.lower_slice, globalArgs.upper_slice);
+
 
     cout << "# rasterizing cloud's slice" << endl;
     Raster ras = getCounts(&slc, globalArgs.pixel_size);
 
-    //Circle circs = buildCircles(globalArgs.pixel_size, globalArgs.max_radius);
 
     cout << "# extracting center candidates" << endl;
     vector<HoughCircle> hough = getCenters(&ras, globalArgs.max_radius, globalArgs.min_density, globalArgs.min_votes);
+
+
+    cout << "# writing cloud of center candidates: " << globalArgs.output_las << endl;
+    saveCloud(&hough, (ras.max_z + ras.min_z)/2, globalArgs.output_las);
+
 
     if(globalArgs.single_tree){
         HoughCircle vt;
@@ -568,65 +708,26 @@ int main(int argc, char *argv[])
     }
 
 
-    cout << "# saving at: " << globalArgs.output_path << endl;
+    cout << "# extracting precise center estimates" << endl;
+    vector<HoughCenters> precise =  getPreciseCenters(&hough, globalArgs.max_radius*3);
+
+
+    cout << "# writing results: " << globalArgs.output_path << endl;
 
         ofstream arq (globalArgs.output_path);
-        arq << "x" << "        " << "y" << "         " << "votes" << "         " << "radius" << endl;
-        for(unsigned int i = 0; i < hough.size() ; i++){
+        arq << "x_average    " << "y_average    " << "x_main    " << "y_main    " << "r_main    " << "votes   " << endl;
+        for(unsigned int i = 0; i < precise.size() ; ++i){
 
-            arq << hough[i].x_center << "        " << hough[i].y_center << "         " << hough[i].n_votes << "         " << hough[i].radius << endl;
+            arq << precise[i].avg_x << "    " << precise[i].avg_y << "    " << precise[i].circles[ precise[i].main_circle ].x_center << "    "
+            << precise[i].circles[ precise[i].main_circle ].y_center << "    " << precise[i].circles[ precise[i].main_circle ].radius << "    "
+            << precise[i].circles[ precise[i].main_circle ].n_votes << "\n";
 
         }
 
         arq.close();
 
+
     cout << "# done" << endl;
-/*
-        ofstream arq2 ("circles.txt");
-        cout << circs.perimeter_points.size() << endl;
-        for(unsigned i = 0; i < circs.perimeter_points.size(); ++i){
-                for(unsigned j = 0; j < circs.perimeter_points[0].size(); ++j){
-                    arq2 << circs.perimeter_points[i][j] << " ";
-                }
-                arq2 << "\n";
-        }
-
-        arq2.close();
-
-        ofstream arq3 ("radii.txt");
-
-        for(unsigned i = 0; i < circs.radii.size(); ++i){
-            arq3 << circs.radii[i] << "\n";
-        }
-
-        arq3.close();
-
-*/
-
-/*
-    ofstream arq ("circles.txt");
-
-    for(unsigned int i = 0; i < circs.perimeter_points.size() ; i++){
-        for(unsigned int j = 0; j < circs.perimeter_points[0].size(); j++){
-
-            arq << circs.perimeter_points[i][j] << " ";
-
-        }
-        arq << "\n";
-    }
-
-    arq.close();
-
-
-    //using namespace boost::numeric::ublas;
-    boost::numeric::ublas::matrix<double> m (3, 3);
-    for (unsigned i = 0; i < m.size1 (); ++ i)
-        for (unsigned j = 0; j < m.size2 (); ++ j)
-            m (i, j) = 3 * i + j;
-    std::cout << m << std::endl;
-
-*/
-
 
     return 0;
 }

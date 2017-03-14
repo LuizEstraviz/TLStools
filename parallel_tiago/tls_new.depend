@@ -4855,3 +4855,68 @@
 1487243502 c:\users\tiago\desktop\parallel\laslib\inc\lasfilter.hpp
 	"lasdefinitions.hpp"
 
+1489523515 source:c:\users\tiago\desktop\tlstools\main.cpp
+	<iostream>
+	"lasreader.hpp"
+	"laswriter.hpp"
+	"lasfilter.hpp"
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	<unistd.h>
+	<getopt.h>
+	<unordered_map>
+	<set>
+	<vector>
+	<typeinfo>
+	<fstream>
+	<algorithm>
+	<string.h>
+	<sstream>
+	<boost/numeric/ublas/matrix.hpp>
+	<boost/numeric/ublas/io.hpp>
+
+1487243502 c:\users\tiago\desktop\tlstools\laslib\inc\lasreader.hpp
+	"lasdefinitions.hpp"
+	"laswaveform13reader.hpp"
+
+1487243502 c:\users\tiago\desktop\tlstools\laslib\inc\lasdefinitions.hpp
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<assert.h>
+	"mydefs.hpp"
+	"laszip.hpp"
+	"laspoint.hpp"
+
+1487243502 c:\users\tiago\desktop\tlstools\laszip\src\mydefs.hpp
+
+1487243502 c:\users\tiago\desktop\tlstools\laszip\src\laszip.hpp
+
+1487243502 c:\users\tiago\desktop\tlstools\laszip\src\laspoint.hpp
+	"lasquantizer.hpp"
+	"lasattributer.hpp"
+
+1487243502 c:\users\tiago\desktop\tlstools\laszip\src\lasquantizer.hpp
+	"mydefs.hpp"
+
+1487243502 c:\users\tiago\desktop\tlstools\laszip\src\lasattributer.hpp
+	"mydefs.hpp"
+
+1487243502 c:\users\tiago\desktop\tlstools\laslib\inc\laswaveform13reader.hpp
+	"lasdefinitions.hpp"
+
+1487243502 c:\users\tiago\desktop\tlstools\laslib\inc\laswriter.hpp
+	"lasdefinitions.hpp"
+	"lasutility.hpp"
+	"laswaveform13writer.hpp"
+
+1487243502 c:\users\tiago\desktop\tlstools\laslib\inc\lasutility.hpp
+	"lasdefinitions.hpp"
+
+1487243502 c:\users\tiago\desktop\tlstools\laslib\inc\laswaveform13writer.hpp
+	"lasdefinitions.hpp"
+
+1487243502 c:\users\tiago\desktop\tlstools\laslib\inc\lasfilter.hpp
+	"lasdefinitions.hpp"
+

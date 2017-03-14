@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1484593825 source:c:\users\tiago\desktop\learn\learn\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<vector>
+	<stdlib.h>
+	<algorithm>
+	<iterator>
+
+1484529071 source:c:\users\tiago\desktop\learn\learn\tree.c
+
