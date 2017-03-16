@@ -347,7 +347,7 @@ vint rasterCircle(float radius, float pixel_size = 0.025, double cx = 0, double 
 
 };
 
-vector<HoughCircle> getCenters(Raster* raster, float max_radius = 0.5, float min_den = 0.1, int min_votes = 2){
+vector<HoughCenters> getCenters(Raster* raster, float max_radius = 0.5, float min_den = 0.1, int min_votes = 2){
 
     //count raster properties (&raster)
     unsigned int x_len = raster->x_dim;
@@ -377,14 +377,23 @@ vector<HoughCircle> getCenters(Raster* raster, float max_radius = 0.5, float min
     }
 
     //make circles centered in every valid pixel
-    vector<HoughCenters> g_circles;
+    vector<HoughCenters> g_circles = {};
+    HoughCenters g_cen;
+    g_cen.circles = {};
+    g_cen.avg_x = -1000;
+    g_cen.avg_y = -1000;
+    g_cen.low_z = raster->min_z;
+    g_cen.up_z = raster->max_z;
+    g_cen.aggregate_radius = max_radius * 3;
+    g_circles.push_back(g_cen);
+
     vint votes;
     HoughCircle hc;
     vector<double> center;
     vint h_circle;
-    set<unsigned long long int> pixel_set; /** cod = 100.000*x + y  **/
+    set<unsigned long long int> pixel_set; //cod = 100.000*x + y
     vector<double> coor(2);
-    vector<HoughCircle> p_circles;
+    //vector<HoughCircle> p_circles;
     unsigned int vx, vy;
     vector<int> pixel(2);
     vector<float> radii;
@@ -409,73 +418,82 @@ vector<HoughCircle> getCenters(Raster* raster, float max_radius = 0.5, float min
 
                 if(votes[ vx ][ vy ] >= min_votes){
                     pixel_set.insert( 100000*vx + vy );
-                    //pixel_set.insert( {vx,vy} );
                 }
             }
         }
 
         for(auto& k : pixel_set){
-            /*
-            pixel = {};
-            for(auto& l : k){
-                pixel.push_back(l);
-            }
-            */
             vx = floor(k / 100000);
             vy = k - 100000*vx;
             coor = absCenter(vx, vy, empty_raster.min_x, empty_raster.min_y, empty_raster.pixel_size);
             hc.x_center = coor[0];
             hc.y_center = coor[1];
             hc.n_votes = votes[vx][vy];
-            p_circles.push_back(hc);
-        }
-    }
+            //p_circles.push_back(hc);
 
-    return p_circles;
+            for(unsigned i = 0; i < g_circles.size(); ++i){
+                double dist = sqrt( pow(hc.x_center - g_circles[i].avg_x, 2) + pow(hc.y_center - g_circles[i].avg_y, 2) );
+
+                if(dist < g_cen.aggregate_radius){
+                    g_circles[i].circles.push_back(hc);
+                    break;
+                }
+
+                if(i == (g_circles.size()-1)){
+                    g_cen.circles = {};
+                    g_cen.circles.push_back(hc);
+                    g_cen.avg_x = hc.x_center;
+                    g_cen.avg_y = hc.y_center;
+                    g_circles.push_back(g_cen);
+                }
+            }
+        }
+
+    }
+    return g_circles;
 
 }
 
-vector<HoughCenters> getPreciseCenters(vector<HoughCircle>* circles, float dist = 1.5){
+void getPreciseCenters(vector<HoughCenters>& circles){
 
-    vector<HoughCenters> centers;
-    int len = (*circles).size();
+    circles.erase(circles.begin());
+    for(unsigned i = 0; i < circles.size(); ++i){
 
-    do{
-        vector<HoughCircle> temp = {};
-        double x = (*circles)[0].x_center;
-        double y = (*circles)[0].y_center;
+        circles[i].getCenters();
 
-        for(int i = (*circles).size()-1; i >= 0 ; --i ){
-            float curr_dist = sqrt( pow((*circles)[i].x_center - x, 2) + pow((*circles)[i].y_center - y, 2) );
-
-            if(curr_dist >= dist) continue;
-
-            temp.push_back( (*circles)[i] );
-            (*circles).erase((*circles).begin() + i);
-        }
-
-        HoughCenters ict;
-        ict.circles = temp;
-        ict.aggregate_radius = dist;
-        ict.getCenters();
-        centers.push_back( ict );
-
-        len = (*circles).size();
-
-    }while(len > 0);
-
-    return centers;
+    }
 
 };
 
-void saveCloud(vector<HoughCircle>* coordinates, double pos_z = 1.5, string file_path = "pontos.laz"){
+void saveReport(vector<HoughCenters>& centers, string file_path = "result.txt"){
+
+        ofstream result_file(file_path);
+
+        result_file << "x_average   y_average   x_main   y_main   r_main   votes   z_min   z_max" << endl;
+
+        for(unsigned int i = 0; i < centers.size() ; ++i){
+
+            result_file << centers[i].avg_x << "    " << centers[i].avg_y << "   " <<
+            centers[i].circles[ centers[i].main_circle ].x_center << "   " <<
+            centers[i].circles[ centers[i].main_circle ].y_center << "   " <<
+            centers[i].circles[ centers[i].main_circle ].radius << "   " <<
+            centers[i].circles[ centers[i].main_circle ].n_votes << "   " <<
+            centers[i].low_z << "   " << centers[i].up_z << endl;
+
+        }
+
+        result_file.close();
+
+};
+
+void saveCloud(vector<HoughCenters>* coordinates, double pos_z = 1.5, string file_path = "cloud.laz"){
 
                 string format;
                 unsigned pt = file_path.find_last_of(".");
                 format = file_path.substr(pt+1);
 
                 LASwriteOpener laswriteopener;
-                laswriteopener.make_numbered_file_name(file_path.c_str(), 1);
+                laswriteopener.set_file_name(file_path.c_str());
 
                 int format_macro;
 
@@ -498,15 +516,22 @@ void saveCloud(vector<HoughCircle>* coordinates, double pos_z = 1.5, string file
 
                 laspoint.set_z(pos_z);
 
-                vector<HoughCircle>::iterator point;
+                vector<HoughCenters>::iterator point;
                 point = coordinates->begin();
-                while (point != coordinates->end())
-                {
-                    laspoint.set_x( (*point).x_center );
-                    laspoint.set_y( (*point).y_center );
-                    laswriter->write_point(&laspoint);
-                    laswriter->update_inventory(&laspoint);
+                while (point != coordinates->end()){
 
+                    vector<HoughCircle>::iterator c_point;
+                    c_point = point->circles.begin();
+
+                    while(c_point != point->circles.end()){
+
+                        laspoint.set_x( (*c_point).x_center );
+                        laspoint.set_y( (*c_point).y_center );
+                        laswriter->write_point(&laspoint);
+                        laswriter->update_inventory(&laspoint);
+
+                        c_point++;
+                    }
                     point++;
                 }
 
@@ -681,51 +706,32 @@ int main(int argc, char *argv[])
         globalArgs.output_las = outputNameAppend(globalArgs.file_path, "_cloud.las");
     }
 
-
     cout << "# reading point cloud" << endl;
     Slice slc = getSlice(globalArgs.file_path, globalArgs.lower_slice, globalArgs.upper_slice);
-
 
     cout << "# rasterizing cloud's slice" << endl;
     Raster ras = getCounts(&slc, globalArgs.pixel_size);
 
-
     cout << "# extracting center candidates" << endl;
-    vector<HoughCircle> hough = getCenters(&ras, globalArgs.max_radius, globalArgs.min_density, globalArgs.min_votes);
+    vector<HoughCenters> hough = getCenters(&ras, globalArgs.max_radius, globalArgs.min_density, globalArgs.min_votes);
 
-
-    cout << "# writing cloud of center candidates: " << globalArgs.output_las << endl;
-    saveCloud(&hough, (ras.max_z + ras.min_z)/2, globalArgs.output_las);
-
+    cout << "# extracting precise center estimates" << endl;
+    getPreciseCenters(hough);
 
     if(globalArgs.single_tree){
         HoughCircle vt;
         vt.n_votes = 0;
         for(unsigned i = 0; i < hough.size(); ++i){
-            if(hough[i].n_votes > vt.n_votes) vt = hough[i];
+            if(hough[i].circles[ hough[i].main_circle ].n_votes > vt.n_votes) vt = hough[i].circles[ hough[i].main_circle ];
         }
         cout << "# n of votes: " << vt.n_votes << ", radius: " << vt.radius << endl;
     }
 
-
-    cout << "# extracting precise center estimates" << endl;
-    vector<HoughCenters> precise =  getPreciseCenters(&hough, globalArgs.max_radius*3);
-
+    cout << "# writing cloud of center candidates: " << globalArgs.output_las << endl;
+    saveCloud(&hough, (ras.max_z + ras.min_z)/2, globalArgs.output_las);
 
     cout << "# writing results: " << globalArgs.output_path << endl;
-
-        ofstream arq (globalArgs.output_path);
-        arq << "x_average    " << "y_average    " << "x_main    " << "y_main    " << "r_main    " << "votes   " << endl;
-        for(unsigned int i = 0; i < precise.size() ; ++i){
-
-            arq << precise[i].avg_x << "    " << precise[i].avg_y << "    " << precise[i].circles[ precise[i].main_circle ].x_center << "    "
-            << precise[i].circles[ precise[i].main_circle ].y_center << "    " << precise[i].circles[ precise[i].main_circle ].radius << "    "
-            << precise[i].circles[ precise[i].main_circle ].n_votes << "\n";
-
-        }
-
-        arq.close();
-
+    saveReport(hough, globalArgs.output_path);
 
     cout << "# done" << endl;
 
