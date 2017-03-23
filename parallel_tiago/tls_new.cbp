@@ -20,7 +20,7 @@
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/tls_new" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Release/las2rings" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -35,6 +35,9 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
+			<Add directory="LASlib/inc" />
+			<Add directory="LASzip/src" />
+			<Add directory="include" />
 		</Compiler>
 		<Linker>
 			<Add library="lib/libLASlib.a" />

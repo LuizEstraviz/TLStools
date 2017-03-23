@@ -16,23 +16,78 @@
 #include <string.h>
 #include <sstream>
 
-/*
-#include <boost/numeric/ublas/matrix.hpp>
-#include <boost/numeric/ublas/io.hpp>
-*/
 using namespace std;
+
+const float PI = 3.141592653589793238463;
+
+/*************************************************************************************************************/
+/** command line arguments **/
+
+struct CommandLine {
+
+    string file_path;            // -i option, input file
+    string output_path;          // -o option, output file
+    bool single_tree;            // -t option, is single tree
+    bool one_slice;              // -s option, take only one slice
+    string lower_slice;          // -l option, lower height
+    string upper_slice;          // -u option, upper height
+    double  pixel_size;          // -p option, pixel size in meters
+    double  max_radius;          // -r option, maximum radius to test
+    double  min_density;         // -d option, minimum density to consider on the Hough transform
+    int  min_votes;              // -v option, minimum votes count at the output
+    string output_las;           // -O option, save a las/laz/txt output
+    bool help;                   // -h/? option, get help
+    float height_interval;       // -z option, z interval to slice tree
+
+} globalArgs;
+
+static const char *optString = "i:o:tsl:u:p:r:d:v:O:z:h?";
+
+static const struct option longOpts[] = {
+    { "input", required_argument, NULL, 'i' },
+    { "output", required_argument, NULL, 'o' },
+    { "tree", no_argument, NULL, 't' },
+    { "one-slice", no_argument, NULL, 's' },
+    { "lower", required_argument, NULL, 'l' },
+    { "upper", required_argument, NULL, 'u' },
+    { "pixel", required_argument, NULL, 'p' },
+    { "radius", required_argument, NULL, 'r' },
+    { "density", required_argument, NULL, 'd' },
+    { "votes", required_argument, NULL, 'v' },
+    { "output-cloud", required_argument, NULL, 'O' },
+    { "help", no_argument, NULL, 'h' },
+    { "height-int", required_argument, NULL, 'z' },
+    {NULL, no_argument, NULL, 0}
+};
+
+/*************************************************************************************************************/
+
 
 /*** types ***/
 typedef vector< vector<double> > vvec;
 typedef vector< vector<int> > vint;
 
-const float PI = 3.141592653589793238463;
-
 /*** classes ***/
+class CloudStats{
+    public:
+        double x_min;
+        double x_max;
+        double y_min;
+        double y_max;
+        double z_min;
+        double z_max;
+        int point_count;
+        double points_per_zm;
+
+        void getPPM(){
+            points_per_zm = point_count / (z_max - z_min);
+        }
+};
+
 class Slice{
     public:
         vvec slice;
-        array<double,6> dims;
+        vector<double> dims;
 };
 
 class Raster{
@@ -55,13 +110,6 @@ class Raster{
             matrix.resize(nx, vector<int>(ny));
         };
 
-};
-
-class Circle{
-    public:
-        vvec perimeter_points;
-        vector< double > radii;
-        float max_radius;
 };
 
 class HoughCircle{
@@ -96,40 +144,43 @@ class HoughCenters{
             avg_x = ax / circles.size();
             avg_y = ay / circles.size();
         }
+
+        HoughCircle getMainCircle(){
+            return circles[main_circle];
+        }
 };
-/*** functions ***/
 
-/*
-//string conversion
-std::string to_string(int value){
+class StemSegment{
+    public:
+       HoughCircle model_circle;
+       double z_min;
+       double z_max;
+       int n_points;
+};
 
-      //create an output string stream
-      std::ostringstream os ;
+/*** general functions ***/
 
-      //throw the value into the string stream
-      os << value ;
+void printHelp(){
 
-      //convert the string stream into a string and return
-      return os.str() ;
+    cout <<
+        "\n# /*** TLStools - las2rings ***/\n# /*** Command line arguments ***/\n\n"
+        "# -i --input         : input file path\n"
+        "# -o --output        : output file path (.txt)\n"
+        "# -t --tree          : is single tree\n"
+        "# -s --one-slice     : take only one slice\n"
+        "# -l --lower         : slice's lower height\n"
+        "# -u --upper         : slice's upper height\n"
+        "# -p --pixel         : pixel size, in meters\n"
+        "# -r --radius        : maximum radius to test\n"
+        "# -d --density       : minimum density to consider on the Hough transform\n"
+        "# -v --votes         : minimum votes count at the output\n"
+        "# -O --output-cloud  : save a las/laz/txt cloud output\n"
+        "# -z --height-int    : height interval to measure stem segments\n"
+        "# -? -h --help       : print help\n";
 
-    }
+        exit(1);
 
-//string split
-vector<string> str_split(string str){
-
-    string buf; // Have a buffer string
-    stringstream ss(str); // Insert the string into a stream
-
-    vector<string> tokens; // Create vector to hold our words
-
-    while (ss >> buf){
-        //int bint = stoi(buf);
-        tokens.push_back(buf);
-    }
-
-    return tokens;
 }
-*/
 
 //output suffix
 string outputNameAppend(string path, string suffix = "_result.txt"){
@@ -140,10 +191,106 @@ string outputNameAppend(string path, string suffix = "_result.txt"){
     return new_path;
 }
 
+//get cloud statistics
+CloudStats getStats(string file){
+
+  LASreadOpener lasreadopener;
+  lasreadopener.set_file_name(file.c_str());
+  LASreader* lasreader = lasreadopener.open();
+
+    unsigned last_dot = file.find_last_of(".");
+    string file_format = file.substr(last_dot+1, file.length());
+
+    CloudStats result;
+
+    if(file_format == "las" || file_format == "laz"){
+
+    result.x_min = lasreader->get_min_x();
+    result.x_max = lasreader->get_max_x();
+    result.y_min = lasreader->get_min_y();
+    result.y_max = lasreader->get_max_y();
+    result.z_min = lasreader->get_min_z();
+    result.z_max = lasreader->get_max_z();
+    result.point_count = lasreader->npoints;
+    result.getPPM();
+
+    } else {
+
+    unsigned i = 1;
+    double x, y, z, min_x, max_x, min_y, max_y, min_z, max_z;
+
+    while(lasreader->read_point()){
+
+        x = lasreader->get_x();
+        y = lasreader->get_y();
+        z = lasreader->get_z();
+
+        if(i == 1){
+           min_x = max_x = x;
+           min_y = max_y = y;
+           min_z = max_z = z;
+        }
+
+        if(x > max_x) max_x = x;
+        if(y > max_y) max_y = y;
+        if(x < min_x) min_x = x;
+        if(y < min_y) min_y = y;
+        if(z < min_z) min_z = z;
+        if(z > max_z) max_z = z;
+
+        i++;
+
+    }
+
+    result.x_min = min_x;
+    result.x_max = max_x;
+    result.y_min = min_y;
+    result.y_max = max_y;
+    result.z_min = min_z;
+    result.z_max = max_z;
+    result.point_count = i;
+    result.getPPM();
+
+    }
+
+    lasreader->close();
+    delete lasreader;
+
+    cout <<
+        "# x: " << result.x_min << " : " << result.x_max << "\n" <<
+        "# y: " << result.y_min << " : " << result.y_max << "\n" <<
+        "# z: " << result.z_min << " : " << result.z_max << "\n" <<
+        "# points: " << result.point_count << " : " << result.points_per_zm << " /m above ground"
+    << endl;
+
+    return result;
+
+};
+
+//calculate absolute center coordinate based on pixel position
+vector<double> absCenter(int x, int y, double min_x, double min_y, float step){
+    double x_cen = ( min_x + (step/2) ) + ( x * step );
+    double y_cen = ( min_y + (step/2) ) + ( y * step );
+
+    return vector<double> {x_cen, y_cen};
+};
+
+//calculate pixel based on absolute coordinate
+vector<int> pixPosition(double x, double y, double min_x, double min_y, float step){
+    int x_pix = floor( (x - min_x) / step );
+    int y_pix = floor( (y - min_y) / step );
+
+    return vector<int> {x_pix, y_pix};
+};
+
+
+/*** plot-wise functions ***/
+
 //returns all points in between two heights and their x,y range
 Slice getSlice(string file, string lower = "1.0", string upper = "2.0"){
 
     Slice slc;
+    slc.slice = {};
 
     LASreadOpener lasreadopener;
     lasreadopener.set_file_name(file.c_str());
@@ -158,16 +305,9 @@ Slice getSlice(string file, string lower = "1.0", string upper = "2.0"){
     lasreadopener.parse(4, MY_other_argv);
     LASreader* lasreader = lasreadopener.open();
 
-    int i = 0;
-    double max_x;
-    double max_y;
-    double min_x;
-    double min_y;
-    double min_z;
-    double max_z;
+    unsigned i = 0;
+    double min_x, max_x, min_y, max_y, min_z, max_z;
 
-    //vvec xyz_matrix;
-    vector<double> xyz_row(3);
     double x;
     double y;
     double z;
@@ -178,20 +318,13 @@ Slice getSlice(string file, string lower = "1.0", string upper = "2.0"){
         y = lasreader->get_y();
         z = lasreader->get_z();
 
-        xyz_row[0] = x;
-        xyz_row[1] = y;
-        xyz_row[2] = z;
+        if(i == 0){
+           min_x = max_x = x;
+           min_y = max_y = y;
+           min_z = max_z = z;
+        }
 
-        slc.slice.push_back( xyz_row );
-
-         if(i == 0){
-           max_x = x;
-           max_y = y;
-           min_x = x;
-           min_y = y;
-           min_z = z;
-           max_z = z;
-         }
+        slc.slice.push_back( {x,y,z} );
 
         if(x > max_x) max_x = x;
         if(y > max_y) max_y = y;
@@ -205,6 +338,7 @@ Slice getSlice(string file, string lower = "1.0", string upper = "2.0"){
     }
 
     lasreader->close();
+    delete lasreader;
 
     slc.dims = {min_x, max_x, min_y, max_y, min_z, max_z};
 
@@ -213,13 +347,13 @@ Slice getSlice(string file, string lower = "1.0", string upper = "2.0"){
 }
 
 //returns a matrix of counts and maximum count value
-Raster getCounts(Slice* slice , float pixel_size = 0.025){
+Raster getCounts(Slice* slice , float pixel_size = 0.025, double x_mid = 0, double y_mid = 0, double d_mid = -1){
 
     Raster ras;
-    ras.min_x = (*slice).dims[0];
-    ras.max_x = (*slice).dims[1];
-    ras.min_y = (*slice).dims[2];
-    ras.max_y = (*slice).dims[3];
+    ras.min_x = (d_mid > 0) ? (x_mid - d_mid) : (*slice).dims[0];
+    ras.max_x = (d_mid > 0) ? (x_mid + d_mid) : (*slice).dims[1];
+    ras.min_y = (d_mid > 0) ? (y_mid - d_mid) : (*slice).dims[2];
+    ras.max_y = (d_mid > 0) ? (y_mid + d_mid) : (*slice).dims[3];
     ras.min_z = (*slice).dims[4];
     ras.max_z = (*slice).dims[5];
     ras.pixel_size = pixel_size;
@@ -233,18 +367,20 @@ Raster getCounts(Slice* slice , float pixel_size = 0.025){
 
     vint matrix( xn, vector<int>(yn) );
     int max_votes = 0;
-    double point[3];
+    double x,y;
     int xCell;
     int yCell;
 
     for(unsigned int i = 0; i < (*slice).slice.size(); i++){
 
-        point[0] = (*slice).slice[i][0];
-        point[1] = (*slice).slice[i][1];
-        point[2] = (*slice).slice[i][2];
+        x = (*slice).slice[i][0];
+        y = (*slice).slice[i][1];
 
-        xCell = abs( floor( (point[0] - ras.min_x) / pixel_size ) );
-        yCell = abs( floor( (point[1] - ras.min_y) / pixel_size ) );
+        double dist = sqrt( pow(x - x_mid,2) + pow(y - y_mid,2) );
+        if(d_mid > 0 && dist > d_mid) continue;
+
+        xCell = abs( floor( (x - ras.min_x) / pixel_size ) );
+        yCell = abs( floor( (y - ras.min_y) / pixel_size ) );
 
         if(xCell >= xn) xCell = xn-1;
         if(yCell >= yn) yCell = yn-1;
@@ -261,72 +397,8 @@ Raster getCounts(Slice* slice , float pixel_size = 0.025){
     return ras;
 
 }
-/*
-Circle buildCircles(float r_min = 0.025, float r_max = 0.5){
 
-    Circle circ;
-    circ.max_radius = r_max;
-    vector<double> radii;
-    vector<float> angles;
-    float angle_step;// = r_min / r_max;
-
-    for(double i = r_min; i <= r_max; i += r_min){
-        radii.push_back(i);
-    }
-
-    circ.radii = radii;
-
-    vector<double> coord(3);
-    for(unsigned i = 0; i < radii.size(); i++){
-
-     angle_step = r_min / radii[i];
-     for(float j = 0; j <= PI*2; j += angle_step){
-        angles.push_back(j);
-     }
-
-        for(unsigned j = 0; j < angles.size(); j++){
-
-            coord[0] = cos(angles[j])*radii[i];
-            coord[1] = sin(angles[j])*radii[i];
-            coord[2] = radii[i];
-
-            circ.perimeter_points.push_back(coord);
-
-        }
-        angles = {};
-    }
-
-    return circ;
-};
-*/
-//calculate absolute center coordinate based on pixel position
-vector<double> absCenter(int x, int y, double min_x, double min_y, float step){
-    double x_cen = ( min_x + (step/2) ) + ( x * step );
-    double y_cen = ( min_y + (step/2) ) + ( y * step );
-
-    return vector<double> {x_cen, y_cen};
-};
-
-//calculate pixel based on absolute coordinate
-vector<int> pixPosition(double x, double y, double min_x, double min_y, float step){
-    int x_pix = floor( (x - min_x) / step );
-    int y_pix = floor( (y - min_y) / step );
-
-    return vector<int> {x_pix, y_pix};
-};
-/*
-//sum center values to circle points
-Circle sumCenters(Circle circle, double xc, double yc){
-    Circle out_circle = circle;
-
-    for(unsigned i=0; i < circle.perimeter_points.size(); i++){
-        out_circle.perimeter_points[i][0] += xc;
-        out_circle.perimeter_points[i][1] += yc;
-    }
-
-    return out_circle;
-};
-*/
+//create a rasterized circle
 vint rasterCircle(float radius, float pixel_size = 0.025, double cx = 0, double cy = 0, double mx = 0, double my = 0){
 
     int n_points = ceil( (2 * PI * radius) / pixel_size );
@@ -393,7 +465,6 @@ vector<HoughCenters> getCenters(Raster* raster, float max_radius = 0.5, float mi
     vint h_circle;
     set<unsigned long long int> pixel_set; //cod = 100.000*x + y
     vector<double> coor(2);
-    //vector<HoughCircle> p_circles;
     unsigned int vx, vy;
     vector<int> pixel(2);
     vector<float> radii;
@@ -542,66 +613,224 @@ void saveCloud(vector<HoughCenters>* coordinates, double pos_z = 1.5, string fil
 
 }
 
-void printHelp(){
 
-    cout <<
-        "\n# /*** TLStools - las2rings ***/\n# /*** Command line arguments ***/\n\n"
-        "# -i --input         : input file path\n"
-        "# -o --output        : output file path (.txt)\n"
-        "# -t --tree          : is single tree\n"
-        "# -s --one-slice     : take only one slice\n"
-        "# -l --lower         : slice's lower height\n"
-        "# -u --upper         : slice's upper height\n"
-        "# -p --pixel         : pixel size, in meters\n"
-        "# -r --radius        : maximum radius to test\n"
-        "# -d --density       : minimum density to consider on the Hough transform\n"
-        "# -v --votes         : minimum votes count at the output\n"
-        "# -O --output-cloud  : save a las/laz/txt cloud output\n"
-        "# -? -h --help       : print help\n";
+/*** single tree functions ***/
 
-        exit(1);
+vector<Slice> sliceList(string file, CloudStats& props, float z_interval = 0.5){
+
+    vector<double> heights = {};
+    Slice s1;
+    s1.slice = {};
+    int n_slices = ceil( (props.z_max - props.z_min) / z_interval );
+    vector<Slice> slices(n_slices, s1);
+
+    int si = 0;
+    for(double i = props.z_min; i < props.z_max + z_interval; i+=z_interval){
+        heights.push_back(i);
+        if(i < props.z_max) slices[si++].dims = {props.x_max, props.x_min, props.y_max, props.y_min, i, i+z_interval};
+    }
+
+    LASreadOpener lasreadopener;
+    lasreadopener.set_file_name(file.c_str());
+    LASreader* lasreader = lasreadopener.open();
+
+    double x, y, z;
+
+    while(lasreader->read_point()){
+
+        x = lasreader->get_x();
+        y = lasreader->get_y();
+        z = lasreader->get_z();
+
+        si = floor( (z - props.z_min) / z_interval );
+        if(si < 0) si = 0;
+        if(si > (n_slices - 1)) si = (n_slices - 1);
+        slices[si].slice.push_back( {x,y,z} );
+
+        if(x < slices[si].dims[0]) slices[si].dims[0] = x;
+        if(x > slices[si].dims[1]) slices[si].dims[1] = x;
+        if(y < slices[si].dims[2]) slices[si].dims[2] = y;
+        if(y > slices[si].dims[3]) slices[si].dims[3] = y;
+
+    }
+
+    lasreader->close();
+    delete lasreader;
+
+    return slices;
 
 }
 
-/*************************************************************************************************************/
-/** command line arguments **/
+int getMainEstimate(vector<HoughCenters>& circlesList){
 
-struct CommandLine {
+    int nv = 0;
+    int found;
+    for( unsigned i=0; i < circlesList.size(); ++i ){
+        if(circlesList[i].getMainCircle().n_votes > nv){
+            nv = circlesList[i].getMainCircle().n_votes;
+            found = i;
+        }
+    };
 
-    string file_path;            /* -i option, input file */
-    string output_path;          /* -o option, output file */
-    bool single_tree;            /* -t option, is single tree */
-    bool one_slice;              /* -s option, take only one slice */
-    string lower_slice;          /* -l option, lower height */
-    string upper_slice;          /* -u option, upper height */
-    double  pixel_size;          /* -p option, pixel size in meters */
-    double  max_radius;          /* -r option, maximum radius to test */
-    double  min_density;         /* -d option, minimum density to consider on the Hough transform */
-    int  min_votes;              /* -v option, minimum votes count at the output */
-    string output_las;           /* -O option, save a las/laz/txt output */
-    bool help;                   /* -h/? option, get help */
+    return found;
 
-} globalArgs;
+}
 
-static const char *optString = "i:o:tsl:u:p:r:d:v:O:h?";
+StemSegment baselineStats(CloudStats& stats, CommandLine global){
 
-static const struct option longOpts[] = {
-    { "input", required_argument, NULL, 'i' },
-    { "output", required_argument, NULL, 'o' },
-    { "tree", no_argument, NULL, 't' },
-    { "one-slice", no_argument, NULL, 's' },
-    { "lower", required_argument, NULL, 'l' },
-    { "upper", required_argument, NULL, 'u' },
-    { "pixel", required_argument, NULL, 'p' },
-    { "radius", required_argument, NULL, 'r' },
-    { "density", required_argument, NULL, 'd' },
-    { "votes", required_argument, NULL, 'v' },
-    { "output-cloud", required_argument, NULL, 'O' },
-    { "help", no_argument, NULL, 'h' },
-    {NULL, no_argument, NULL, 0}
+    double h1 = stats.z_min + atof(global.lower_slice.c_str());
+    double h2 = stats.z_min + atof(global.upper_slice.c_str());
+
+    //convert double to string
+    std::ostringstream ssh1, ssh2;
+    ssh1 << h1;
+    ssh2 << h2;
+    std::string sh1(ssh1.str());
+    std::string sh2(ssh2.str());
+
+    Slice base =  getSlice(global.file_path, sh1, sh2);
+
+    Raster raster = getCounts(&base, global.pixel_size);
+
+    vector<HoughCenters> circles = getCenters(&raster, global.max_radius, global.min_density, global.min_votes);
+    getPreciseCenters(circles);
+
+    StemSegment stem_base;
+
+    int mc = getMainEstimate(circles);
+    stem_base.model_circle = circles[mc].getMainCircle();
+    stem_base.n_points = base.slice.size();
+    stem_base.z_max = raster.max_z;
+    stem_base.z_min = raster.min_z;
+
+    return stem_base;
+
 };
 
-/*************************************************************************************************************/
+StemSegment getSegment(Slice& slc, CommandLine global, float xm, float ym, float dm){
+
+    StemSegment stSeg;
+
+    if( slc.slice.size() < 5){
+        return stSeg;
+    }
+
+    Raster segRas = getCounts(&slc, global.pixel_size, xm, ym, dm);
+
+    vector<HoughCenters> segHough = getCenters(&segRas, dm, global.min_density, global.min_votes);
+
+    getPreciseCenters(segHough);
+
+    if(segHough.size() == 0){
+        return stSeg;
+    }
+
+    int nv = 0;
+    int found;
+    for( unsigned i=0; i < segHough.size(); ++i ){
+        if(segHough[i].getMainCircle().n_votes > nv){
+            nv = segHough[i].getMainCircle().n_votes;
+            found = i;
+        }
+    };
+
+    stSeg.model_circle = segHough[found].getMainCircle();
+    stSeg.n_points = slc.slice.size();
+    stSeg.z_min = segRas.min_z;
+    stSeg.z_max = segRas.max_z;
+
+    return stSeg;
+
+};
+
+void saveStemReport(vector<StemSegment>& sections, string file_path = "stem.txt"){
+
+        ofstream stem_file(file_path);
+
+        stem_file << "x_center   y_center   radius   votes   z_min   z_max" << endl;
+
+        for(unsigned int i = 0; i < sections.size() ; ++i){
+
+            stem_file <<
+                sections[i].model_circle.x_center << "   " <<
+                sections[i].model_circle.y_center << "   " <<
+                sections[i].model_circle.radius << "   " <<
+                sections[i].model_circle.n_votes << "   " <<
+                sections[i].z_min << "   " <<
+                sections[i].z_max
+            << endl;
+
+        }
+
+        stem_file.close();
+
+}
+
+/*** batch processing ***/
+//plot-wise
+void plotProcess(CommandLine global){
+
+    cout << "# getting cloud statistics" << endl;
+    getStats(global.file_path);
+
+    cout << "# reading point cloud" << endl;
+    Slice slc = getSlice(global.file_path, global.lower_slice, global.upper_slice);
+
+    cout << "# rasterizing cloud's slice" << endl;
+    Raster ras = getCounts(&slc, global.pixel_size);
+
+    cout << "# extracting center candidates" << endl;
+    vector<HoughCenters> hough = getCenters(&ras, global.max_radius, global.min_density, global.min_votes);
+
+    cout << "# extracting center estimates" << endl;
+    getPreciseCenters(hough);
+
+    cout << "# writing cloud of center candidates: " << global.output_las << endl;
+    saveCloud(&hough, (ras.max_z + ras.min_z)/2, global.output_las);
+
+    cout << "# writing results: " << global.output_path << endl;
+    saveReport(hough, global.output_path);
+
+    cout << "# done" << endl;
+
+}
+
+//tree-wise
+void treeProcess(CommandLine global){
+
+    cout << "# getting cloud statistics" << endl;
+    CloudStats stats = getStats(globalArgs.file_path);
+
+    cout << "# getting baseline segment" << endl;
+    StemSegment base = baselineStats(stats, global);
+
+    cout << "# slicing cloud" << endl;
+    vector<Slice> pieces = sliceList(global.file_path, stats, global.height_interval);
+
+    cout << "# finding stem segments" << endl;
+
+    float xt = base.model_circle.x_center;
+    float yt = base.model_circle.y_center;
+    float dt = base.model_circle.radius + global.pixel_size*4;
+
+    vector<StemSegment> stem_sections = {};
+
+    for( unsigned i = 0; i < pieces.size(); ++i){
+        StemSegment temp = getSegment(pieces[i], global, xt, yt, dt);
+        xt = temp.model_circle.x_center;
+        yt = temp.model_circle.y_center;
+        dt = (temp.model_circle.radius > (dt + global.pixel_size) ) ? dt : (temp.model_circle.radius + global.pixel_size);
+
+        stem_sections.push_back(temp);
+    }
+
+    cout << "# writing results: " << global.output_path << endl;
+    saveStemReport(stem_sections, global.output_path);
+
+    cout << "# done" << endl;
+
+}
+
 
 int main(int argc, char *argv[])
 {
@@ -618,6 +847,7 @@ int main(int argc, char *argv[])
     globalArgs.pixel_size = 0.025;
     globalArgs.single_tree = false;
     globalArgs.upper_slice = "2.0";
+    globalArgs.height_interval = 0.5;
 
     int opt = 0;
 	int longIndex = 0;
@@ -669,6 +899,10 @@ int main(int argc, char *argv[])
                 globalArgs.output_las = std::string(optarg);
                 break;
 
+            case 'z':
+                globalArgs.height_interval = atof(optarg);
+                break;
+
             case 'h':
             case '?':
                 globalArgs.help = true;
@@ -681,23 +915,25 @@ int main(int argc, char *argv[])
         opt = getopt_long( argc, argv, optString, longOpts, &longIndex );
     }
 
-    /** print help **/
+
+    /*** parse command line options ***/
+
+    // print help
     if(globalArgs.help){
         printHelp();
         return 0;
     }
-
-
-    //globalArgs.file_path = "lcer.las";
-
-
+/*
+    globalArgs.file_path = "trafospik_plot_10_tree_17.las";
+    globalArgs.single_tree = true;
+*/
     if(globalArgs.file_path == " "){
-        cout << "\n# input file missing.\n";
+        cout << "\n# input file (-i) missing.\n";
         printHelp();
         return 0;
     }
 
-    /** rename output **/
+    // rename output
     if(globalArgs.output_path == " "){
         globalArgs.output_path = outputNameAppend(globalArgs.file_path);
     }
@@ -706,34 +942,15 @@ int main(int argc, char *argv[])
         globalArgs.output_las = outputNameAppend(globalArgs.file_path, "_cloud.las");
     }
 
-    cout << "# reading point cloud" << endl;
-    Slice slc = getSlice(globalArgs.file_path, globalArgs.lower_slice, globalArgs.upper_slice);
 
-    cout << "# rasterizing cloud's slice" << endl;
-    Raster ras = getCounts(&slc, globalArgs.pixel_size);
-
-    cout << "# extracting center candidates" << endl;
-    vector<HoughCenters> hough = getCenters(&ras, globalArgs.max_radius, globalArgs.min_density, globalArgs.min_votes);
-
-    cout << "# extracting precise center estimates" << endl;
-    getPreciseCenters(hough);
+    /*** process ***/
 
     if(globalArgs.single_tree){
-        HoughCircle vt;
-        vt.n_votes = 0;
-        for(unsigned i = 0; i < hough.size(); ++i){
-            if(hough[i].circles[ hough[i].main_circle ].n_votes > vt.n_votes) vt = hough[i].circles[ hough[i].main_circle ];
-        }
-        cout << "# n of votes: " << vt.n_votes << ", radius: " << vt.radius << endl;
+        treeProcess(globalArgs);
+    }else{
+        plotProcess(globalArgs);
     }
 
-    cout << "# writing cloud of center candidates: " << globalArgs.output_las << endl;
-    saveCloud(&hough, (ras.max_z + ras.min_z)/2, globalArgs.output_las);
-
-    cout << "# writing results: " << globalArgs.output_path << endl;
-    saveReport(hough, globalArgs.output_path);
-
-    cout << "# done" << endl;
 
     return 0;
 }

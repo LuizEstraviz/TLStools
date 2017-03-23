@@ -4855,7 +4855,7 @@
 1487243502 c:\users\tiago\desktop\parallel\laslib\inc\lasfilter.hpp
 	"lasdefinitions.hpp"
 
-1489523515 source:c:\users\tiago\desktop\tlstools\main.cpp
+1490253998 source:c:\users\tiago\desktop\tlstools\main.cpp
 	<iostream>
 	"lasreader.hpp"
 	"laswriter.hpp"
@@ -4873,8 +4873,6 @@
 	<algorithm>
 	<string.h>
 	<sstream>
-	<boost/numeric/ublas/matrix.hpp>
-	<boost/numeric/ublas/io.hpp>
 
 1487243502 c:\users\tiago\desktop\tlstools\laslib\inc\lasreader.hpp
 	"lasdefinitions.hpp"
