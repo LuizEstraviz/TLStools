@@ -766,6 +766,64 @@ void saveStemReport(vector<StemSegment>& sections, string file_path = "stem.txt"
 
 }
 
+void saveStemCloud(vector<StemSegment>& stem, vector<Slice>& tree, double pixel_size=0.025 ,string file_path = "stem_cloud.laz"){
+
+                string format;
+                unsigned pt = file_path.find_last_of(".");
+                format = file_path.substr(pt+1);
+
+                LASwriteOpener laswriteopener;
+                laswriteopener.set_file_name(file_path.c_str());
+
+                int format_macro;
+
+                if(format == "las"){
+                    format_macro = LAS_TOOLS_FORMAT_LAS;
+                }else if(format == "laz"){
+                    format_macro = LAS_TOOLS_FORMAT_LAZ;
+                }else{
+                    format_macro = LAS_TOOLS_FORMAT_TXT;
+                }
+
+                laswriteopener.set_format(format_macro);
+
+                LASheader lasheader;
+                lasheader.point_data_format = 0;
+                lasheader.point_data_record_length = 20;
+                LASpoint laspoint;
+                laspoint.init(&lasheader, lasheader.point_data_format, lasheader.point_data_record_length, &lasheader);
+                LASwriter* laswriter = laswriteopener.open(&lasheader);
+
+                for(unsigned i = 0; i < stem.size(); ++i){
+                    double dist = stem[i].model_circle.radius + pixel_size;
+
+                    for(unsigned j = 0; j < tree[i].slice.size(); ++j){
+
+                        double x = tree[i].slice[j][0];
+                        double y = tree[i].slice[j][1];
+                        double z = tree[i].slice[j][2];
+
+                        double d = sqrt( pow(x - stem[i].model_circle.x_center ,2) + pow(y - stem[i].model_circle.y_center ,2) );
+
+                        if(d <= dist){
+                            laspoint.set_x( x );
+                            laspoint.set_y( y );
+                            laspoint.set_z( z );
+
+                            laswriter->write_point(&laspoint);
+                            laswriter->update_inventory(&laspoint);
+                        }
+                    }
+                }
+
+
+                laswriter->update_header(&lasheader, TRUE);
+                laswriter->close(TRUE);
+
+                delete laswriter;
+
+}
+
 /*** batch processing ***/
 //plot-wise
 void plotProcess(CommandLine global){
@@ -826,6 +884,9 @@ void treeProcess(CommandLine global){
 
     cout << "# writing results: " << global.output_path << endl;
     saveStemReport(stem_sections, global.output_path);
+
+    cout << "# writing cloud: " << global.output_las << endl;
+    saveStemCloud(stem_sections, pieces, global.pixel_size, global.output_las);
 
     cout << "# done" << endl;
 
@@ -924,7 +985,7 @@ int main(int argc, char *argv[])
         return 0;
     }
 /*
-    globalArgs.file_path = "trafospik_plot_10_tree_17.las";
+    globalArgs.file_path = "pine.txt";
     globalArgs.single_tree = true;
 */
     if(globalArgs.file_path == " "){
