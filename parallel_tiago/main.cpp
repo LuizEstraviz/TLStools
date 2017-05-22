@@ -287,7 +287,23 @@ vector<int> pixPosition(double x, double y, double min_x, double min_y, float st
 /*** plot-wise functions ***/
 
 //returns all points in between two heights and their x,y range
-Slice getSlice(string file, string lower = "1.0", string upper = "2.0"){
+Slice getSlice(string file, string lower = "1.0", string upper = "2.0", float floor = 0){
+
+    float lpf = atof(lower.c_str()) + floor;
+    float upf = atof(upper.c_str()) + floor;
+
+    std::ostringstream ssl;
+    ssl << lpf;
+    lower = ssl.str();
+
+    std::ostringstream ssu;
+    ssu << upf;
+    upper = ssu.str();
+
+    cout << "Z Range: " << lower << " : " << upper << endl;
+
+    unsigned last_dot = file.find_last_of(".");
+    string file_format = file.substr(last_dot+1, file.length());
 
     Slice slc;
     slc.slice = {};
@@ -829,10 +845,10 @@ void saveStemCloud(vector<StemSegment>& stem, vector<Slice>& tree, double pixel_
 void plotProcess(CommandLine global){
 
     cout << "# getting cloud statistics" << endl;
-    getStats(global.file_path);
+    CloudStats stats = getStats(global.file_path);
 
     cout << "# reading point cloud" << endl;
-    Slice slc = getSlice(global.file_path, global.lower_slice, global.upper_slice);
+    Slice slc = getSlice(global.file_path, global.lower_slice, global.upper_slice, stats.z_min);
 
     cout << "# rasterizing cloud's slice" << endl;
     Raster ras = getCounts(&slc, global.pixel_size);
@@ -899,7 +915,7 @@ int main(int argc, char *argv[])
     globalArgs.file_path = " ";
     globalArgs.help = false;
     globalArgs.lower_slice = "1.0";
-    globalArgs.max_radius = 0.5;
+    globalArgs.max_radius = 0.25;
     globalArgs.min_density = 0.1;
     globalArgs.min_votes = 3;
     globalArgs.one_slice = true;
@@ -985,9 +1001,9 @@ int main(int argc, char *argv[])
         return 0;
     }
 /*
-    globalArgs.file_path = "pine.txt";
-    globalArgs.single_tree = true;
-*/
+    globalArgs.file_path = "lcer.las";
+    globalArgs.single_tree = false;
+/**/
     if(globalArgs.file_path == " "){
         cout << "\n# input file (-i) missing.\n";
         printHelp();
