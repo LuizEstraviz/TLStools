@@ -287,10 +287,10 @@ vector<int> pixPosition(double x, double y, double min_x, double min_y, float st
 /*** plot-wise functions ***/
 
 //returns all points in between two heights and their x,y range
-Slice getSlice(string file, string lower = "1.0", string upper = "2.0", float floor = 0){
+Slice getSlice(string file, string lower = "1.0", string upper = "2.0", float zfloor = 0){
 
-    float lpf = atof(lower.c_str()) + floor;
-    float upf = atof(upper.c_str()) + floor;
+    float lpf = atof(lower.c_str()) + zfloor;
+    float upf = atof(upper.c_str()) + zfloor;
 
     std::ostringstream ssl;
     ssl << lpf;
@@ -404,7 +404,6 @@ Raster getCounts(Slice* slice , float pixel_size = 0.025, double x_mid = 0, doub
         matrix[xCell][yCell] += 1;
 
         if(matrix[xCell][yCell] > max_votes) max_votes = matrix[xCell][yCell];
-
     }
 
     ras.matrix = matrix;
@@ -440,7 +439,7 @@ vector<HoughCenters> getCenters(Raster* raster, float max_radius = 0.5, float mi
     //count raster properties (&raster)
     unsigned int x_len = raster->x_dim;
     unsigned int y_len = raster->y_dim;
-    int min_count = floor( (raster->max_count)*min_den );
+    int min_count = ceil( (raster->max_count)*min_den );
 
     //empty raster properties (votes)
     Raster empty_raster;
@@ -693,9 +692,9 @@ int getMainEstimate(vector<HoughCenters>& circlesList){
 }
 
 StemSegment baselineStats(CloudStats& stats, CommandLine global){
-
-    double h1 = stats.z_min + atof(global.lower_slice.c_str());
-    double h2 = stats.z_min + atof(global.upper_slice.c_str());
+/*
+    double h1 = atof(global.lower_slice.c_str());
+    double h2 = atof(global.upper_slice.c_str());
 
     //convert double to string
     std::ostringstream ssh1, ssh2;
@@ -703,8 +702,8 @@ StemSegment baselineStats(CloudStats& stats, CommandLine global){
     ssh2 << h2;
     std::string sh1(ssh1.str());
     std::string sh2(ssh2.str());
-
-    Slice base =  getSlice(global.file_path, sh1, sh2);
+*/
+    Slice base =  getSlice(global.file_path, global.lower_slice, global.upper_slice, stats.z_min);
 
     Raster raster = getCounts(&base, global.pixel_size);
 
@@ -845,14 +844,25 @@ void saveStemCloud(vector<StemSegment>& stem, vector<Slice>& tree, double pixel_
 void plotProcess(CommandLine global){
 
     cout << "# getting cloud statistics" << endl;
-    CloudStats stats = getStats(global.file_path);
+    CloudStats cstats = getStats(global.file_path);
 
     cout << "# reading point cloud" << endl;
-    Slice slc = getSlice(global.file_path, global.lower_slice, global.upper_slice, stats.z_min);
+    Slice slc = getSlice(global.file_path, global.lower_slice, global.upper_slice, cstats.z_min);
 
     cout << "# rasterizing cloud's slice" << endl;
     Raster ras = getCounts(&slc, global.pixel_size);
+    /*
+        ofstream raster_file("raster.txt");
 
+        for(unsigned int i = 0; i < ras.y_dim; ++i){
+            for(unsigned int j = 0; j < ras.x_dim; ++j){
+                raster_file << ras.matrix[j][i] << " ";
+            }
+            raster_file << endl;
+        }
+
+        raster_file.close();
+    */
     cout << "# extracting center candidates" << endl;
     vector<HoughCenters> hough = getCenters(&ras, global.max_radius, global.min_density, global.min_votes);
 
@@ -1001,9 +1011,9 @@ int main(int argc, char *argv[])
         return 0;
     }
 /*
-    globalArgs.file_path = "lcer.las";
+    globalArgs.file_path = "arvores_teste1.laz";
     globalArgs.single_tree = false;
-/**/
+*/
     if(globalArgs.file_path == " "){
         cout << "\n# input file (-i) missing.\n";
         printHelp();
