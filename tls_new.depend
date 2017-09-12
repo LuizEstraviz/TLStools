@@ -8601,3 +8601,98 @@
 	<string>
 	"classes.hpp"
 
+1505185040 source:c:\users\tiago\desktop\tls\main.cpp
+	<iostream>
+	"lasreader.hpp"
+	"laswriter.hpp"
+	"lasfilter.hpp"
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	<unistd.h>
+	<getopt.h>
+	<unordered_map>
+	<set>
+	<vector>
+	<typeinfo>
+	<fstream>
+	<algorithm>
+	<string.h>
+	<sstream>
+	"classes.hpp"
+	"methods.hpp"
+
+1505183077 c:\users\tiago\desktop\tls\laslib\inc\lasreader.hpp
+	"lasdefinitions.hpp"
+	"laswaveform13reader.hpp"
+
+1505183077 c:\users\tiago\desktop\tls\laslib\inc\lasdefinitions.hpp
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<assert.h>
+	"mydefs.hpp"
+	"laszip.hpp"
+	"laspoint.hpp"
+
+1505183077 c:\users\tiago\desktop\tls\laszip\src\mydefs.hpp
+
+1505183077 c:\users\tiago\desktop\tls\laszip\src\laszip.hpp
+
+1505183077 c:\users\tiago\desktop\tls\laszip\src\laspoint.hpp
+	"lasquantizer.hpp"
+	"lasattributer.hpp"
+
+1505183077 c:\users\tiago\desktop\tls\laszip\src\lasquantizer.hpp
+	"mydefs.hpp"
+
+1505183077 c:\users\tiago\desktop\tls\laszip\src\lasattributer.hpp
+	"mydefs.hpp"
+
+1505183077 c:\users\tiago\desktop\tls\laslib\inc\laswaveform13reader.hpp
+	"lasdefinitions.hpp"
+
+1505183077 c:\users\tiago\desktop\tls\laslib\inc\laswriter.hpp
+	"lasdefinitions.hpp"
+	"lasutility.hpp"
+	"laswaveform13writer.hpp"
+
+1505183077 c:\users\tiago\desktop\tls\laslib\inc\lasutility.hpp
+	"lasdefinitions.hpp"
+
+1505183077 c:\users\tiago\desktop\tls\laslib\inc\laswaveform13writer.hpp
+	"lasdefinitions.hpp"
+
+1505183077 c:\users\tiago\desktop\tls\laslib\inc\lasfilter.hpp
+	"lasdefinitions.hpp"
+
+1505183078 c:\users\tiago\desktop\tls\classes.hpp
+	<vector>
+	<string.h>
+
+1505183078 c:\users\tiago\desktop\tls\methods.hpp
+	<vector>
+	<string>
+	"classes.hpp"
+
+1505183078 source:c:\users\tiago\desktop\tls\methods.cpp
+	<iostream>
+	"lasreader.hpp"
+	"laswriter.hpp"
+	"lasfilter.hpp"
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	<unistd.h>
+	<getopt.h>
+	<unordered_map>
+	<set>
+	<vector>
+	<typeinfo>
+	<fstream>
+	<algorithm>
+	<string.h>
+	<sstream>
+	"classes.hpp"
+	"methods.hpp"
+

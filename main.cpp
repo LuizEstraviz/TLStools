@@ -158,7 +158,7 @@ void treeProcess(CommandLine global){
         StemSegment temp = getSegment(pieces[i], global, xt, yt, dt);
         xt = temp.model_circle.x_center;
         yt = temp.model_circle.y_center;
-        dt = (temp.model_circle.radius > (dt + global.pixel_size) ) ? dt : (temp.model_circle.radius + global.pixel_size);
+        dt = (temp.model_circle.radius >= (dt + global.pixel_size) ) ? dt : (temp.model_circle.radius + global.pixel_size*3);
 
         stem_sections.push_back(temp);
     }
