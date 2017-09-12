@@ -13,7 +13,7 @@
 
   COPYRIGHT:
 
-    (c) 2007-2014, martin isenburg, rapidlasso - fast tools to catch reality
+    (c) 2007-2017, martin isenburg, rapidlasso - fast tools to catch reality
 
     This is free software; you can redistribute and/or modify it under the
     terms of the GNU Lesser General Licence as published by the Free Software
@@ -447,6 +447,14 @@ public:
   inline BOOL filter(const LASpoint* point) { return ((point->return_number == 1) || (point->return_number < point->number_of_returns)); };
 };
 
+class LAScriterionKeepSecondLast : public LAScriterion
+{
+public:
+  inline const CHAR* name() const { return "keep_second_last"; };
+  inline I32 get_command(CHAR* string) const { return sprintf(string, "-%s ", name()); };
+  inline BOOL filter(const LASpoint* point) { return ((point->number_of_returns <= 1) || (point->return_number != (point->number_of_returns-1))); };
+};
+
 class LAScriterionDropFirstReturn : public LAScriterion
 {
 public:
@@ -485,6 +493,14 @@ public:
   inline const CHAR* name() const { return "drop_last_of_many"; };
   inline I32 get_command(CHAR* string) const { return sprintf(string, "-%s ", name()); };
   inline BOOL filter(const LASpoint* point) { return ((point->number_of_returns > 1) && (point->return_number >= point->number_of_returns)); };
+};
+
+class LAScriterionDropSecondLast : public LAScriterion
+{
+public:
+  inline const CHAR* name() const { return "drop_second_last"; };
+  inline I32 get_command(CHAR* string) const { return sprintf(string, "-%s ", name()); };
+  inline BOOL filter(const LASpoint* point) { return ((point->number_of_returns > 1) && (point->return_number == (point->number_of_returns-1))); };
 };
 
 class LAScriterionKeepReturns : public LAScriterion
@@ -554,7 +570,7 @@ public:
 class LAScriterionKeepScannerChannel : public LAScriterion
 {
 public:
-  inline const CHAR* name() const { return "keep_extended_scanner_channel"; };
+  inline const CHAR* name() const { return "keep_scanner_channel"; };
   inline I32 get_command(CHAR* string) const { return sprintf(string, "-%s %d ", name(), scanner_channel); };
   inline BOOL filter(const LASpoint* point) { return (point->get_extended_scanner_channel() != scanner_channel); };
   LAScriterionKeepScannerChannel(I32 scanner_channel) { this->scanner_channel = scanner_channel; };
@@ -565,7 +581,7 @@ private:
 class LAScriterionDropScannerChannel : public LAScriterion
 {
 public:
-  inline const CHAR* name() const { return "drop_extended_scanner_channel"; };
+  inline const CHAR* name() const { return "drop_scanner_channel"; };
   inline I32 get_command(CHAR* string) const { return sprintf(string, "-%s %d ", name(), scanner_channel); };
   inline BOOL filter(const LASpoint* point) { return (point->get_extended_scanner_channel() == scanner_channel); };
   LAScriterionDropScannerChannel(I32 scanner_channel) { this->scanner_channel = scanner_channel; };
@@ -1451,6 +1467,7 @@ void LASfilter::usage() const
   fprintf(stderr,"Filter points based on their return number.\n");
   fprintf(stderr,"  -keep_first -first_only -drop_first\n");
   fprintf(stderr,"  -keep_last -last_only -drop_last\n");
+  fprintf(stderr,"  -keep_second_last -drop_second_last\n");
   fprintf(stderr,"  -keep_first_of_many -keep_last_of_many\n");
   fprintf(stderr,"  -drop_first_of_many -drop_last_of_many\n");
   fprintf(stderr,"  -keep_middle -drop_middle\n");
@@ -1615,11 +1632,6 @@ BOOL LASfilter::parse(int argc, char* argv[])
           *argv[i]='\0';
         }
       }
-      else if (strcmp(argv[i],"-keep_middle") == 0)
-      {
-        add_criterion(new LAScriterionKeepMiddleReturn());
-        *argv[i]='\0';
-      }
       else if (strncmp(argv[i],"-keep_last", 10) == 0)
       {
         if (strcmp(argv[i],"-keep_last") == 0)
@@ -1632,6 +1644,16 @@ BOOL LASfilter::parse(int argc, char* argv[])
           add_criterion(new LAScriterionKeepLastOfManyReturn());
           *argv[i]='\0';
         }
+      }
+      else if (strcmp(argv[i],"-keep_middle") == 0)
+      {
+        add_criterion(new LAScriterionKeepMiddleReturn());
+        *argv[i]='\0';
+      }
+      else if (strcmp(argv[i],"-keep_second_last") == 0)
+      {
+        add_criterion(new LAScriterionKeepSecondLast());
+        *argv[i]='\0';
       }
       else if (strncmp(argv[i],"-keep_class", 11) == 0)
       {
@@ -2149,6 +2171,16 @@ BOOL LASfilter::parse(int argc, char* argv[])
         add_criterion(new LAScriterionKeepEdgeOfFlightLine());
         *argv[i]='\0';
       }
+      else if (strcmp(argv[i],"-keep_scanner_channel") == 0)
+      {
+        if ((i+1) >= argc)
+        {
+          fprintf(stderr,"ERROR: '%s' needs 1 argument: number\n", argv[i]);
+          return FALSE;
+        }
+        add_criterion(new LAScriterionKeepScannerChannel((I32)atof(argv[i+1])));
+        *argv[i]='\0'; *argv[i+1]='\0'; i+=1;
+      }
     }
     else if (strncmp(argv[i],"-drop_", 6) == 0)
     {
@@ -2181,6 +2213,11 @@ BOOL LASfilter::parse(int argc, char* argv[])
       else if (strcmp(argv[i],"-drop_middle") == 0)
       {
         add_criterion(new LAScriterionDropMiddleReturn());
+        *argv[i]='\0';
+      }
+      else if (strcmp(argv[i],"-drop_second_last") == 0)
+      {
+        add_criterion(new LAScriterionDropSecondLast());
         *argv[i]='\0';
       }
       else if (strncmp(argv[i],"-drop_class", 11) == 0)
@@ -2823,6 +2860,16 @@ BOOL LASfilter::parse(int argc, char* argv[])
           add_criterion(new LAScriterionDropAttributeBetween(atoi(argv[i+1]), atof(argv[i+2]), atof(argv[i+3])));
           *argv[i]='\0'; *argv[i+1]='\0'; *argv[i+2]='\0'; *argv[i+3]='\0'; i+=3;
         }
+      }
+      else if (strcmp(argv[i],"-drop_scanner_channel") == 0)
+      {
+        if ((i+1) >= argc)
+        {
+          fprintf(stderr,"ERROR: '%s' needs 1 argument: number\n", argv[i]);
+          return FALSE;
+        }
+        add_criterion(new LAScriterionDropScannerChannel((I32)atof(argv[i+1])));
+        *argv[i]='\0'; *argv[i+1]='\0'; i+=1;
       }
     }
     else if (strcmp(argv[i],"-first_only") == 0)

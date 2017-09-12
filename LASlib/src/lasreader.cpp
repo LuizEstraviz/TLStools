@@ -1637,8 +1637,8 @@ BOOL LASreadOpener::parse(int argc, char* argv[])
         fprintf(stderr,"ERROR: '%s' needs 1 argument: base name\n", argv[i]);
         return FALSE;
       }
-      i++;
-      temp_file_base = argv[i];
+      temp_file_base = strdup(argv[i+1]);
+      *argv[i]='\0'; *argv[i+1]='\0'; i+=1;
     }
     else if (strcmp(argv[i],"-neighbors") == 0)
     {
@@ -1807,6 +1807,28 @@ const CHAR* LASreadOpener::get_file_name() const
   if (file_name_number)
     return file_names[0];
   return 0;
+}
+
+const CHAR* LASreadOpener::get_file_name_only() const
+{
+  const CHAR* file_name_only = 0;
+  const CHAR* file_name_curr = get_file_name();
+
+  if (file_name_curr)
+  {
+    int len = strlen(file_name_curr);
+    while ((len > 0) && (file_name_curr[len] != '\\') && (file_name_curr[len] != '/') && (file_name_curr[len] != ':')) len--;
+    if (len)
+    {
+      file_name_only = file_name_curr + len + 1;
+    }
+    else
+    {
+      file_name_only = file_name_curr;
+    }
+  }
+
+  return file_name_only;
 }
 
 const CHAR* LASreadOpener::get_file_name(U32 number) const
@@ -2312,4 +2334,5 @@ LASreadOpener::~LASreadOpener()
   if (inside_rectangle) delete [] inside_rectangle;
   if (filter) delete filter;
   if (transform) delete transform;
+  if (temp_file_base) free(temp_file_base);
 }

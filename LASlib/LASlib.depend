@@ -1,50 +1,50 @@
 # depslib dependency file v1.0
-1478697348 source:c:\users\tiago\github\las2rings\laszip\src\arithmeticdecoder.cpp
+1487243502 source:c:\users\tiago\desktop\tlstools\laszip\src\arithmeticdecoder.cpp
 	"arithmeticdecoder.hpp"
 	<string.h>
 	<assert.h>
 	"arithmeticmodel.hpp"
 
-1478697348 c:\users\tiago\github\las2rings\laszip\src\arithmeticdecoder.hpp
+1487243502 c:\users\tiago\desktop\tlstools\laszip\src\arithmeticdecoder.hpp
 	"mydefs.hpp"
 	"bytestreamin.hpp"
 
-1478697348 c:\users\tiago\github\las2rings\laszip\src\mydefs.hpp
+1487243502 c:\users\tiago\desktop\tlstools\laszip\src\mydefs.hpp
 
-1478697348 c:\users\tiago\github\las2rings\laszip\src\bytestreamin.hpp
+1487243502 c:\users\tiago\desktop\tlstools\laszip\src\bytestreamin.hpp
 	"mydefs.hpp"
 
-1478697348 c:\users\tiago\github\las2rings\laszip\src\arithmeticmodel.hpp
+1487243502 c:\users\tiago\desktop\tlstools\laszip\src\arithmeticmodel.hpp
 	<stdio.h>
 	<stdlib.h>
 	"mydefs.hpp"
 
-1478697348 source:c:\users\tiago\github\las2rings\laszip\src\arithmeticencoder.cpp
+1487243502 source:c:\users\tiago\desktop\tlstools\laszip\src\arithmeticencoder.cpp
 	"arithmeticencoder.hpp"
 	<string.h>
 	<assert.h>
 	<stdio.h>
 	"arithmeticmodel.hpp"
 
-1478697348 c:\users\tiago\github\las2rings\laszip\src\arithmeticencoder.hpp
+1487243502 c:\users\tiago\desktop\tlstools\laszip\src\arithmeticencoder.hpp
 	"mydefs.hpp"
 	"bytestreamout.hpp"
 
-1478697348 c:\users\tiago\github\las2rings\laszip\src\bytestreamout.hpp
+1487243502 c:\users\tiago\desktop\tlstools\laszip\src\bytestreamout.hpp
 	"mydefs.hpp"
 
-1478697348 source:c:\users\tiago\github\las2rings\laszip\src\arithmeticmodel.cpp
+1487243502 source:c:\users\tiago\desktop\tlstools\laszip\src\arithmeticmodel.cpp
 	"arithmeticmodel.hpp"
 	<stdio.h>
 	<stdlib.h>
 
-1478697348 source:c:\users\tiago\github\las2rings\laszip\src\integercompressor.cpp
+1487243502 source:c:\users\tiago\desktop\tlstools\laszip\src\integercompressor.cpp
 	"integercompressor.hpp"
 	<stdlib.h>
 	<assert.h>
 	<math.h>
 
-1478697348 c:\users\tiago\github\las2rings\laszip\src\integercompressor.hpp
+1487243502 c:\users\tiago\desktop\tlstools\laszip\src\integercompressor.hpp
 	"arithmeticencoder.hpp"
 	"arithmeticdecoder.hpp"
 

@@ -1,5 +1,16 @@
+1 February 2017 -- LASlib: better support for OGC WKT strings in VLRs or EVLRs when reading
+1 February 2017 -- LASlib: new transform '-copy_intensity_into_z' for use in lasgrid or lascanopy
+16 January 2017 -- LASlib: support for NAVD88 Geoids when generating OGC WKT string via '-vertical_navd88_geoid12b'
+6 January 2017 -- all LAStools: rudimentary support for Lambert Conic Conformal (1SP) by ignoring scale factor
+6 January 2017 -- all LAStools: more EPSG codes due to updates 'pcs.csv' and 'gcs.csv' files 
+4 January 2017 -- all LAStools: added DHHN92 "Deutsches Haupthoehennetz 1992" for OpenNRW LiDAR (-vertical_dhhn92)
+2 January 2017 -- all LAStools: more support for CRS with "user defined" AlbersEqualArea projection in GeoTIFF tags
+28 November 2016 -- all LAStools: new filters '-keep_second_last' and '-drop_second_last' return 
+13 November 2016 -- all LAStools: early FALSE when setting output directory via '-odir __' will not succeed  
+9 November 2016 -- all LAStools: support CRS via "user defined" AlbersEqualArea projection in GeoTIFF tags
 23 October 2016 -- las2las: OGC WKT string stores COMPD_CS for projection + vertical
 22 October 2016 -- las2las: new '-set_ogc_wkt_in_elvr' store to EVLR instead of VLR
+22 October 2016 -- LASlib: ability to not only read but also write EVLR
 16 October 2016 -- LASlib, las2las: new filters '-keep_attribute_between' and '-drop_attribute_between'
 30 September 2016 -- LASlib, las2las: new filter -keep_NDVI_blue_is_NIR -0.1 0.5 (computed from R of RGB and B = NIR)
 30 September 2016 -- LASlib, las2las: new filter -keep_NDVI_green_is_NIR 0.4 0.8 (computed from R of RGB and G = NIR)

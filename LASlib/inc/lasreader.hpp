@@ -155,6 +155,7 @@ public:
   U32 get_file_name_number() const;
   U32 get_file_name_current() const;
   const CHAR* get_file_name() const;
+  const CHAR* get_file_name_only() const;
   const CHAR* get_file_name(U32 number) const;
   void set_file_name(const CHAR* file_name, BOOL unique=FALSE);
   BOOL add_file_name(const CHAR* file_name, BOOL unique=FALSE);
@@ -224,7 +225,7 @@ private:
   U32 file_name_allocated;
   U32 file_name_current;
   F32 buffer_size;
-  const CHAR* temp_file_base;
+  CHAR* temp_file_base;
   CHAR** neighbor_file_names;
   U32 neighbor_file_name_number;
   U32 neighbor_file_name_allocated;
