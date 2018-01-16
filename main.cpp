@@ -98,39 +98,67 @@ vector<PlotCloudTreeSlice> getTlsMetrics(vector<HoughCenters>& centers){
 //plot-wise
 void plotProcess(CommandLine global){
 
+    vector<HoughCenters> treeMap;
+    Raster ras;
+
     cout << "# getting cloud statistics" << endl;
     CloudStats cstats = getStats(global.file_path);
 
-    cout << "# reading point cloud" << endl;
-    Slice slc = getSlice(global.file_path, global.lower_slice, global.upper_slice, cstats.z_min);
+    std::stringstream ss, ss2;
+    ss << global.lower_slice;
+    ss2 << global.upper_slice;
+    float hLow;
+    float hUp;
+    ss >> hLow;
+    ss2 >> hUp;
 
-    cout << "# rasterizing cloud's slice" << endl;
-    Raster ras = getCounts(&slc, global.pixel_size);
-    /*
-        ofstream raster_file("raster.txt");
+    for(float h = hLow; h <= (hUp - global.height_interval); h += global.height_interval){
 
-        for(unsigned int i = 0; i < ras.y_dim; ++i){
-            for(unsigned int j = 0; j < ras.x_dim; ++j){
-                raster_file << ras.matrix[j][i] << " ";
+        std::stringstream ss, ss2;
+        ss << h;
+        ss2 << (h+global.height_interval);
+        string ht;
+        string ht2;
+        ss >> ht;
+        ss2 >> ht2;
+
+        cout << "# reading point cloud" << endl;
+        Slice slc = getSlice(global.file_path, ht, ht2, cstats.z_min);
+
+        cout << "# rasterizing cloud's slice" << endl;
+        ras = getCounts(&slc, global.pixel_size);
+
+        /*
+            ofstream raster_file("raster.txt");
+
+            for(unsigned int i = 0; i < ras.y_dim; ++i){
+                for(unsigned int j = 0; j < ras.x_dim; ++j){
+                    raster_file << ras.matrix[j][i] << " ";
+                }
+                raster_file << endl;
             }
-            raster_file << endl;
-        }
 
-        raster_file.close();
-    */
-    cout << "# extracting center candidates" << endl;
-    vector<HoughCenters> hough = getCenters(&ras, global.max_radius, global.min_density, global.min_votes);
+            raster_file.close();
+        */
 
-    cout << "# extracting center estimates" << endl;
-    getPreciseCenters(hough);
+        cout << "# extracting center candidates" << endl;
+        vector<HoughCenters> hough = getCenters(&ras, global.max_radius, global.min_density, global.min_votes);
 
-    cout << "# writing cloud of center candidates: " << global.output_las << endl;
-    saveCloud(&hough, (ras.max_z + ras.min_z)/2, global.output_las);
+        cout << "# extracting center estimates" << endl;
+        getPreciseCenters(hough);
 
-    cout << "# writing results: " << global.output_path << endl;
-    saveReport(hough, global.output_path);
+        //treeMap.resize(treeMap.size() + hough.size());
+        treeMap.insert(treeMap.end(), hough.begin(), hough.end());
 
-    cout << "# done" << endl;
+    }
+
+        cout << "# writing cloud of center candidates: " << global.output_las << endl;
+        saveCloud(&treeMap, global.output_las);
+
+        cout << "# writing results: " << global.output_path << endl;
+        saveReport(treeMap, global.output_path);
+
+        cout << "# done" << endl;
 
 }
 
@@ -190,7 +218,7 @@ int main(int argc, char *argv[])
     globalArgs.output_path = " ";
     globalArgs.pixel_size = 0.025;
     globalArgs.single_tree = false;
-    globalArgs.upper_slice = "2.0";
+    globalArgs.upper_slice = "3.0";
     globalArgs.height_interval = 0.5;
 
     int opt = 0;
@@ -267,10 +295,10 @@ int main(int argc, char *argv[])
         printHelp();
         return 0;
     }
-/*
+/**/
     globalArgs.file_path = "lcer.las";
     globalArgs.single_tree = false;
-*/
+/**/
     if(globalArgs.file_path == " "){
         cout << "\n# input file (-i) missing.\n";
         printHelp();

@@ -420,7 +420,7 @@ void saveReport(vector<HoughCenters>& centers, string file_path){
 
 };
 
-void saveCloud(vector<HoughCenters>* coordinates, double pos_z, string file_path){
+void saveCloud(vector<HoughCenters>* coordinates, string file_path){
 
                 string format;
                 unsigned pt = file_path.find_last_of(".");
@@ -448,7 +448,7 @@ void saveCloud(vector<HoughCenters>* coordinates, double pos_z, string file_path
                 laspoint.init(&lasheader, lasheader.point_data_format, lasheader.point_data_record_length, &lasheader);
                 LASwriter* laswriter = laswriteopener.open(&lasheader);
 
-                laspoint.set_z(pos_z);
+                //laspoint.set_z(pos_z);
 
                 vector<HoughCenters>::iterator point;
                 point = coordinates->begin();
@@ -456,6 +456,7 @@ void saveCloud(vector<HoughCenters>* coordinates, double pos_z, string file_path
 
                     vector<HoughCircle>::iterator c_point;
                     c_point = point->circles.begin();
+                    laspoint.set_z( (point->low_z + point->up_z)/2 );
 
                     while(c_point != point->circles.end()){
 

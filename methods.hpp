@@ -34,7 +34,7 @@ void getPreciseCenters(vector<HoughCenters>& circles);
 
 void saveReport(vector<HoughCenters>& centers, string file_path = "result.txt");
 
-void saveCloud(vector<HoughCenters>* coordinates, double pos_z = 1.5, string file_path = "cloud.laz");
+void saveCloud(vector<HoughCenters>* coordinates, string file_path = "cloud.laz");
 
 
 vector<Slice> sliceList(string file, CloudStats& props, float z_interval = 0.5);
