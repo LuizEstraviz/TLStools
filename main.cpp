@@ -152,13 +152,13 @@ void plotProcess(CommandLine global){
 
     }
 
-        cout << "# writing cloud of center candidates: " << global.output_las << endl;
-        saveCloud(&treeMap, global.output_las);
+    cout << "# writing cloud of center candidates: " << global.output_las << endl;
+    saveCloud(&treeMap, global.output_las);
 
-        cout << "# writing results: " << global.output_path << endl;
-        saveReport(treeMap, global.output_path);
+    cout << "# writing results: " << global.output_path << endl;
+    saveReport(treeMap, global.output_path);
 
-        cout << "# done" << endl;
+    cout << "# done" << endl;
 
 }
 

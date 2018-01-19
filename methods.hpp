@@ -1,5 +1,5 @@
-#ifndef PLOT_METHODS_HPP_INCLUDED
-#define PLOT_METHODS_HPP_INCLUDED
+#ifndef METHODS_HPP_INCLUDED
+#define METHODS_HPP_INCLUDED
 
 #include <vector>
 #include <string>
