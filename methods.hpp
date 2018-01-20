@@ -20,7 +20,7 @@ vector<double> absCenter(int x, int y, double min_x, double min_y, float step);
 vector<int> pixPosition(double x, double y, double min_x, double min_y, float step);
 
 //returns all points in between two heights and their x,y range
-Slice getSlice(string file, string lower = "1.0", string upper = "2.0", float zfloor = 0);
+Slice getSlice(string file, string lower = "1.0", string upper = "2.0", float zfloor = 0, bool clipTree = false, float xCenter = 0, float yCenter = 0, float centerRadius = 1.2);
 
 //returns a matrix of counts and maximum count value
 Raster getCounts(Slice* slice , float pixel_size = 0.025, double x_mid = 0, double y_mid = 0, double d_mid = -1);
@@ -37,11 +37,11 @@ void saveReport(vector<HoughCenters>& centers, string file_path = "result.txt");
 void saveCloud(vector<HoughCenters>* coordinates, string file_path = "cloud.laz");
 
 
-vector<Slice> sliceList(string file, CloudStats& props, float z_interval = 0.5);
+vector<Slice> sliceList(string file, CloudStats& props, float z_interval = 0.5, bool clipTree = false, float xCenter = 0, float yCenter = 0, float centerRadius = 1.2);
 
 int getMainEstimate(vector<HoughCenters>& circlesList);
 
-StemSegment baselineStats(CloudStats& stats, CommandLine global);
+StemSegment baselineStats(CloudStats& stats, CommandLine global, bool clipTree = false, float xCenter = 0, float yCenter = 0, float centerRadius = 1.2);
 
 StemSegment getSegment(Slice& slc, CommandLine global, float xm, float ym, float dm);
 
@@ -49,5 +49,6 @@ void saveStemReport(vector<StemSegment>& sections, string file_path = "stem.txt"
 
 void saveStemCloud(vector<StemSegment>& stem, vector<Slice>& tree, double pixel_size=0.025 ,string file_path = "stem_cloud.laz");
 
+vector<StemSegment> stemPoints(StemSegment& base, vector<Slice>& pieces, CommandLine global);
 
 #endif // METHODS_HPP_INCLUDED

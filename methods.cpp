@@ -131,9 +131,8 @@ vector<int> pixPosition(double x, double y, double min_x, double min_y, float st
 //plot and tree methods
 //---------------------
 
-
 //returns all points in between two heights and their x,y range
-Slice getSlice(string file, string lower, string upper, float zfloor){
+Slice getSlice(string file, string lower, string upper, float zfloor, bool clipTree, float xCenter, float yCenter, float centerRadius){
 
     float lpf = atof(lower.c_str()) + zfloor;
     float upf = atof(upper.c_str()) + zfloor;
@@ -173,12 +172,18 @@ Slice getSlice(string file, string lower, string upper, float zfloor){
     double x;
     double y;
     double z;
+    double xyDist;
 
     while(lasreader->read_point()){
 
         x = lasreader->get_x();
         y = lasreader->get_y();
         z = lasreader->get_z();
+
+        if(clipTree){
+            xyDist = sqrt( pow(x - xCenter, 2) + pow(y - yCenter, 2) );
+            if(xyDist > centerRadius) continue;
+        }
 
         if(i == 0){
            min_x = max_x = x;
@@ -397,8 +402,6 @@ void getPreciseCenters(vector<HoughCenters>& circles){
 
 };
 
-
-
 void saveReport(vector<HoughCenters>& centers, string file_path){
 
         ofstream result_file(file_path);
@@ -477,11 +480,17 @@ void saveCloud(vector<HoughCenters>* coordinates, string file_path){
 
 }
 
+void saveStemsOnly(vector<vector<StemSegment>> stemsList){
+
+
+
+}
+
 ////////////////////////
 // single tree functions
 ////////////////////////
 
-vector<Slice> sliceList(string file, CloudStats& props, float z_interval){
+vector<Slice> sliceList(string file, CloudStats& props, float z_interval, bool clipTree, float xCenter, float yCenter, float centerRadius){
 
     vector<double> heights = {};
     Slice s1;
@@ -500,12 +509,19 @@ vector<Slice> sliceList(string file, CloudStats& props, float z_interval){
     LASreader* lasreader = lasreadopener.open();
 
     double x, y, z;
+    double xyDist;
+
 
     while(lasreader->read_point()){
 
         x = lasreader->get_x();
         y = lasreader->get_y();
         z = lasreader->get_z();
+
+        if(clipTree){
+            xyDist = sqrt( pow(x - xCenter, 2) + pow(y - yCenter, 2) );
+            if(xyDist > centerRadius) continue;
+        }
 
         si = floor( (z - props.z_min) / z_interval );
         if(si < 0) si = 0;
@@ -541,7 +557,7 @@ int getMainEstimate(vector<HoughCenters>& circlesList){
 
 }
 
-StemSegment baselineStats(CloudStats& stats, CommandLine global){
+StemSegment baselineStats(CloudStats& stats, CommandLine global, bool clipTree, float xCenter, float yCenter, float centerRadius){
 /*
     double h1 = atof(global.lower_slice.c_str());
     double h2 = atof(global.upper_slice.c_str());
@@ -553,7 +569,7 @@ StemSegment baselineStats(CloudStats& stats, CommandLine global){
     std::string sh1(ssh1.str());
     std::string sh2(ssh2.str());
 */
-    Slice base =  getSlice(global.file_path, global.lower_slice, global.upper_slice, stats.z_min);
+    Slice base =  getSlice(global.file_path, global.lower_slice, global.upper_slice, stats.z_min, clipTree, xCenter, yCenter, centerRadius);
 
     Raster raster = getCounts(&base, global.pixel_size);
 
@@ -686,5 +702,26 @@ void saveStemCloud(vector<StemSegment>& stem, vector<Slice>& tree, double pixel_
                 laswriter->close(TRUE);
 
                 delete laswriter;
+
+}
+
+vector<StemSegment> stemPoints(StemSegment& base, vector<Slice>& pieces, CommandLine global){
+
+    float xt = base.model_circle.x_center;
+    float yt = base.model_circle.y_center;
+    float dt = base.model_circle.radius + global.pixel_size*4;
+
+    vector<StemSegment> stem_sections = {};
+
+    for( unsigned i = 0; i < pieces.size(); ++i){
+        StemSegment temp = getSegment(pieces[i], global, xt, yt, dt);
+        xt = temp.model_circle.x_center;
+        yt = temp.model_circle.y_center;
+        dt = (temp.model_circle.radius >= (dt + global.pixel_size) ) ? dt : (temp.model_circle.radius + global.pixel_size*3);
+
+        stem_sections.push_back(temp);
+    }
+
+    return stem_sections;
 
 }

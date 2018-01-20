@@ -128,19 +128,6 @@ void plotProcess(CommandLine global){
         cout << "# rasterizing cloud's slice" << endl;
         ras = getCounts(&slc, global.pixel_size);
 
-        /*
-            ofstream raster_file("raster.txt");
-
-            for(unsigned int i = 0; i < ras.y_dim; ++i){
-                for(unsigned int j = 0; j < ras.x_dim; ++j){
-                    raster_file << ras.matrix[j][i] << " ";
-                }
-                raster_file << endl;
-            }
-
-            raster_file.close();
-        */
-
         cout << "# extracting center candidates" << endl;
         vector<HoughCenters> hough = getCenters(&ras, global.max_radius, global.min_density, global.min_votes);
 
@@ -157,6 +144,25 @@ void plotProcess(CommandLine global){
 
     cout << "# writing results: " << global.output_path << endl;
     saveReport(treeMap, global.output_path);
+
+
+    cout << "## TESTANDO ..." << endl;
+
+    vector<vector<StemSegment>> trees;
+    for(int i = 0; i < treeMap.size(); ++i){
+        HoughCenters& temp = treeMap[i];
+        cout << temp.avg_x << " : " << temp.avg_y << endl;
+
+        cout << "## baseline" << endl;
+        StemSegment base = baselineStats(cstats, global, true, temp.avg_x, temp.avg_y, 1.2);
+
+        cout << "## pieces" << endl;
+        vector<Slice> pieces = sliceList(global.file_path, cstats, global.height_interval, true, temp.avg_x, temp.avg_y, 1.2);
+
+        cout << "## points" << endl;
+        vector<StemSegment> bole = stemPoints(base, pieces, global);
+        trees.push_back(bole);
+    }
 
     cout << "# done" << endl;
 
