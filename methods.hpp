@@ -51,4 +51,6 @@ void saveStemCloud(vector<StemSegment>& stem, vector<Slice>& tree, double pixel_
 
 vector<StemSegment> stemPoints(StemSegment& base, vector<Slice>& pieces, CommandLine global);
 
+void saveStemsOnly(vector<vector<StemSegment>>& stemsList, string file_path = "teste.txt");
+
 #endif // METHODS_HPP_INCLUDED

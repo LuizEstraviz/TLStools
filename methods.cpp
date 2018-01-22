@@ -145,7 +145,7 @@ Slice getSlice(string file, string lower, string upper, float zfloor, bool clipT
     ssu << upf;
     upper = ssu.str();
 
-    cout << "Z Range: " << lower << " : " << upper << endl;
+    //cout << "Z Range: " << lower << " : " << upper << endl;
 
     unsigned last_dot = file.find_last_of(".");
     string file_format = file.substr(last_dot+1, file.length());
@@ -480,15 +480,34 @@ void saveCloud(vector<HoughCenters>* coordinates, string file_path){
 
 }
 
-void saveStemsOnly(vector<vector<StemSegment>> stemsList){
+void saveStemsOnly(vector<vector<StemSegment>>& stemsList, string file_path){
 
+    ofstream result_file(file_path);
 
+    result_file << "x   y   rad   votes   z_min   z_max   points" << endl;
 
+    for(auto i = stemsList.begin(); i != stemsList.end(); ++i){
+        for(auto j = i->begin(); j != i->end(); ++j){
+           result_file <<
+                j->model_circle.x_center << "   " <<
+                j->model_circle.y_center << "   " <<
+                j->model_circle.radius << "   " <<
+                j->model_circle.n_votes << "   " <<
+                j->z_min << "   " <<
+                j->z_max << "   " <<
+                j->n_points << "   "
+            << endl;
+        }
+    }
+
+    result_file.close();
 }
 
 ////////////////////////
 // single tree functions
 ////////////////////////
+
+
 
 vector<Slice> sliceList(string file, CloudStats& props, float z_interval, bool clipTree, float xCenter, float yCenter, float centerRadius){
 
@@ -501,7 +520,15 @@ vector<Slice> sliceList(string file, CloudStats& props, float z_interval, bool c
     int si = 0;
     for(double i = props.z_min; i < props.z_max + z_interval; i+=z_interval){
         heights.push_back(i);
-        if(i < props.z_max) slices[si++].dims = {props.x_max, props.x_min, props.y_max, props.y_min, i, i+z_interval};
+        if(i < props.z_max && !clipTree){
+
+          slices[si++].dims = {props.x_max, props.x_min, props.y_max, props.y_min, i, i+z_interval};
+
+        }else if(i < props.z_max && clipTree){
+
+          slices[si++].dims = {xCenter, xCenter, yCenter, yCenter, i, i+z_interval};
+
+        }
     }
 
     LASreadOpener lasreadopener;
@@ -538,7 +565,13 @@ vector<Slice> sliceList(string file, CloudStats& props, float z_interval, bool c
     lasreader->close();
     delete lasreader;
 
-    return slices;
+    vector<Slice> returnSlices;
+    for(std::vector<Slice>::iterator it = slices.begin(); it != slices.end(); ++it){
+        if(it->slice.size() < 5) continue;
+        returnSlices.push_back( (*it) );
+    }
+
+    return returnSlices;
 
 }
 
@@ -710,16 +743,46 @@ vector<StemSegment> stemPoints(StemSegment& base, vector<Slice>& pieces, Command
     float xt = base.model_circle.x_center;
     float yt = base.model_circle.y_center;
     float dt = base.model_circle.radius + global.pixel_size*4;
-
     vector<StemSegment> stem_sections = {};
 
-    for( unsigned i = 0; i < pieces.size(); ++i){
-        StemSegment temp = getSegment(pieces[i], global, xt, yt, dt);
-        xt = temp.model_circle.x_center;
-        yt = temp.model_circle.y_center;
-        dt = (temp.model_circle.radius >= (dt + global.pixel_size) ) ? dt : (temp.model_circle.radius + global.pixel_size*3);
+    for(unsigned i = 0; i < pieces.size(); ++i){
 
-        stem_sections.push_back(temp);
+        //cout << "stem slice " << i << endl;
+
+        Slice* temp = &pieces[i];
+
+        Raster ras = getCounts(temp, global.pixel_size);
+
+        vector<HoughCenters> hough = getCenters(&ras, dt, global.min_density, global.min_votes);
+
+        getPreciseCenters(hough);
+
+        if(hough.size() < 1) continue;
+
+        int nCircle = 0;
+        int nVotes  = -1;
+        for(int j = 0; j < hough.size(); ++j){
+            HoughCenters* it = &hough[j];
+            int nv = it->circles[it->main_circle].n_votes;
+            if(nv > nVotes){
+                nVotes  = nv;
+                nCircle = j;
+            }
+        }
+
+        int id = hough[nCircle].main_circle;
+
+        if(ras.max_z > base.z_max){
+            dt = hough[nCircle].circles[id].radius + global.pixel_size*1;
+        }
+
+        StemSegment mainBolePiece;
+        mainBolePiece.model_circle = hough[nCircle].circles[id];
+        mainBolePiece.n_points     = temp->slice.size();
+        mainBolePiece.z_max        = ras.max_z;
+        mainBolePiece.z_min        = ras.min_z;
+
+        stem_sections.push_back(mainBolePiece);
     }
 
     return stem_sections;

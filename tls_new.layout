@@ -1,47 +1,51 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
-	<ActiveTarget name="Debug" />
-	<File name="main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-2" zoom_2="0">
+	<ActiveTarget name="Release" />
+	<File name="methods.hpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="-2" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4989" topLine="86" />
+			<Cursor1 position="2380" topLine="35" />
 		</Cursor>
-		<Folding>
-			<Collapse line="27" />
-			<Collapse line="48" />
-			<Collapse line="72" />
-		</Folding>
-	</File>
-	<File name="methods.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="-3" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="21734" topLine="190" />
-		</Cursor>
-		<Folding>
-			<Collapse line="28" />
-			<Collapse line="37" />
-			<Collapse line="113" />
-			<Collapse line="121" />
-			<Collapse line="216" />
-			<Collapse line="267" />
-			<Collapse line="287" />
-			<Collapse line="393" />
-			<Collapse line="404" />
-			<Collapse line="425" />
-			<Collapse line="492" />
-			<Collapse line="544" />
-			<Collapse line="559" />
-			<Collapse line="626" />
-			<Collapse line="649" />
-		</Folding>
 	</File>
 	<File name="classes.hpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="-2" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="3003" topLine="39" />
 		</Cursor>
 	</File>
-	<File name="methods.hpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="-2" zoom_2="0">
+	<File name="main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-2" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2285" topLine="32" />
+			<Cursor1 position="412" topLine="96" />
 		</Cursor>
+		<Folding>
+			<Collapse line="27" />
+			<Collapse line="48" />
+			<Collapse line="72" />
+			<Collapse line="179" />
+		</Folding>
+	</File>
+	<File name="methods.cpp" open="1" top="1" tabpos="3" split="0" active="1" splitpos="0" zoom_1="-3" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="14856" topLine="57" />
+		</Cursor>
+		<Folding>
+			<Collapse line="28" />
+			<Collapse line="37" />
+			<Collapse line="113" />
+			<Collapse line="121" />
+			<Collapse line="134" />
+			<Collapse line="216" />
+			<Collapse line="267" />
+			<Collapse line="287" />
+			<Collapse line="393" />
+			<Collapse line="404" />
+			<Collapse line="425" />
+			<Collapse line="511" />
+			<Collapse line="577" />
+			<Collapse line="592" />
+			<Collapse line="623" />
+			<Collapse line="659" />
+			<Collapse line="682" />
+			<Collapse line="740" />
+		</Folding>
 	</File>
 </CodeBlocks_layout_file>

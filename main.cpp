@@ -150,19 +150,27 @@ void plotProcess(CommandLine global){
 
     vector<vector<StemSegment>> trees;
     for(int i = 0; i < treeMap.size(); ++i){
+        cout << "\ntree " << i+1 << " of " << treeMap.size() << endl;
+
         HoughCenters& temp = treeMap[i];
-        cout << temp.avg_x << " : " << temp.avg_y << endl;
+        cout << "center: " << temp.avg_x << " , " << temp.avg_y << endl;
 
-        cout << "## baseline" << endl;
         StemSegment base = baselineStats(cstats, global, true, temp.avg_x, temp.avg_y, 1.2);
+        cout << "props: " <<
+        base.model_circle.x_center << " , " <<
+        base.model_circle.y_center << " , " <<
+        base.model_circle.radius << " , " <<
+        base.model_circle.n_votes << endl;
 
-        cout << "## pieces" << endl;
-        vector<Slice> pieces = sliceList(global.file_path, cstats, global.height_interval, true, temp.avg_x, temp.avg_y, 1.2);
+        vector<Slice> pieces = sliceList(global.file_path, cstats, global.height_interval, true, temp.avg_x, temp.avg_y, global.max_radius*3);
+        cout << "chunks: " << pieces.size() << endl;
 
-        cout << "## points" << endl;
+        //cout << "## points" << endl;
         vector<StemSegment> bole = stemPoints(base, pieces, global);
         trees.push_back(bole);
     }
+
+    saveStemsOnly(trees);
 
     cout << "# done" << endl;
 
