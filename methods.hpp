@@ -7,6 +7,9 @@
 
 using namespace std;
 
+template <typename NumberType>
+string number2string(NumberType number);
+
 //output suffix
 string outputNameAppend(string path, string suffix = "_result.txt");
 
@@ -51,7 +54,7 @@ void saveStemCloud(vector<StemSegment>& stem, vector<Slice>& tree, double pixel_
 
 vector<StemSegment> stemPoints(StemSegment& base, vector<Slice>& pieces, CommandLine global);
 
-void saveStemsOnly(vector<vector<StemSegment>>& stemsList, string file_path = "teste.txt");
+void saveStemsOnly(vector<vector<StemSegment>>& stemsList, string input_path, string file_path = "teste.txt", string cloud_path = "teste.laz");
 
 vector<vector<HoughCircle*>> isolateSingleTrees(vector<HoughCenters>& roughTreeMap, float maxDist = 0.5, int minLayers = 3);
 

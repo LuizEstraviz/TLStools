@@ -112,7 +112,10 @@ void plotProcess(CommandLine global){
     ss >> hLow;
     ss2 >> hUp;
 
+    cout << "# mapping tree positions" << endl;
     for(float h = hLow; h <= (hUp - global.height_interval); h += global.height_interval){
+
+        cout << "## layer " << 1 + ( h - hLow ) / global.height_interval << endl;
 
         std::stringstream ss, ss2;
         ss << h;
@@ -122,16 +125,16 @@ void plotProcess(CommandLine global){
         ss >> ht;
         ss2 >> ht2;
 
-        cout << "# reading point cloud" << endl;
+        //cout << "# reading point cloud" << endl;
         Slice slc = getSlice(global.file_path, ht, ht2, cstats.z_min);
 
-        cout << "# rasterizing cloud's slice" << endl;
+        //cout << "# rasterizing cloud's slice" << endl;
         ras = getCounts(&slc, global.pixel_size);
 
-        cout << "# extracting center candidates" << endl;
+        //cout << "# extracting center candidates" << endl;
         vector<HoughCenters> hough = getCenters(&ras, global.max_radius, global.min_density, global.min_votes);
 
-        cout << "# extracting center estimates" << endl;
+        //cout << "# extracting center estimates" << endl;
         getPreciseCenters(hough);
 
         //treeMap.resize(treeMap.size() + hough.size());
@@ -146,10 +149,12 @@ void plotProcess(CommandLine global){
     saveReport(treeMap, global.output_path);
 
 
-    cout << "## TESTANDO ..." << endl;
+    cout << "# extracting main coordinate per tree" << endl;
+    int nLayers = 0.75 * (hUp - hLow) / global.height_interval;
+    vector<vector<HoughCircle*>> singleTreeMap = isolateSingleTrees(treeMap, global.max_radius * 2, nLayers);
 
-    vector<vector<HoughCircle*>> singleTreeMap = isolateSingleTrees(treeMap);
 
+    cout << "# getting trunk statistics" << endl;
     vector<vector<StemSegment>> trees;
     for(int i = 0; i < singleTreeMap.size(); ++i){
         cout << "\ntree " << i+1 << " of " << singleTreeMap.size() << endl;
@@ -175,7 +180,10 @@ void plotProcess(CommandLine global){
         trees.push_back(bole);
     }
 
-    saveStemsOnly(trees);
+    cout << endl;
+
+    cout << "# writing tree-wise statistics" << endl;
+    saveStemsOnly(trees, global.file_path);
 
     cout << "# done" << endl;
 
@@ -313,10 +321,10 @@ int main(int argc, char *argv[])
         printHelp();
         return 0;
     }
-/**/
+/*
     globalArgs.file_path = "lcer.las";
     globalArgs.single_tree = false;
-/**/
+*/
     if(globalArgs.file_path == " "){
         cout << "\n# input file (-i) missing.\n";
         printHelp();
