@@ -509,34 +509,42 @@ void saveStemsOnly(vector<vector<StemSegment>>& stemsList, string file_path){
     result_file.close();
 }
 
-void isolateSingleTrees(vector<HoughCenters>& roughTreeMap, float maxDist){
+vector<vector<HoughCircle*>> isolateSingleTrees(vector<HoughCenters>& roughTreeMap, float maxDist, int minLayers){
 
-    vector<MultiLayerCircle> mainCircles;
+    vector<vector<HoughCircle*>> circleClusters;
+    HoughCircle* temp = &roughTreeMap[0].circles[ roughTreeMap[0].main_circle ];
 
-    MultiLayerCircle firstCircle;
-    firstCircle.x_center = roughTreeMap[0].getMainCircle().x_center;
-    firstCircle.y_center = roughTreeMap[0].getMainCircle().y_center;
-    firstCircle.n_votes  = roughTreeMap[0].getMainCircle().n_votes;
-    firstCircle.radius   = roughTreeMap[0].getMainCircle().radius;
-    firstCircle.upper_heights.push_back( roughTreeMap[0].up_z );
+    circleClusters.push_back( { temp } );
 
-    mainCircles.push_back( firstCircle );
+    for(int i = 1; i < roughTreeMap.size(); ++i){
 
-    for(int i = roughTreeMap.size() - 1; i >= 0; --i){
-        HoughCenters temp = roughTreeMap[i];
+        temp = &roughTreeMap[i].circles[ roughTreeMap[i].main_circle ];
 
-        for(int j = 0; j < mainCircles.size(); ++j){
-            MultiLayerCircle tempLayer = mainCircles[j];
+        bool broken = false;
+        for(vector<vector<HoughCircle*>>::iterator j = circleClusters.begin(); j != circleClusters.end(); j++ ){
+            for(vector<HoughCircle*>::iterator k = j->begin(); k != j->end(); k++){
 
-            float eucDist = sqrt( pow(tempLayer.x_center - temp.getMainCircle() ) );
-            if(){
+                float euclidean = sqrt( pow(temp->x_center - (**k).x_center , 2) + pow(temp->y_center - (**k).y_center , 2) );
+                if(euclidean <= maxDist){
+                    j->push_back( temp );
+                    broken = true;
+                    break;
+                }
 
             }
 
+            if(broken){
+                break;
+            }
+        }
+
+        if(!broken){
+            circleClusters.push_back( { temp } );
         }
 
     }
 
+    return circleClusters;
 }
 
 ////////////////////////

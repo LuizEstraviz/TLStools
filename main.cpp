@@ -148,23 +148,26 @@ void plotProcess(CommandLine global){
 
     cout << "## TESTANDO ..." << endl;
 
-    isolateSingleTrees(treeMap);
+    vector<vector<HoughCircle*>> singleTreeMap = isolateSingleTrees(treeMap);
 
     vector<vector<StemSegment>> trees;
-    for(int i = 0; i < treeMap.size(); ++i){
-        cout << "\ntree " << i+1 << " of " << treeMap.size() << endl;
+    for(int i = 0; i < singleTreeMap.size(); ++i){
+        cout << "\ntree " << i+1 << " of " << singleTreeMap.size() << endl;
 
-        HoughCenters& temp = treeMap[i];
-        cout << "center: " << temp.avg_x << " , " << temp.avg_y << endl;
+        vector<HoughCircle*> temp = singleTreeMap[i];
 
-        StemSegment base = baselineStats(cstats, global, true, temp.avg_x, temp.avg_y, 1.2);
+        float xBase = temp[0]->x_center;
+        float yBase = temp[0]->y_center;
+        cout << "center: " << xBase << " , " << yBase << endl;
+
+        StemSegment base = baselineStats(cstats, global, true, xBase, yBase, 1.2);
         cout << "props: " <<
         base.model_circle.x_center << " , " <<
         base.model_circle.y_center << " , " <<
         base.model_circle.radius << " , " <<
         base.model_circle.n_votes << endl;
 
-        vector<Slice> pieces = sliceList(global.file_path, cstats, global.height_interval, true, temp.avg_x, temp.avg_y, global.max_radius*3);
+        vector<Slice> pieces = sliceList(global.file_path, cstats, global.height_interval, true, xBase, yBase, global.max_radius*3);
         cout << "chunks: " << pieces.size() << endl;
 
         //cout << "## points" << endl;
