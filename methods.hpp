@@ -53,4 +53,6 @@ vector<StemSegment> stemPoints(StemSegment& base, vector<Slice>& pieces, Command
 
 void saveStemsOnly(vector<vector<StemSegment>>& stemsList, string file_path = "teste.txt");
 
+void isolateSingleTrees(vector<HoughCenters>& roughTreeMap, float maxDist = 0.5);
+
 #endif // METHODS_HPP_INCLUDED

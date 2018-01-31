@@ -148,6 +148,8 @@ void plotProcess(CommandLine global){
 
     cout << "## TESTANDO ..." << endl;
 
+    isolateSingleTrees(treeMap);
+
     vector<vector<StemSegment>> trees;
     for(int i = 0; i < treeMap.size(); ++i){
         cout << "\ntree " << i+1 << " of " << treeMap.size() << endl;
@@ -214,7 +216,6 @@ void treeProcess(CommandLine global){
     cout << "# done" << endl;
 
 }
-
 
 
 

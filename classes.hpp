@@ -83,6 +83,12 @@ class HoughCircle{
         int n_votes;
 };
 
+class MultiLayerCircle: public HoughCircle{
+    public:
+        int n_layers;
+        vector<float> upper_heights;
+};
+
 class HoughCenters{
     public:
         vector<HoughCircle> circles;

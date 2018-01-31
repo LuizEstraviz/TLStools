@@ -484,11 +484,17 @@ void saveStemsOnly(vector<vector<StemSegment>>& stemsList, string file_path){
 
     ofstream result_file(file_path);
 
-    result_file << "x   y   rad   votes   z_min   z_max   points" << endl;
+    result_file << "tree   x   y   rad   votes   z_min   z_max   points" << endl;
+
+    int counter = 0;
 
     for(auto i = stemsList.begin(); i != stemsList.end(); ++i){
+
+        counter++;
+
         for(auto j = i->begin(); j != i->end(); ++j){
            result_file <<
+                counter << "   " <<
                 j->model_circle.x_center << "   " <<
                 j->model_circle.y_center << "   " <<
                 j->model_circle.radius << "   " <<
@@ -503,11 +509,39 @@ void saveStemsOnly(vector<vector<StemSegment>>& stemsList, string file_path){
     result_file.close();
 }
 
+void isolateSingleTrees(vector<HoughCenters>& roughTreeMap, float maxDist){
+
+    vector<MultiLayerCircle> mainCircles;
+
+    MultiLayerCircle firstCircle;
+    firstCircle.x_center = roughTreeMap[0].getMainCircle().x_center;
+    firstCircle.y_center = roughTreeMap[0].getMainCircle().y_center;
+    firstCircle.n_votes  = roughTreeMap[0].getMainCircle().n_votes;
+    firstCircle.radius   = roughTreeMap[0].getMainCircle().radius;
+    firstCircle.upper_heights.push_back( roughTreeMap[0].up_z );
+
+    mainCircles.push_back( firstCircle );
+
+    for(int i = roughTreeMap.size() - 1; i >= 0; --i){
+        HoughCenters temp = roughTreeMap[i];
+
+        for(int j = 0; j < mainCircles.size(); ++j){
+            MultiLayerCircle tempLayer = mainCircles[j];
+
+            float eucDist = sqrt( pow(tempLayer.x_center - temp.getMainCircle() ) );
+            if(){
+
+            }
+
+        }
+
+    }
+
+}
+
 ////////////////////////
 // single tree functions
 ////////////////////////
-
-
 
 vector<Slice> sliceList(string file, CloudStats& props, float z_interval, bool clipTree, float xCenter, float yCenter, float centerRadius){
 
