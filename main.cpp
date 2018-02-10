@@ -23,13 +23,11 @@ using namespace std;
 /*************************************************************************************************************/
 CommandLine globalArgs;
 
-static const char *optString = "i:o:tsl:u:p:r:d:v:O:z:h?";
+static const char *optString = "i:o:l:u:p:r:d:v:O:z:h?";
 
 static const struct option longOpts[] = {
     { "input", required_argument, NULL, 'i' },
     { "output", required_argument, NULL, 'o' },
-    { "tree", no_argument, NULL, 't' },
-    { "one-slice", no_argument, NULL, 's' },
     { "lower", required_argument, NULL, 'l' },
     { "upper", required_argument, NULL, 'u' },
     { "pixel", required_argument, NULL, 'p' },
@@ -39,6 +37,8 @@ static const struct option longOpts[] = {
     { "output-cloud", required_argument, NULL, 'O' },
     { "help", no_argument, NULL, 'h' },
     { "height-int", required_argument, NULL, 'z' },
+    { "stack-stats", required_argument, NULL, 0},
+    { "stack-cloud", required_argument, NULL, 0},
     {NULL, no_argument, NULL, 0}
 };
 
@@ -51,18 +51,19 @@ void printHelp(){
     cout <<
         "\n# /*** TLStools - las2rings ***/\n# /*** Command line arguments ***/\n\n"
         "# -i --input         : input file path\n"
-        "# -o --output        : output file path (.txt)\n"
-        "# -t --tree          : is single tree\n"
-        "# -s --one-slice     : take only one slice\n"
+        "# -o --output        : output results file path (.txt)\n"
+        "# -O --output-cloud  : output point cloud with the tree stems (.laz/.las/.txt)\n"
+        "# --stack-stats      : output file path for the tree center statistics (.txt)\n"
+        "# --stack-cloud      : output file path for the trees center layer stack (.laz/.las/.txt)\n"
         "# -l --lower         : slice's lower height\n"
         "# -u --upper         : slice's upper height\n"
         "# -p --pixel         : pixel size, in meters\n"
         "# -r --radius        : maximum radius to test\n"
         "# -d --density       : minimum density to consider on the Hough transform\n"
         "# -v --votes         : minimum votes count at the output\n"
-        "# -O --output-cloud  : save a las/laz/txt cloud output\n"
         "# -z --height-int    : height interval to measure stem segments\n"
-        "# -? -h --help       : print help\n";
+        "# -? -h --help       : print help\n"
+    << endl;
 
         exit(1);
 
@@ -142,11 +143,11 @@ void plotProcess(CommandLine global){
 
     }
 
-    cout << "# writing cloud of center candidates: " << global.output_las << endl;
-    saveCloud(&treeMap, global.output_las);
+    cout << "# writing cloud of center candidates: " << global.output_stack << endl;
+    saveCloud(&treeMap, global.output_stack);
 
-    cout << "# writing results: " << global.output_path << endl;
-    saveReport(treeMap, global.output_path);
+    cout << "# writing layer stack results: " << global.output_stack_coordinates << endl;
+    saveReport(treeMap, global.output_stack_coordinates);
 
 
     cout << "# extracting main coordinate per tree" << endl;
@@ -182,13 +183,14 @@ void plotProcess(CommandLine global){
 
     cout << endl;
 
-    cout << "# writing tree-wise statistics" << endl;
-    saveStemsOnly(trees, global.file_path);
+    cout << "# writing tree-wise statistics to " << global.output_path << " and stem point cloud to " << global.output_las << endl;
+    saveStemsOnly(trees, global.file_path, global.output_path, global.output_las);
 
     cout << "# done" << endl;
 
 }
 
+/*
 //tree-wise
 void treeProcess(CommandLine global){
 
@@ -227,8 +229,7 @@ void treeProcess(CommandLine global){
     cout << "# done" << endl;
 
 }
-
-
+*/
 
 int main(int argc, char *argv[])
 {
@@ -239,13 +240,13 @@ int main(int argc, char *argv[])
     globalArgs.max_radius = 0.25;
     globalArgs.min_density = 0.1;
     globalArgs.min_votes = 3;
-    globalArgs.one_slice = true;
     globalArgs.output_las = " ";
     globalArgs.output_path = " ";
     globalArgs.pixel_size = 0.025;
-    globalArgs.single_tree = false;
     globalArgs.upper_slice = "3.0";
     globalArgs.height_interval = 0.5;
+    globalArgs.output_stack = " ";
+    globalArgs.output_stack_coordinates = " ";
 
     int opt = 0;
 	int longIndex = 0;
@@ -259,14 +260,6 @@ int main(int argc, char *argv[])
 
             case 'o':
                 globalArgs.output_path = std::string(optarg);
-                break;
-
-            case 't':
-                globalArgs.single_tree = true;
-                break;
-
-            case 's':
-                globalArgs.one_slice = true;
                 break;
 
             case 'l':
@@ -306,6 +299,17 @@ int main(int argc, char *argv[])
                 globalArgs.help = true;
                 break;
 
+            case 0:
+
+                if( strcmp( "stack-stats", longOpts[longIndex].name ) == 0 ) {
+                    globalArgs.output_stack_coordinates = std::string(optarg);
+
+                }else if(strcmp( "stack-cloud", longOpts[longIndex].name ) == 0){
+                    globalArgs.output_stack = std::string(optarg);
+                }
+
+                break;
+
             default:
                 break;
         }
@@ -323,7 +327,6 @@ int main(int argc, char *argv[])
     }
 /*
     globalArgs.file_path = "lcer.las";
-    globalArgs.single_tree = false;
 */
     if(globalArgs.file_path == " "){
         cout << "\n# input file (-i) missing.\n";
@@ -337,17 +340,20 @@ int main(int argc, char *argv[])
     }
 
     if(globalArgs.output_las == " "){
-        globalArgs.output_las = outputNameAppend(globalArgs.file_path, "_cloud.las");
+        globalArgs.output_las = outputNameAppend(globalArgs.file_path, "_stems.laz");
     }
 
+    if(globalArgs.output_stack == " "){
+        globalArgs.output_stack = outputNameAppend(globalArgs.file_path, "_layerStack.laz");
+    }
+
+    if(globalArgs.output_stack_coordinates == " "){
+        globalArgs.output_stack_coordinates = outputNameAppend(globalArgs.file_path, "_layerStats.txt");
+    }
 
     /*** process ***/
 
-    if(globalArgs.single_tree){
-        treeProcess(globalArgs);
-    }else{
-        plotProcess(globalArgs);
-    }
+    plotProcess(globalArgs);
 
     return 0;
 }

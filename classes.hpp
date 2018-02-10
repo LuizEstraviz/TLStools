@@ -15,19 +15,19 @@ typedef vector< vector<int> > vint;
 
 struct CommandLine {
 
-    string file_path;            // -i option, input file
-    string output_path;          // -o option, output file
-    bool single_tree;            // -t option, is single tree
-    bool one_slice;              // -s option, take only one slice
-    string lower_slice;          // -l option, lower height
-    string upper_slice;          // -u option, upper height
-    double  pixel_size;          // -p option, pixel size in meters
-    double  max_radius;          // -r option, maximum radius to test
-    double  min_density;         // -d option, minimum density to consider on the Hough transform
-    int  min_votes;              // -v option, minimum votes count at the output
-    string output_las;           // -O option, save a las/laz/txt output
-    bool help;                   // -h/? option, get help
-    float height_interval;       // -z option, z interval to slice tree
+    string file_path;                 // -i option, input file
+    string output_path;               // -o option, output file
+    string lower_slice;               // -l option, lower height
+    string upper_slice;               // -u option, upper height
+    double  pixel_size;               // -p option, pixel size in meters
+    double  max_radius;               // -r option, maximum radius to test
+    double  min_density;              // -d option, minimum density to consider on the Hough transform
+    int  min_votes;                   // -v option, minimum votes count at the output
+    string output_las;                // -O option, save a las/laz/txt output
+    bool help;                        // -h/? option, get help
+    float height_interval;            // -z option, z interval to slice tree
+    string output_stack;              //
+    string output_stack_coordinates;  //
 
 };
 

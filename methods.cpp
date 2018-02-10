@@ -494,33 +494,6 @@ void saveCloud(vector<HoughCenters>* coordinates, string file_path){
 
 void saveStemsOnly(vector<vector<StemSegment>>& stemsList, string input_path, string file_path, string cloud_path){
 
-    //LAS writer
-    string format;
-    unsigned pt = cloud_path.find_last_of(".");
-    format = cloud_path.substr(pt+1);
-
-    LASwriteOpener laswriteopener;
-    laswriteopener.set_file_name(cloud_path.c_str());
-
-    int format_macro;
-    if(format == "las"){
-        format_macro = LAS_TOOLS_FORMAT_LAS;
-    }else if(format == "laz"){
-        format_macro = LAS_TOOLS_FORMAT_LAZ;
-    }else{
-        format_macro = LAS_TOOLS_FORMAT_TXT;
-    }
-
-    laswriteopener.set_format(format_macro);
-
-    LASheader lasheader;
-    lasheader.point_data_format = 0;
-    lasheader.point_data_record_length = 20;
-    LASpoint laspoint;
-    laspoint.init(&lasheader, lasheader.point_data_format, lasheader.point_data_record_length, &lasheader);
-    LASwriter* laswriter = laswriteopener.open(&lasheader);
-
-
     //TXT writer
     ofstream result_file(file_path);
 
@@ -546,31 +519,60 @@ void saveStemsOnly(vector<vector<StemSegment>>& stemsList, string input_path, st
                 j->n_points << "   "
             << endl;
 
-            //LAS reader
-            LASreadOpener lasreadopener;
-            lasreadopener.set_file_name(input_path.c_str());
-
-            char* MY_other_argv[4];
-
-            MY_other_argv[0] = (char*)malloc(1000); strcpy(MY_other_argv[0], " ");
-            MY_other_argv[1] = (char*)malloc(1000); strcpy(MY_other_argv[1], "-keep_z");
-            MY_other_argv[2] = (char*)malloc(1000); strcpy(MY_other_argv[2], number2string(j->z_min).c_str() );
-            MY_other_argv[3] = (char*)malloc(1000); strcpy(MY_other_argv[3], number2string(j->z_max).c_str() );
-
-            lasreadopener.parse(4, MY_other_argv);
-            LASreader* lasreader = lasreadopener.open();
-
-            lasreader->close();
-            delete lasreader;
-
         }
     }
 
-    laswriter->update_header(&lasheader, TRUE);
-    laswriter->close(TRUE);
+    result_file.close();
+
+
+    //LAS read/write
+    LASreadOpener lasreadopener;
+    lasreadopener.set_file_name(input_path.c_str());
+    LASreader* lasreader = lasreadopener.open();
+
+    LASwriteOpener laswriteopener;
+    laswriteopener.set_file_name(cloud_path.c_str());
+    LASwriter* laswriter = laswriteopener.open(&lasreader->header);
+
+    while (lasreader->read_point()){
+
+        bool breakList = false;
+
+        float tempX = lasreader->get_x();
+        float tempY = lasreader->get_y();
+        float tempZ = lasreader->get_z();
+
+        for(auto i = stemsList.begin(); i != stemsList.end(); ++i){
+            for(auto j = i->begin(); j != i->end(); ++j){
+
+                if(tempZ >= j->z_min && tempZ <= j->z_max){
+
+                    float pointDist = sqrt( pow(tempX - j->model_circle.x_center, 2) + pow(tempY - j->model_circle.y_center, 2) );
+
+                    if(pointDist <= j->model_circle.radius){
+                        laswriter->write_point(&lasreader->point);
+                        breakList = true;
+                        break;
+                    }
+
+                }
+
+            }
+
+            if(breakList){
+                break;
+            }
+
+        }
+
+    }
+
+    laswriter->close();
     delete laswriter;
 
-    result_file.close();
+    lasreader->close();
+    delete lasreader;
+
 }
 
 vector<vector<HoughCircle*>> isolateSingleTrees(vector<HoughCenters>& roughTreeMap, float maxDist, int minLayers){
