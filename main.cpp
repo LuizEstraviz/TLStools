@@ -167,14 +167,14 @@ void plotProcess(CommandLine global){
         cout << "center: " << xBase << " , " << yBase << endl;
 
         StemSegment base = baselineStats(cstats, global, true, xBase, yBase, 1.2);
-        cout << "props: " <<
+        /*cout << "props: " <<
         base.model_circle.x_center << " , " <<
         base.model_circle.y_center << " , " <<
         base.model_circle.radius << " , " <<
-        base.model_circle.n_votes << endl;
+        base.model_circle.n_votes << endl;*/
 
         vector<Slice> pieces = sliceList(global.file_path, cstats, global.height_interval, true, xBase, yBase, global.max_radius*3);
-        cout << "chunks: " << pieces.size() << endl;
+        cout << "segments: " << pieces.size() << endl;
 
         //cout << "## points" << endl;
         vector<StemSegment> bole = stemPoints(base, pieces, global);
