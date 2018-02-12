@@ -138,6 +138,17 @@ string number2string(NumberType number){
     return str;
 }
 
+float text2float(string number){
+
+    stringstream ss;
+    ss << number;
+
+    float num;
+    ss >> num;
+
+    return num;
+}
+
 
 //---------------------
 //plot and tree methods

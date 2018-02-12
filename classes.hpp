@@ -26,8 +26,10 @@ struct CommandLine {
     string output_las;                // -O option, save a las/laz/txt output
     bool help;                        // -h/? option, get help
     float height_interval;            // -z option, z interval to slice tree
-    string output_stack;              //
-    string output_stack_coordinates;  //
+    string output_stack;
+    string output_stack_coordinates;
+    string clouds_directory;
+    string reports_directory;
 
 };
 

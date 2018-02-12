@@ -10,8 +10,10 @@ using namespace std;
 template <typename NumberType>
 string number2string(NumberType number);
 
+float text2float(string number);
+
 //output suffix
-string outputNameAppend(string path, string suffix = "_result.txt");
+string outputNameAppend(string path, string suffix = "_reslt.txt");
 
 //get cloud statistics
 CloudStats getStats(string file);

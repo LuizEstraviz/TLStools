@@ -27,18 +27,20 @@ static const char *optString = "i:o:l:u:p:r:d:v:O:z:h?";
 
 static const struct option longOpts[] = {
     { "input", required_argument, NULL, 'i' },
-    { "output", required_argument, NULL, 'o' },
+    //{ "output", required_argument, NULL, 0 },
     { "lower", required_argument, NULL, 'l' },
     { "upper", required_argument, NULL, 'u' },
     { "pixel", required_argument, NULL, 'p' },
     { "radius", required_argument, NULL, 'r' },
     { "density", required_argument, NULL, 'd' },
     { "votes", required_argument, NULL, 'v' },
-    { "output-cloud", required_argument, NULL, 'O' },
+    //{ "output-cloud", required_argument, NULL, 0 },
     { "help", no_argument, NULL, 'h' },
-    { "height-int", required_argument, NULL, 'z' },
-    { "stack-stats", required_argument, NULL, 0},
-    { "stack-cloud", required_argument, NULL, 0},
+    { "zheight", required_argument, NULL, 'z' },
+    //{ "stack-stats", required_argument, NULL, 0},
+    //{ "stack-cloud", required_argument, NULL, 0},
+    { "olazdir", required_argument, NULL, 'O'},
+    { "otxtdir", required_argument, NULL, 'o'},
     {NULL, no_argument, NULL, 0}
 };
 
@@ -49,20 +51,20 @@ static const struct option longOpts[] = {
 void printHelp(){
 
     cout <<
-        "\n# /*** TLStools - las2rings ***/\n# /*** Command line arguments ***/\n\n"
-        "# -i --input         : input file path\n"
-        "# -o --output        : output results file path (.txt)\n"
-        "# -O --output-cloud  : output point cloud with the tree stems (.laz/.las/.txt)\n"
-        "# --stack-stats      : output file path for the tree center statistics (.txt)\n"
-        "# --stack-cloud      : output file path for the trees center layer stack (.laz/.las/.txt)\n"
-        "# -l --lower         : slice's lower height\n"
-        "# -u --upper         : slice's upper height\n"
-        "# -p --pixel         : pixel size, in meters\n"
-        "# -r --radius        : maximum radius to test\n"
-        "# -d --density       : minimum density to consider on the Hough transform\n"
-        "# -v --votes         : minimum votes count at the output\n"
-        "# -z --height-int    : height interval to measure stem segments\n"
-        "# -? -h --help       : print help\n"
+        "\n# /*** TLStrees ***/\n# /*** Command line arguments ***/\n\n"
+        "# -i or --input         : input file path\n"
+        "# -o or --otxtdir       : output directory for the report files (defaults to current directory)\n"
+        "# -O or --olazdir       : output directory for the point cloud files (defaults to current directory)\n"
+        "# -l or --lower         : slice's lower height (default = 1.0 m)\n"
+        "# -u or --upper         : slice's upper height (default = 3.0 m)\n"
+        "# -z or --zheight       : height interval to search for stem segments (default = 0.5 m)\n"
+        "# -p or --pixel         : pixel size, in meters (default = 0.025 m)\n"
+        "# -r or --radius        : maximum radius to test (default = 0.25 m)\n"
+        "# -d or --density       : minimum density to consider on the Hough transform, from 0 to 1 (default = 0.1)\n"
+        "# -v or --votes         : minimum votes count at the output (default = 3 votes per pixel)\n"
+        "# -? or -h or --help    : print this help\n"
+        //"# --stack-stats         : output file path for the tree center statistics (.txt)\n"
+        //"# --stack-cloud         : output file path for the trees center layer stack (.laz/.las/.txt)\n"
     << endl;
 
         exit(1);
@@ -105,13 +107,8 @@ void plotProcess(CommandLine global){
     cout << "# getting cloud statistics" << endl;
     CloudStats cstats = getStats(global.file_path);
 
-    std::stringstream ss, ss2;
-    ss << global.lower_slice;
-    ss2 << global.upper_slice;
-    float hLow;
-    float hUp;
-    ss >> hLow;
-    ss2 >> hUp;
+    float hLow = text2float(global.lower_slice);
+    float hUp = text2float(global.upper_slice);
 
     cout << "# mapping tree positions" << endl;
     for(float h = hLow; h <= (hUp - global.height_interval); h += global.height_interval){
@@ -247,6 +244,8 @@ int main(int argc, char *argv[])
     globalArgs.height_interval = 0.5;
     globalArgs.output_stack = " ";
     globalArgs.output_stack_coordinates = " ";
+    globalArgs.clouds_directory = "";
+    globalArgs.reports_directory = "";
 
     int opt = 0;
 	int longIndex = 0;
@@ -259,7 +258,7 @@ int main(int argc, char *argv[])
                 break;
 
             case 'o':
-                globalArgs.output_path = std::string(optarg);
+                globalArgs.reports_directory = std::string(optarg);
                 break;
 
             case 'l':
@@ -287,7 +286,7 @@ int main(int argc, char *argv[])
                 break;
 
             case 'O':
-                globalArgs.output_las = std::string(optarg);
+                globalArgs.clouds_directory = std::string(optarg);
                 break;
 
             case 'z':
@@ -299,16 +298,24 @@ int main(int argc, char *argv[])
                 globalArgs.help = true;
                 break;
 
-            case 0:
+            /*case 0:
 
                 if( strcmp( "stack-stats", longOpts[longIndex].name ) == 0 ) {
                     globalArgs.output_stack_coordinates = std::string(optarg);
 
                 }else if(strcmp( "stack-cloud", longOpts[longIndex].name ) == 0){
                     globalArgs.output_stack = std::string(optarg);
+
+                }else if(strcmp( "output", longOpts[longIndex].name ) == 0){
+                    globalArgs.output_path = std::string(optarg);
+
+                }else if(strcmp( "output-cloud", longOpts[longIndex].name ) == 0){
+                    globalArgs.output_las = std::string(optarg);
+
                 }
 
                 break;
+            */
 
             default:
                 break;
@@ -329,27 +336,53 @@ int main(int argc, char *argv[])
     globalArgs.file_path = "lcer.las";
 */
     if(globalArgs.file_path == " "){
-        cout << "\n# input file (-i) missing.\n";
-        printHelp();
+        cout << "\n# input file (-i) missing." << endl;
+        //printHelp();
         return 0;
     }
 
+    if( (text2float(globalArgs.upper_slice) - text2float(globalArgs.lower_slice)) < globalArgs.height_interval ){
+        cout << "\n# the height interval (-z) cannot be larger than the distance between lower (-l) and upper (-u) limits!" << endl;
+        //printHelp();
+        return 0;
+    }
+
+    //parse names
+    int lastSlash = globalArgs.file_path.find_last_of("/");
+    string shortFileName = (lastSlash == -1) ? globalArgs.file_path : globalArgs.file_path.substr(lastSlash, globalArgs.file_path.length());
+
+    string lastChar = globalArgs.reports_directory.substr( globalArgs.reports_directory.length() );
+    if(lastChar != "/" && globalArgs.reports_directory != ""){
+        globalArgs.reports_directory += "/";
+    }
+
+    lastChar = globalArgs.clouds_directory.substr( globalArgs.clouds_directory.length() );
+    if(lastChar != "/" && globalArgs.clouds_directory != ""){
+        globalArgs.clouds_directory += "/";
+    }
+
+
     // rename output
     if(globalArgs.output_path == " "){
-        globalArgs.output_path = outputNameAppend(globalArgs.file_path);
+        globalArgs.output_path = outputNameAppend(shortFileName);
     }
 
     if(globalArgs.output_las == " "){
-        globalArgs.output_las = outputNameAppend(globalArgs.file_path, "_stems.laz");
+        globalArgs.output_las = outputNameAppend(shortFileName, "_trees.laz");
     }
 
     if(globalArgs.output_stack == " "){
-        globalArgs.output_stack = outputNameAppend(globalArgs.file_path, "_layerStack.laz");
+        globalArgs.output_stack = outputNameAppend(shortFileName, "_segmt.laz");
     }
 
     if(globalArgs.output_stack_coordinates == " "){
-        globalArgs.output_stack_coordinates = outputNameAppend(globalArgs.file_path, "_layerStats.txt");
+        globalArgs.output_stack_coordinates = outputNameAppend(shortFileName, "_segmt.txt");
     }
+
+    globalArgs.output_path              = globalArgs.reports_directory + globalArgs.output_path;
+    globalArgs.output_las               = globalArgs.clouds_directory  + globalArgs.output_las;
+    globalArgs.output_stack             = globalArgs.clouds_directory  + globalArgs.output_stack;
+    globalArgs.output_stack_coordinates = globalArgs.reports_directory + globalArgs.output_stack_coordinates;
 
     /*** process ***/
 
