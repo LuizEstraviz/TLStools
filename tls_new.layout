@@ -2,35 +2,33 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Release" />
-	<File name="main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-9" zoom_2="0">
+	<File name="methods.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="-8" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="8809" topLine="220" />
+			<Cursor1 position="3522" topLine="44" />
 		</Cursor>
 		<Folding>
-			<Collapse line="73" />
-		</Folding>
-	</File>
-	<File name="methods.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="-7" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="26676" topLine="687" />
-		</Cursor>
-		<Folding>
-			<Collapse line="28" />
-			<Collapse line="706" />
-			<Collapse line="727" />
-			<Collapse line="763" />
-			<Collapse line="786" />
-			<Collapse line="844" />
+			<Collapse line="37" />
+			<Collapse line="113" />
+			<Collapse line="121" />
 		</Folding>
 	</File>
 	<File name="classes.hpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="-8" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="449" topLine="9" />
+			<Cursor1 position="1205" topLine="12" />
 		</Cursor>
 	</File>
-	<File name="methods.hpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="-5" zoom_2="0">
+	<File name="methods.hpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="-7" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2430" topLine="1" />
+			<Cursor1 position="249" topLine="0" />
 		</Cursor>
+	</File>
+	<File name="main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-10" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="971" topLine="29" />
+		</Cursor>
+		<Folding>
+			<Collapse line="50" />
+			<Collapse line="189" />
+		</Folding>
 	</File>
 </CodeBlocks_layout_file>
