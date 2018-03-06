@@ -33,34 +33,44 @@ The algorithm we used for detecting stem points is an adapted Hough transform. I
 The command arguments follow the Unix style, specified by short `(-char)` and/or long `(--string)` parameters, followed by their respective values, when required.
 
 * `-i (--input)`
-...the input path must lead to a **normalized** TLS point cloud file in `las`, `laz` or `txt` format. The lack of normalization is likely to ommit trees in the final output, due to the way the algorithm operates, assigning the ground level to be at the lowest point's height.
+
+... the input path must lead to a **normalized** TLS point cloud file in `las`, `laz` or `txt` format. The lack of normalization is likely to ommit trees in the final output, due to the way the algorithm operates, assigning the ground level to be at the lowest point's height.
 
 * `-o (--otxtdir)`
-...the report file is saved in this output directory, named *input_file_name*`_reslt.txt`. This file summarizes the results, assigning all stem segments found to their respective trees, their x and y coordinates, radii, height interval, number of points they encompass and number of votes they received on the hough transform circle search. Another file named *input_file_name*`_segmt.txt` is also saved, which contains information of the circles found on the horizontal point cloud layers rasterized for the hough transform.
+
+... the report file is saved in this output directory, named *input_file_name*`_reslt.txt`. This file summarizes the results, assigning all stem segments found to their respective trees, their x and y coordinates, radii, height interval, number of points they encompass and number of votes they received on the hough transform circle search. Another file named *input_file_name*`_segmt.txt` is also saved, which contains information of the circles found on the horizontal point cloud layers rasterized for the hough transform.
 
 * `-O (--olazdir)`
-...a point cloud containing only stem points is saved in this output directory, named *input_file_name*`_trees.laz`. Another file, named *input_file_name*`_segmt.laz` is saved, showing the regions at which potential tree positions were detected on each horizontal (raster) layer.
+
+... a point cloud containing only stem points is saved in this output directory, named *input_file_name*`_trees.laz`. Another file, named *input_file_name*`_segmt.laz` is saved, showing the regions at which potential tree positions were detected on each horizontal (raster) layer.
 
 * `-l (--lower)`
-...the absolute height to start the rasterization and tree position search.
+
+... the absolute height to start the rasterization and tree position search.
 
 * `-u (--upper)`
-...the absolute height that the algorithm can reach when searching for tree positions.
+
+... the absolute height that the algorithm can reach when searching for tree positions.
 
 * `-z (--zheight)`
-...the height interval to take point cloud slices for rasterization. Must be less than the distace between `-l` and `-u`. The number of raster layers used to search for tree positions is equivalent to `n = (upper - lower) / zheight`. A latter filter is applied, accepting as trees only regions with at least `n * 3/4` of circles vertically aligned.
+
+... the height interval to take point cloud slices for rasterization. Must be less than the distace between `-l` and `-u`. The number of raster layers used to search for tree positions is equivalent to `n = (upper - lower) / zheight`. A latter filter is applied, accepting as trees only regions with at least `n * 3/4` of circles vertically aligned.
 
 * `-p (--pixel)`
-...the pixel size gives the resolution of the final output. All radii, at this moment, are measured in pixel units, thus the pixel size dictates the resolution, accuracy and precision of the algorithm. Processing speed is proportional to the pixel size (the larger, the faster).
+
+... the pixel size gives the resolution of the final output. All radii, at this moment, are measured in pixel units, thus the pixel size dictates the resolution, accuracy and precision of the algorithm. Processing speed is proportional to the pixel size (the larger, the faster).
 
 * `-r (--radius)`
-...this parameter specifies the maximum radius tolerated as a tree dimension.
+
+... this parameter specifies the maximum radius tolerated as a tree dimension.
 
 * `-d (--density)`
-...filtering parameter for the Hough transform. Before it starts the circle search, the algorithm filters out low density pixels, assuming they do not belong to a stem. The density here is defined as the proportion of points in a pixel (`np`), relative to the pixel with most points (`Np`) in that raster, thus `d = np / Np`.
+
+... filtering parameter for the Hough transform. Before it starts the circle search, the algorithm filters out low density pixels, assuming they do not belong to a stem. The density here is defined as the proportion of points in a pixel (`np`), relative to the pixel with most points (`Np`) in that raster, thus `d = np / Np`.
 
 * `-v (--votes)`
-...circle selection criterion for the Hough transform. It indicates how many pixels (at least) must be aligned on a curve to be considered part of a circle.
+
+... circle selection criterion for the Hough transform. It indicates how many pixels (at least) must be aligned on a curve to be considered part of a circle.
 
 ### Further comments and acknowledgments
 
