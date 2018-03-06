@@ -62,7 +62,7 @@ the pixel size gives the resolution of the final output. All radii, at this mome
 
 * `-r (--radius)`
 
-this parameter specifies the maximum radius tolerated as a tree dimension.
+this parameter specifies the maximum radius tolerated as a tree's dimension.
 
 * `-d (--density)`
 
