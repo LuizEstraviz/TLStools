@@ -36,10 +36,10 @@ The command arguments follow the Unix style, specified by short `(-char)` and/or
 ...the input path must lead to a **normalized** TLS point cloud file in `las`, `laz` or `txt` format. The lack of normalization is likely to ommit trees in the final output, due to the way the algorithm operates, assigning the ground level to be at the lowest point's height.
 
 * `-o (--otxtdir)`
-...the report file is saved in this output directory, named `*input_file_name*_reslt.txt`. This file summarizes the results, assigning all stem segments found to their respective trees, their x and y coordinates, radii, height interval, number of points they encompass and number of votes they received on the hough transform circle search. Another file named `*input_file_name*_segmt.txt` is also saved, which contains information of the circles found on the horizontal point cloud layers rasterized for the hough transform.
+...the report file is saved in this output directory, named *input_file_name*`_reslt.txt`. This file summarizes the results, assigning all stem segments found to their respective trees, their x and y coordinates, radii, height interval, number of points they encompass and number of votes they received on the hough transform circle search. Another file named *input_file_name*`_segmt.txt` is also saved, which contains information of the circles found on the horizontal point cloud layers rasterized for the hough transform.
 
 * `-O (--olazdir)`
-...a point cloud containing only stem points is saved in this output directory, named `*input_file_name*_trees.laz`. Another file, named `*input_file_name*_segmt.laz` is saved, showing the regions at which potential tree positions were detected on each horizontal (raster) layer.
+...a point cloud containing only stem points is saved in this output directory, named *input_file_name*`_trees.laz`. Another file, named *input_file_name*`_segmt.laz` is saved, showing the regions at which potential tree positions were detected on each horizontal (raster) layer.
 
 * `-l (--lower)`
 ...the absolute height to start the rasterization and tree position search.
