@@ -78,4 +78,4 @@ circle selection criterion for the Hough transform. It indicates how many pixels
 * Thanks to Martin Isenburg for the initial insights and for the [LASlib](https://github.com/LAStools/LAStools/tree/master/LASlib) API.
 * This project is compiled with GNU-GCC from inside CodeBlocks. The windows executables can be downloaded straight from the `bin` folder, and we have successfuly compiled the project on linux as well.
 * We provided a `R script` (**viewResults.R**) with a short 3D vizualisation routine.
-* A sample TLS forest plot can ba found at the `sample_data` folder. 
+* A sample TLS forest plot is found at the `sample_data` folder. 
