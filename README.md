@@ -76,6 +76,7 @@ circle selection criterion for the Hough transform. It indicates how many pixels
 
 * Main developer: [Tiago de Conto](https://github.com/tiagodc/)
 * Thanks to Martin Isenburg for the initial insights and for the [LASlib](https://github.com/LAStools/LAStools/tree/master/LASlib) API.
+* The system has been developed under the auspices of the [proLiDAR project](http://www.luizestraviz.com/pesquisa/), a cooperative research program led by [IPEF](http://www.ipef.br) and coordinated by [Luiz C. E. Rodriguez](http://www.researcherid.com/rid/D-7043-2012), forest management professor at the University of Sao Paulo, Brazil. Initial contributions by [Caio Hamamura](http://www.bv.fapesp.br/pt/pesquisador/103895/caio-hamamura/) are also acknowledged.
 * This project is compiled with GNU-GCC from inside CodeBlocks. The windows executables can be downloaded straight from the `bin` folder, and we have successfuly compiled the project on linux as well.
 * We provided a `R script` (**viewResults.R**) with a short 3D vizualisation routine.
 * A sample TLS forest plot is found at the `sample_data` folder, just run `TLStrees -i square.las` for a quick demo. 
