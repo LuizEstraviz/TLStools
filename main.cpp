@@ -147,11 +147,9 @@ void plotProcess(CommandLine global){
     cout << "# writing layer stack results: " << global.output_stack_coordinates << endl;
     saveReport(treeMap, global.output_stack_coordinates);
 
-
     cout << "# extracting main coordinate per tree" << endl;
     int nLayers = 0.75 * (hUp - hLow) / global.height_interval;
     vector<vector<HoughCircle*>> singleTreeMap = isolateSingleTrees(treeMap, global.max_radius * 2, nLayers);
-
 
     cout << "# getting trunk statistics" << endl;
     vector<vector<StemSegment>> trees;
