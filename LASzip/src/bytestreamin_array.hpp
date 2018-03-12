@@ -11,7 +11,7 @@
   
   COPYRIGHT:
   
-    (c) 2007-2017, martin isenburg, rapidlasso - fast tools to catch reality
+    (c) 2007-2013, martin isenburg, rapidlasso - fast tools to catch reality
 
     This is free software; you can redistribute and/or modify it under the
     terms of the GNU Lesser General Licence as published by the Free Software
@@ -22,7 +22,6 @@
   
   CHANGE HISTORY:
   
-    23 June 2016 -- alternative init option for "native LAS 1.4 compressor"
     19 July 2015 -- moved from LASlib to LASzip for "compatibility mode" in DLL
      9 April 2012 -- created after cooking Zuccini/Onion/Potatoe dinner for Mara
   
@@ -33,16 +32,10 @@
 
 #include "bytestreamin.hpp"
 
-#include <stdio.h>
-#include <string.h>
-
 class ByteStreamInArray : public ByteStreamIn
 {
 public:
-  ByteStreamInArray();
-  ByteStreamInArray(const U8* data, I64 size);
-/* init the array                                            */
-  BOOL init(const U8* data, I64 size);
+  ByteStreamInArray(U8* data, I64 size);
 /* read a single byte                                        */
   U32 getByte();
 /* read an array of bytes                                    */
@@ -58,7 +51,7 @@ public:
 /* destructor                                                */
   ~ByteStreamInArray(){};
 protected:
-  const U8* data;
+  U8* data;
   I64 size;
   I64 curr;
 };
@@ -66,8 +59,7 @@ protected:
 class ByteStreamInArrayLE : public ByteStreamInArray
 {
 public:
-  ByteStreamInArrayLE();
-  ByteStreamInArrayLE(const U8* data, I64 size);
+  ByteStreamInArrayLE(U8* data, I64 size);
 /* read 16 bit low-endian field                              */
   void get16bitsLE(U8* bytes);
 /* read 32 bit low-endian field                              */
@@ -87,8 +79,7 @@ private:
 class ByteStreamInArrayBE : public ByteStreamInArray
 {
 public:
-  ByteStreamInArrayBE();
-  ByteStreamInArrayBE(const U8* data, I64 size);
+  ByteStreamInArrayBE(U8* data, I64 size);
 /* read 16 bit low-endian field                              */
   void get16bitsLE(U8* bytes);
 /* read 32 bit low-endian field                              */
@@ -105,33 +96,11 @@ private:
   U8 swapped[8];
 };
 
-inline ByteStreamInArray::ByteStreamInArray()
+inline ByteStreamInArray::ByteStreamInArray(U8* data, I64 size)
 {
-  this->data = 0;
-  this->size = 0;
+  this->data = data;
+  this->size = size;
   this->curr = 0;
-}
-
-inline ByteStreamInArray::ByteStreamInArray(const U8* data, I64 size)
-{
-  init(data, size);
-}
-
-inline BOOL ByteStreamInArray::init(const U8* data, I64 size)
-{
-  this->curr = 0;
-  if (data)
-  {
-    this->data = data;
-    this->size = size;
-  }
-  else
-  {
-    this->data = 0;
-    this->size = 0;
-    if (size) return FALSE;
-  }
-  return TRUE;
 }
 
 inline U32 ByteStreamInArray::getByte()
@@ -185,11 +154,7 @@ inline BOOL ByteStreamInArray::seekEnd(const I64 distance)
   return FALSE;
 }
 
-inline ByteStreamInArrayLE::ByteStreamInArrayLE() : ByteStreamInArray()
-{
-}
-
-inline ByteStreamInArrayLE::ByteStreamInArrayLE(const U8* data, I64 size) : ByteStreamInArray(data, size)
+inline ByteStreamInArrayLE::ByteStreamInArrayLE(U8* data, I64 size) : ByteStreamInArray(data, size)
 {
 }
 
@@ -237,11 +202,7 @@ inline void ByteStreamInArrayLE::get64bitsBE(U8* bytes)
   bytes[7] = swapped[0];
 }
 
-inline ByteStreamInArrayBE::ByteStreamInArrayBE() : ByteStreamInArray()
-{
-}
-
-inline ByteStreamInArrayBE::ByteStreamInArrayBE(const U8* data, I64 size) : ByteStreamInArray(data, size)
+inline ByteStreamInArrayBE::ByteStreamInArrayBE(U8* data, I64 size) : ByteStreamInArray(data, size)
 {
 }
 

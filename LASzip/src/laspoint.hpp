@@ -14,7 +14,7 @@
 
   COPYRIGHT:
 
-    (c) 2007-2017, martin isenburg, rapidlasso - fast tools to catch reality
+    (c) 2007-2015, martin isenburg, rapidlasso - fast tools to catch reality
 
     This is free software; you can redistribute and/or modify it under the
     terms of the GNU Lesser General Licence as published by the Free Software
@@ -25,7 +25,6 @@
   
   CHANGE HISTORY:
   
-    10 October 2016 -- small fixes for NIR and extended scanner channel
     19 July 2015 -- created after FOSS4GE in the train back from Lake Como
   
 ===============================================================================
@@ -563,7 +562,7 @@ public:
   inline U8 get_extended_scanner_channel() const { return extended_scanner_channel; };
 
   inline void set_extended_classification(U8 extended_classification) { this->extended_classification = extended_classification; };
-  inline void set_extended_scan_angle(I16 extended_scan_angle) { this->extended_scan_angle = extended_scan_angle; };
+  inline void set_extended_scan_angle(U16 extended_scan_angle) { this->extended_scan_angle = extended_scan_angle; };
   inline void set_extended_overlap_flag(U8 extended_overlap_flag) { this->extended_classification_flags = (extended_overlap_flag << 3) | (this->extended_classification_flags & 7); };
   inline void set_extended_scanner_channel(U8 extended_scanner_channel) { this->extended_scanner_channel = extended_scanner_channel; };
 
