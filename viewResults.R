@@ -26,10 +26,10 @@ plotCylinder = function(xCenter = 0, yCenter = 0, hBase = 0, hTop = 1, radius = 
 
 
 # set working directory
-setwd('C://Users/Tiago/Desktop/TLStools/bin/Release/')
+setwd('C://Work/TLStools/bin/Release/')
 
 # set point cloud name
-cloudName = 'PRJ_test3.laz'
+cloudName = 'square.las'
 
 # set optional parameters for the las2rings application
 optionalParameters = ''
@@ -41,14 +41,14 @@ system(las2rings)
 
 # read the output files generated in the process
 cloud = readLAS(cloudName)
-stemsCloud = readLAS('PRJ_test3_trees.laz')
-layerStack = readLAS('PRJ_test3_segmt.laz')
-treeStats = read.table('PRJ_test3_reslt.txt', head=T)
+stemsCloud = readLAS('square_trees.laz')
+layerStack = readLAS('square_segmt.laz')
+treeStats = read.table('square_reslt.txt', head=T)
 
 
 # plot the different data
 # --open a new rgl device with black background
-open3d()
+clear3d()
 bg3d('black')
 
 # --load the points from the detected tree positions on multiple stacked layers
@@ -61,7 +61,7 @@ rgl.points(stemsCloud@data, col='darkred')
 rgl.points(cloud@data, col='white', size=.5)
 
 # fast - plot spheres with the corresponding diameters for every detected tree segment, at the right coordinates
-with(treeStats, spheres3d(x, y, (z_min + z_max) / 2, rad, col='yellow') )
+# with(treeStats, spheres3d(x, y, (z_min + z_max) / 2, rad, col='yellow') )
 
 # slow - plot cylinders instead of spheres
 apply(treeStats, 1, function(row) plotCylinder(row['x'], row['y'], row['z_min'], row['z_max'], row['rad'], 'yellow'))

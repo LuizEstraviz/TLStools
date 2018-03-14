@@ -331,9 +331,9 @@ int main(int argc, char *argv[])
         printHelp();
         return 0;
     }
-/*
-    globalArgs.file_path = "lcer.las";
-*/
+/**/
+    globalArgs.file_path = "test_clouds/spain.laz";
+/**/
     if(globalArgs.file_path == " "){
         cout << "\n# input file (-i) missing." << endl;
         //printHelp();

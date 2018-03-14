@@ -8696,7 +8696,7 @@
 	"classes.hpp"
 	"methods.hpp"
 
-1520722141 source:c:\work\tlstools\main.cpp
+1520815999 source:c:\work\tlstools\main.cpp
 	<iostream>
 	"lasreader.hpp"
 	"laswriter.hpp"
@@ -8717,11 +8717,11 @@
 	"classes.hpp"
 	"methods.hpp"
 
-1520296997 c:\work\tlstools\laslib\inc\lasreader.hpp
+1520815711 c:\work\tlstools\laslib\inc\lasreader.hpp
 	"lasdefinitions.hpp"
 	"laswaveform13reader.hpp"
 
-1520296997 c:\work\tlstools\laslib\inc\lasdefinitions.hpp
+1520816209 c:\work\tlstools\laslib\inc\lasdefinitions.hpp
 	<stdio.h>
 	<string.h>
 	<stdlib.h>
@@ -8730,11 +8730,11 @@
 	"laszip.hpp"
 	"laspoint.hpp"
 
-1520296997 c:\work\tlstools\laszip\src\mydefs.hpp
+1520815711 c:\work\tlstools\laszip\src\mydefs.hpp
 
-1520296997 c:\work\tlstools\laszip\src\laszip.hpp
+1520815711 c:\work\tlstools\laszip\src\laszip.hpp
 
-1520296997 c:\work\tlstools\laszip\src\laspoint.hpp
+1520815711 c:\work\tlstools\laszip\src\laspoint.hpp
 	"lasquantizer.hpp"
 	"lasattributer.hpp"
 
@@ -8747,7 +8747,7 @@
 1520296997 c:\work\tlstools\laslib\inc\laswaveform13reader.hpp
 	"lasdefinitions.hpp"
 
-1520296997 c:\work\tlstools\laslib\inc\laswriter.hpp
+1520815711 c:\work\tlstools\laslib\inc\laswriter.hpp
 	"lasdefinitions.hpp"
 	"lasutility.hpp"
 	"laswaveform13writer.hpp"
@@ -8761,16 +8761,16 @@
 1520296997 c:\work\tlstools\laslib\inc\lasfilter.hpp
 	"lasdefinitions.hpp"
 
-1520296998 c:\work\tlstools\classes.hpp
+1520815999 c:\work\tlstools\classes.hpp
 	<vector>
 	<string.h>
 
-1520296998 c:\work\tlstools\methods.hpp
+1520815999 c:\work\tlstools\methods.hpp
 	<vector>
 	<string>
 	"classes.hpp"
 
-1520296998 source:c:\work\tlstools\methods.cpp
+1520815999 source:c:\work\tlstools\methods.cpp
 	<iostream>
 	"lasreader.hpp"
 	"laswriter.hpp"

@@ -16,7 +16,7 @@
 
   COPYRIGHT:
 
-    (c) 2007-2015, martin isenburg, rapidlasso - fast tools to catch reality
+    (c) 2007-2017, martin isenburg, rapidlasso - fast tools to catch reality
 
     This is free software; you can redistribute and/or modify it under the
     terms of the GNU Lesser General Licence as published by the Free Software
@@ -27,6 +27,10 @@
   
   CHANGE HISTORY:
   
+    28 May 2017 -- 14th example reads compressed LAS 1.4 with "selective decompression"
+    25 April 2017 -- 13th example writes LAS 1.4 using new "native LAS 1.4 extension" 
+    11 January 2017 -- 12th example changes the default chunk size from 50000 to 5000
+     8 January 2017 -- changed from "laszip_dll.h" to "laszip_api.h" because of hobu
     23 September 2015 -- 11th example writes without a-priori bounding box or counters
     22 September 2015 -- 10th upconverts to LAS 1.4 with pre-existing "extra bytes"
      5 September 2015 -- eighth and nineth example show pre-existing "extra bytes"
@@ -43,7 +47,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "laszip_dll.h"
+#include "laszip_api.h"
 
 void usage(bool wait=false)
 {
@@ -105,8 +109,12 @@ static double taketime()
 #define EXAMPLE_NINE 9
 #define EXAMPLE_TEN 10
 #define EXAMPLE_ELEVEN 11
+#define EXAMPLE_TWELVE 12
+#define EXAMPLE_THIRTEEN 13
+#define EXAMPLE_FOURTEEN 14
+#define EXAMPLE_FIFTEEN 15
 
-#define EXAMPLE EXAMPLE_ELEVEN
+#define EXAMPLE EXAMPLE_FIFTEEN
 
 int main(int argc, char *argv[])
 {
@@ -1895,7 +1903,7 @@ int main(int argc, char *argv[])
       byebye(true, argc==1);
     }
 
-    // enable the compatibility mode for the reader
+    // request compatibility mode for the reader
 
     laszip_BOOL request_reader = 1;
     if (laszip_request_compatibility_mode(laszip_reader, request_reader))
@@ -3112,6 +3120,820 @@ int main(int argc, char *argv[])
     fprintf(stderr,"total time: %g sec for writing %scompressed\n", taketime()-start_time, (compress ? "" : "un"));
 
   } // end of EXAMPLE_ELEVEN
+
+  if (EXAMPLE == EXAMPLE_TWELVE)
+  {
+    fprintf(stderr,"running EXAMPLE_TWELVE (changing chunk size to 5000 *with* compatibility when writing *only* for compressed output)\n");
+
+    // create the reader
+
+    laszip_POINTER laszip_reader;
+    if (laszip_create(&laszip_reader))
+    {
+      fprintf(stderr,"DLL ERROR: creating laszip reader\n");
+      byebye(true, argc==1);
+    }
+
+    // enable the compatibility mode for the reader
+
+    laszip_BOOL request_reader = 1;
+    if (laszip_request_compatibility_mode(laszip_reader, request_reader))
+    {
+      fprintf(stderr,"DLL ERROR: enabling laszip LAS 1.4 compatibility mode for the reader\n");
+      byebye(true, argc==1, laszip_reader);
+    }
+
+    // open the reader
+
+    laszip_BOOL is_compressed = 0;
+    if (laszip_open_reader(laszip_reader, file_name_in, &is_compressed))
+    {
+      fprintf(stderr,"DLL ERROR: opening laszip reader for '%s'\n", file_name_in);
+      byebye(true, argc==1, laszip_reader);
+    }
+  
+    fprintf(stderr,"file '%s' is %scompressed\n", file_name_in, (is_compressed ? "" : "un"));
+
+    // get a pointer to the header of the reader that was just populated
+
+    laszip_header* header;
+
+    if (laszip_get_header_pointer(laszip_reader, &header))
+    {
+      fprintf(stderr,"DLL ERROR: getting header pointer from laszip reader\n");
+      byebye(true, argc==1, laszip_reader);
+    }
+
+    // how many points does the file have
+
+    laszip_I64 npoints = (header->number_of_point_records ? header->number_of_point_records : header->extended_number_of_point_records);
+
+    // report how many points the file has
+
+    fprintf(stderr,"file '%s' contains %I64d points\n", file_name_in, npoints);
+
+    // get a pointer to the points that will be read
+
+    laszip_point* point;
+
+    if (laszip_get_point_pointer(laszip_reader, &point))
+    {
+      fprintf(stderr,"DLL ERROR: getting point pointer from laszip reader\n");
+      byebye(true, argc==1, laszip_reader);
+    }
+
+    // create the writer
+
+    laszip_POINTER laszip_writer;
+    if (laszip_create(&laszip_writer))
+    {
+      fprintf(stderr,"DLL ERROR: creating laszip writer\n");
+      byebye(true, argc==1);
+    }
+
+    // check if the output is compressed
+
+    laszip_BOOL compress = (strstr(file_name_out, ".laz") != 0);
+
+    // *only* enable the compatibility mode for the writer for compressed output
+
+    if (compress)
+    {
+      laszip_BOOL request_writer = 1;
+      if (laszip_request_compatibility_mode(laszip_writer, request_writer))
+      {
+        fprintf(stderr,"DLL ERROR: enabling laszip LAS 1.4 compatibility mode for the writer\n");
+        byebye(true, argc==1, laszip_writer);
+      }
+    }
+
+    // initialize the header for the writer using the header of the reader 
+
+    if (laszip_set_header(laszip_writer, header))
+    {
+      fprintf(stderr,"DLL ERROR: setting header for laszip writer\n");
+      byebye(true, argc==1, laszip_writer);
+    }
+
+    // change the chunk size from the default value to 50000 
+
+    if (laszip_set_chunk_size(laszip_writer, 5000))
+    {
+      fprintf(stderr,"DLL ERROR: setting chunk size 5000 for laszip writer\n");
+      byebye(true, argc==1, laszip_writer);
+    }
+
+    // open the writer
+
+    if (laszip_open_writer(laszip_writer, file_name_out, compress))
+    {
+      fprintf(stderr,"DLL ERROR: opening laszip writer for '%s'\n", file_name_out);
+      byebye(true, argc==1, laszip_writer);
+    }
+  
+    fprintf(stderr,"writing file '%s' %scompressed\n", file_name_out, (compress ? "" : "un"));
+
+    // read the points
+
+    laszip_I64 p_count = 0;
+
+    while (p_count < npoints)
+    {
+      // read a point
+
+      if (laszip_read_point(laszip_reader))
+      {
+        fprintf(stderr,"DLL ERROR: reading point %I64\n", p_count);
+        byebye(true, argc==1, laszip_reader);
+      }
+
+      // copy the point
+
+      if (laszip_set_point(laszip_writer, point))
+      {
+        fprintf(stderr,"DLL ERROR: setting point %I64\n", p_count);
+        byebye(true, argc==1, laszip_writer);
+      }
+
+      // write the point
+
+      if (laszip_write_point(laszip_writer))
+      {
+        fprintf(stderr,"DLL ERROR: writing point %I64\n", p_count);
+        byebye(true, argc==1, laszip_writer);
+      }
+
+      p_count++;
+    }
+
+    fprintf(stderr,"successfully read and written %I64d points\n", p_count);
+
+    // close the writer
+
+    if (laszip_close_writer(laszip_writer))
+    {
+      fprintf(stderr,"DLL ERROR: closing laszip writer\n");
+      byebye(true, argc==1, laszip_writer);
+    }
+
+    // destroy the writer
+
+    if (laszip_destroy(laszip_writer))
+    {
+      fprintf(stderr,"DLL ERROR: destroying laszip writer\n");
+      byebye(true, argc==1);
+    }
+
+    // close the reader
+
+    if (laszip_close_reader(laszip_reader))
+    {
+      fprintf(stderr,"DLL ERROR: closing laszip reader\n");
+      byebye(true, argc==1, laszip_reader);
+    }
+
+    // destroy the reader
+
+    if (laszip_destroy(laszip_reader))
+    {
+      fprintf(stderr,"DLL ERROR: destroying laszip reader\n");
+      byebye(true, argc==1);
+    }
+
+    fprintf(stderr,"total time: %g sec for reading %scompressed and writing %scompressed\n", taketime()-start_time, (is_compressed ? "" : "un"), (compress ? "" : "un"));
+
+  } // end of EXAMPLE_TWELVE
+
+  if (EXAMPLE == EXAMPLE_THIRTEEN)
+  {
+    fprintf(stderr,"running EXAMPLE_THIRTEEN (*with* compatibility mode when reading compressed LAS 1.4 and *with* native extension when writing compressed LAS 1.4)\n");
+
+    // create the reader
+
+    laszip_POINTER laszip_reader;
+    if (laszip_create(&laszip_reader))
+    {
+      fprintf(stderr,"DLL ERROR: creating laszip reader\n");
+      byebye(true, argc==1);
+    }
+
+    // request compatibility mode for the reader
+
+    laszip_BOOL request_compatibility = 1;
+    if (laszip_request_compatibility_mode(laszip_reader, request_compatibility))
+    {
+      fprintf(stderr,"DLL ERROR: requesting LAS 1.4 compatibility mode for the reader\n");
+      byebye(true, argc==1, laszip_reader);
+    }
+
+    // open the reader
+
+    laszip_BOOL is_compressed = 0;
+    if (laszip_open_reader(laszip_reader, file_name_in, &is_compressed))
+    {
+      fprintf(stderr,"DLL ERROR: opening laszip reader for '%s'\n", file_name_in);
+      byebye(true, argc==1, laszip_reader);
+    }
+  
+    fprintf(stderr,"file '%s' is %scompressed\n", file_name_in, (is_compressed ? "" : "un"));
+
+    // get a pointer to the header of the reader that was just populated
+
+    laszip_header* header;
+
+    if (laszip_get_header_pointer(laszip_reader, &header))
+    {
+      fprintf(stderr,"DLL ERROR: getting header pointer from laszip reader\n");
+      byebye(true, argc==1, laszip_reader);
+    }
+
+    // how many points does the file have
+
+    laszip_I64 npoints = (header->number_of_point_records ? header->number_of_point_records : header->extended_number_of_point_records);
+
+    // report how many points the file has
+
+    fprintf(stderr,"file '%s' contains %I64d points\n", file_name_in, npoints);
+
+    // get a pointer to the points that will be read
+
+    laszip_point* point;
+
+    if (laszip_get_point_pointer(laszip_reader, &point))
+    {
+      fprintf(stderr,"DLL ERROR: getting point pointer from laszip reader\n");
+      byebye(true, argc==1, laszip_reader);
+    }
+
+    // create the writer
+
+    laszip_POINTER laszip_writer;
+    if (laszip_create(&laszip_writer))
+    {
+      fprintf(stderr,"DLL ERROR: creating laszip writer\n");
+      byebye(true, argc==1);
+    }
+
+    // request native extension for the writer
+
+    laszip_BOOL request_native = 1;
+    if (laszip_request_native_extension(laszip_writer, request_native))
+    {
+      fprintf(stderr,"DLL ERROR: requesting native LAS 1.4 extension for the writer\n");
+      byebye(true, argc==1, laszip_writer);
+    }
+
+    // initialize the header for the writer using the header of the reader 
+
+    if (laszip_set_header(laszip_writer, header))
+    {
+      fprintf(stderr,"DLL ERROR: setting header for laszip writer\n");
+      byebye(true, argc==1, laszip_writer);
+    }
+
+    // check if the output is compressed
+
+    laszip_BOOL compress = (strstr(file_name_out, ".laz") != 0);
+
+    // open the writer
+
+    if (laszip_open_writer(laszip_writer, file_name_out, compress))
+    {
+      fprintf(stderr,"DLL ERROR: opening laszip writer for '%s'\n", file_name_out);
+      byebye(true, argc==1, laszip_writer);
+    }
+  
+    fprintf(stderr,"writing file '%s' %scompressed\n", file_name_out, (compress ? "" : "un"));
+
+    // read the points
+
+    laszip_I64 p_count = 0;
+
+    while (p_count < npoints)
+    {
+      // read a point
+
+      if (laszip_read_point(laszip_reader))
+      {
+        fprintf(stderr,"DLL ERROR: reading point %I64\n", p_count);
+        byebye(true, argc==1, laszip_reader);
+      }
+
+      // copy the point
+
+      if (laszip_set_point(laszip_writer, point))
+      {
+        fprintf(stderr,"DLL ERROR: setting point %I64\n", p_count);
+        byebye(true, argc==1, laszip_writer);
+      }
+
+      // write the point
+
+      if (laszip_write_point(laszip_writer))
+      {
+        fprintf(stderr,"DLL ERROR: writing point %I64\n", p_count);
+        byebye(true, argc==1, laszip_writer);
+      }
+
+      p_count++;
+    }
+
+    fprintf(stderr,"successfully read and written %I64d points\n", p_count);
+
+    // close the writer
+
+    if (laszip_close_writer(laszip_writer))
+    {
+      fprintf(stderr,"DLL ERROR: closing laszip writer\n");
+      byebye(true, argc==1, laszip_writer);
+    }
+
+    // destroy the writer
+
+    if (laszip_destroy(laszip_writer))
+    {
+      fprintf(stderr,"DLL ERROR: destroying laszip writer\n");
+      byebye(true, argc==1);
+    }
+
+    // close the reader
+
+    if (laszip_close_reader(laszip_reader))
+    {
+      fprintf(stderr,"DLL ERROR: closing laszip reader\n");
+      byebye(true, argc==1, laszip_reader);
+    }
+
+    // destroy the reader
+
+    if (laszip_destroy(laszip_reader))
+    {
+      fprintf(stderr,"DLL ERROR: destroying laszip reader\n");
+      byebye(true, argc==1);
+    }
+
+    fprintf(stderr,"total time: %g sec for reading %scompressed and writing %scompressed\n", taketime()-start_time, (is_compressed ? "" : "un"), (compress ? "" : "un"));
+
+  } // end of EXAMPLE_THIRTEEN
+
+  if (EXAMPLE == EXAMPLE_FOURTEEN)
+  {
+    fprintf(stderr,"running EXAMPLE_FOURTEEN (selective decompression of XYZ when reading native compressed LAS 1.4\n");
+
+    // create the reader
+
+    laszip_POINTER laszip_reader;
+    if (laszip_create(&laszip_reader))
+    {
+      fprintf(stderr,"DLL ERROR: creating laszip reader\n");
+      byebye(true, argc==1);
+    }
+
+    // request compatibility mode for the reader
+
+    laszip_BOOL request_compatibility = 1;
+    if (laszip_request_compatibility_mode(laszip_reader, request_compatibility))
+    {
+      fprintf(stderr,"DLL ERROR: requesting LAS 1.4 compatibility mode for the reader\n");
+      byebye(true, argc==1, laszip_reader);
+    }
+
+    // request compatibility mode for the reader
+
+    laszip_U32 decompress_selective = laszip_DECOMPRESS_SELECTIVE_CHANNEL_RETURNS_XY | laszip_DECOMPRESS_SELECTIVE_Z;
+    if (laszip_decompress_selective(laszip_reader, decompress_selective))
+    {
+      fprintf(stderr,"DLL ERROR: decompressing XYZ selectively for the reader\n");
+      byebye(true, argc==1, laszip_reader);
+    }
+
+    // open the reader
+
+    laszip_BOOL is_compressed = 0;
+    if (laszip_open_reader(laszip_reader, file_name_in, &is_compressed))
+    {
+      fprintf(stderr,"DLL ERROR: opening laszip reader for '%s'\n", file_name_in);
+      byebye(true, argc==1, laszip_reader);
+    }
+  
+    fprintf(stderr,"file '%s' is %scompressed\n", file_name_in, (is_compressed ? "" : "un"));
+
+    // get a pointer to the header of the reader that was just populated
+
+    laszip_header* header;
+
+    if (laszip_get_header_pointer(laszip_reader, &header))
+    {
+      fprintf(stderr,"DLL ERROR: getting header pointer from laszip reader\n");
+      byebye(true, argc==1, laszip_reader);
+    }
+
+    // how many points does the file have
+
+    laszip_I64 npoints = (header->number_of_point_records ? header->number_of_point_records : header->extended_number_of_point_records);
+
+    // report how many points the file has
+
+    fprintf(stderr,"file '%s' contains %I64d points\n", file_name_in, npoints);
+
+    // get a pointer to the points that will be read
+
+    laszip_point* point;
+
+    if (laszip_get_point_pointer(laszip_reader, &point))
+    {
+      fprintf(stderr,"DLL ERROR: getting point pointer from laszip reader\n");
+      byebye(true, argc==1, laszip_reader);
+    }
+
+    // create the writer
+
+    laszip_POINTER laszip_writer;
+    if (laszip_create(&laszip_writer))
+    {
+      fprintf(stderr,"DLL ERROR: creating laszip writer\n");
+      byebye(true, argc==1);
+    }
+
+    // request native extension for the writer
+
+    laszip_BOOL request_native = 1;
+    if (laszip_request_native_extension(laszip_writer, request_native))
+    {
+      fprintf(stderr,"DLL ERROR: requesting native LAS 1.4 extension for the writer\n");
+      byebye(true, argc==1, laszip_writer);
+    }
+
+    // initialize the header for the writer using the header of the reader 
+
+    if (laszip_set_header(laszip_writer, header))
+    {
+      fprintf(stderr,"DLL ERROR: setting header for laszip writer\n");
+      byebye(true, argc==1, laszip_writer);
+    }
+
+    // check if the output is compressed
+
+    laszip_BOOL compress = (strstr(file_name_out, ".laz") != 0);
+
+    // open the writer
+
+    if (laszip_open_writer(laszip_writer, file_name_out, compress))
+    {
+      fprintf(stderr,"DLL ERROR: opening laszip writer for '%s'\n", file_name_out);
+      byebye(true, argc==1, laszip_writer);
+    }
+  
+    fprintf(stderr,"writing file '%s' %scompressed\n", file_name_out, (compress ? "" : "un"));
+
+    // read the points
+
+    laszip_I64 p_count = 0;
+
+    while (p_count < npoints)
+    {
+      // read a point
+
+      if (laszip_read_point(laszip_reader))
+      {
+        fprintf(stderr,"DLL ERROR: reading point %I64\n", p_count);
+        byebye(true, argc==1, laszip_reader);
+      }
+
+      // copy the point
+
+      if (laszip_set_point(laszip_writer, point))
+      {
+        fprintf(stderr,"DLL ERROR: setting point %I64\n", p_count);
+        byebye(true, argc==1, laszip_writer);
+      }
+
+      // write the point
+
+      if (laszip_write_point(laszip_writer))
+      {
+        fprintf(stderr,"DLL ERROR: writing point %I64\n", p_count);
+        byebye(true, argc==1, laszip_writer);
+      }
+
+      p_count++;
+    }
+
+    fprintf(stderr,"successfully read and written %I64d points\n", p_count);
+
+    // close the writer
+
+    if (laszip_close_writer(laszip_writer))
+    {
+      fprintf(stderr,"DLL ERROR: closing laszip writer\n");
+      byebye(true, argc==1, laszip_writer);
+    }
+
+    // destroy the writer
+
+    if (laszip_destroy(laszip_writer))
+    {
+      fprintf(stderr,"DLL ERROR: destroying laszip writer\n");
+      byebye(true, argc==1);
+    }
+
+    // close the reader
+
+    if (laszip_close_reader(laszip_reader))
+    {
+      fprintf(stderr,"DLL ERROR: closing laszip reader\n");
+      byebye(true, argc==1, laszip_reader);
+    }
+
+    // destroy the reader
+
+    if (laszip_destroy(laszip_reader))
+    {
+      fprintf(stderr,"DLL ERROR: destroying laszip reader\n");
+      byebye(true, argc==1);
+    }
+
+    fprintf(stderr,"total time: %g sec for reading %scompressed and writing %scompressed\n", taketime()-start_time, (is_compressed ? "" : "un"), (compress ? "" : "un"));
+
+  } // end of EXAMPLE_FOURTEEN
+
+  if (EXAMPLE == EXAMPLE_FIFTEEN)
+  {
+    fprintf(stderr,"running EXAMPLE_FIFETEEN (reading and writing native compressed LAS 1.4 by copying the points)\n");
+
+    // create the reader
+
+    laszip_POINTER laszip_reader;
+    if (laszip_create(&laszip_reader))
+    {
+      fprintf(stderr,"DLL ERROR: creating laszip reader\n");
+      byebye(true, argc==1);
+    }
+
+    // request compatibility mode for the reader
+
+    laszip_BOOL request_compatibility = 1;
+    if (laszip_request_compatibility_mode(laszip_reader, request_compatibility))
+    {
+      fprintf(stderr,"DLL ERROR: requesting LAS 1.4 compatibility mode for the reader\n");
+      byebye(true, argc==1, laszip_reader);
+    }
+
+    // open the reader
+
+    laszip_BOOL is_compressed = 0;
+    if (laszip_open_reader(laszip_reader, file_name_in, &is_compressed))
+    {
+      fprintf(stderr,"DLL ERROR: opening laszip reader for '%s'\n", file_name_in);
+      byebye(true, argc==1, laszip_reader);
+    }
+  
+    fprintf(stderr,"file '%s' is %scompressed\n", file_name_in, (is_compressed ? "" : "un"));
+
+    // get a pointer to the header of the reader that was just populated
+
+    laszip_header* header_read;
+
+    if (laszip_get_header_pointer(laszip_reader, &header_read))
+    {
+      fprintf(stderr,"DLL ERROR: getting header pointer from laszip reader\n");
+      byebye(true, argc==1, laszip_reader);
+    }
+
+    // how many points does the file have
+
+    laszip_I64 npoints = (header_read->number_of_point_records ? header_read->number_of_point_records : header_read->extended_number_of_point_records);
+
+    // report how many points the file has
+
+    fprintf(stderr,"file '%s' contains %I64d points\n", file_name_in, npoints);
+
+    // get a pointer to the points that will be read
+
+    laszip_point* point_read;
+
+    if (laszip_get_point_pointer(laszip_reader, &point_read))
+    {
+      fprintf(stderr,"DLL ERROR: getting point pointer from laszip reader\n");
+      byebye(true, argc==1, laszip_reader);
+    }
+
+    // create the writer
+
+    laszip_POINTER laszip_writer;
+    if (laszip_create(&laszip_writer))
+    {
+      fprintf(stderr,"DLL ERROR: creating laszip writer\n");
+      byebye(true, argc==1);
+    }
+
+    // get a pointer to the header of the writer so we can populate it
+
+    laszip_header* header_write;
+
+    if (laszip_get_header_pointer(laszip_writer, &header_write))
+    {
+      fprintf(stderr,"DLL ERROR: getting header pointer from laszip writer\n");
+      byebye(true, argc==1, laszip_writer);
+    }
+
+    // populate the header
+
+    header_write->file_source_ID = header_read->file_source_ID;
+    header_write->global_encoding = header_read->global_encoding;
+    header_write->version_major = header_read->version_major;
+    header_write->version_minor = header_read->version_minor;
+    strncpy(header_write->system_identifier, "LASzip DLL example 15", 32);
+    header_write->file_creation_day = header_read->file_creation_day;
+    header_write->file_creation_year = header_read->file_creation_year;
+    header_write->header_size = header_read->header_size;
+    header_write->offset_to_point_data = header_read->header_size; // real offset_to_point_data is calculated when adding VLRs
+    header_write->point_data_format = header_read->point_data_format;
+    header_write->point_data_record_length = header_read->point_data_record_length;
+    if ((header_read->point_data_format > 5) || (header_read->extended_number_of_point_records > (2<<32-1)))
+    {
+      // legacy 32-bit counters should be zero for new point types > 5 or if there are more than 2<<32-1 points
+      header_write->number_of_point_records = 0;           
+      for (i = 0; i < 5; i++)
+      {
+        header_write->number_of_points_by_return[i] = 0;
+      }
+    }
+    else
+    {
+      // legacy 32-bit counters should be populated
+      header_write->number_of_point_records = (header_read->number_of_point_records ? header_read->number_of_point_records : (laszip_U32)(header_read->extended_number_of_point_records)); 
+      for (i = 0; i < 5; i++)
+      {
+        header_write->number_of_points_by_return[i] = (header_read->number_of_points_by_return[i] ? header_read->number_of_points_by_return[i] : (laszip_U32)(header_read->extended_number_of_points_by_return[i]));
+      }
+    }
+    header_write->extended_number_of_point_records = header_read->extended_number_of_point_records;
+    for (i = 0; i < 15; i++)
+    {
+      header_write->extended_number_of_points_by_return[i] = header_read->extended_number_of_points_by_return[i];
+    }
+    header_write->x_scale_factor = header_read->x_scale_factor;
+    header_write->y_scale_factor = header_read->y_scale_factor;
+    header_write->z_scale_factor = header_read->z_scale_factor;
+    header_write->x_offset = header_read->x_offset;
+    header_write->y_offset = header_read->y_offset;
+    header_write->z_offset = header_read->z_offset;
+    header_write->max_x = header_read->max_x;
+    header_write->min_x = header_read->min_x;
+    header_write->max_y = header_read->max_y;
+    header_write->min_y = header_read->min_y;
+    header_write->max_z = header_read->max_z;
+    header_write->min_z = header_read->min_z;
+
+    // extended VLRs or Waveforms are not supported yet
+
+    header_write->start_of_waveform_data_packet_record = 0;
+    header_write->number_of_extended_variable_length_records = 0;
+    header_write->start_of_first_extended_variable_length_record = 0;
+
+    // add VLRs
+
+    for (i = 0; i < header_read->number_of_variable_length_records; i++)
+    {
+      if (laszip_add_vlr(laszip_writer, header_read->vlrs[i].user_id, header_read->vlrs[i].record_id, header_read->vlrs[i].record_length_after_header, header_read->vlrs[i].description, header_read->vlrs[i].data))
+      {
+        fprintf(stderr,"DLL ERROR: adding VLR[%d] to the header\n", i);
+        byebye(true, argc==1, laszip_writer);
+      }
+      fprintf(stderr,"offset_to_point_data after adding VLR[%d]                   : %d\n", i, (laszip_I32)header_write->offset_to_point_data);
+    }
+
+    // open the writer
+
+    laszip_BOOL compress = (strstr(file_name_out, ".laz") != 0);
+
+    if (laszip_open_writer(laszip_writer, file_name_out, compress))
+    {
+      fprintf(stderr,"DLL ERROR: opening laszip writer for '%s'\n", file_name_out);
+      byebye(true, argc==1, laszip_writer);
+    }
+  
+    fprintf(stderr,"writing file '%s' %scompressed\n", file_name_out, (compress ? "" : "un"));
+
+    // get a pointer to the point of the writer that we will populate and write
+
+    laszip_point* point_write;
+
+    if (laszip_get_point_pointer(laszip_writer, &point_write))
+    {
+      fprintf(stderr,"DLL ERROR: getting point pointer from laszip writer\n");
+      byebye(true, argc==1, laszip_writer);
+    }
+
+    // set new LAS 1.4 points to "extended type"
+
+    if (header_read->point_data_format > 5)
+    {
+      point_write->extended_point_type = 1;
+    }
+
+    // read and write all the points
+
+    laszip_I64 p_count = 0;
+
+    while (p_count < npoints)
+    {
+      // read a point
+
+      if (laszip_read_point(laszip_reader))
+      {
+        fprintf(stderr,"DLL ERROR: reading point %I64\n", p_count);
+        byebye(true, argc==1, laszip_reader);
+      }
+
+      // copy the point
+
+      point_write->X = point_read->X;
+      point_write->Y = point_read->Y;
+      point_write->Z = point_read->Z;
+      point_write->intensity = point_read->intensity;
+      point_write->scan_direction_flag = point_read->scan_direction_flag;
+      point_write->edge_of_flight_line = point_read->edge_of_flight_line;
+      point_write->withheld_flag = point_read->withheld_flag;
+      point_write->keypoint_flag = point_read->keypoint_flag;
+      point_write->synthetic_flag = point_read->synthetic_flag;
+      point_write->classification = point_read->classification;
+      point_write->user_data = point_read->user_data;
+      point_write->point_source_ID = point_read->point_source_ID;
+
+      point_write->gps_time = point_read->gps_time;
+      memcpy(point_write->rgb, point_read->rgb, 8);
+
+      if (point_write->extended_point_type)
+      {
+        point_write->extended_scanner_channel = point_read->extended_scanner_channel;
+        point_write->extended_classification_flags = point_read->extended_classification_flags;
+        point_write->extended_classification = point_read->extended_classification;
+        point_write->extended_return_number = point_read->extended_return_number;
+        point_write->extended_number_of_returns = point_read->extended_number_of_returns;
+        point_write->extended_scan_angle = point_read->extended_scan_angle;
+      }
+      else
+      {
+        point_write->return_number = point_read->return_number;
+        point_write->number_of_returns = point_read->number_of_returns;
+        point_write->scan_angle_rank = point_read->scan_angle_rank;
+      }
+
+      if (point_read->num_extra_bytes)
+      {
+        memcpy(point_write->extra_bytes, point_read->extra_bytes, point_read->num_extra_bytes);
+      }
+
+      // write the point
+
+      if (laszip_write_point(laszip_writer))
+      {
+        fprintf(stderr,"DLL ERROR: writing point %I64\n", p_count);
+        byebye(true, argc==1, laszip_writer);
+      }
+
+      p_count++;
+    }
+
+    fprintf(stderr,"successfully read and written %I64d points\n", p_count);
+
+    // close the writer
+
+    if (laszip_close_writer(laszip_writer))
+    {
+      fprintf(stderr,"DLL ERROR: closing laszip writer\n");
+      byebye(true, argc==1, laszip_writer);
+    }
+
+    // destroy the writer
+
+    if (laszip_destroy(laszip_writer))
+    {
+      fprintf(stderr,"DLL ERROR: destroying laszip writer\n");
+      byebye(true, argc==1);
+    }
+
+    // close the reader
+
+    if (laszip_close_reader(laszip_reader))
+    {
+      fprintf(stderr,"DLL ERROR: closing laszip reader\n");
+      byebye(true, argc==1, laszip_reader);
+    }
+
+    // destroy the reader
+
+    if (laszip_destroy(laszip_reader))
+    {
+      fprintf(stderr,"DLL ERROR: destroying laszip reader\n");
+      byebye(true, argc==1);
+    }
+  
+    fprintf(stderr,"total time: %g sec for reading %scompressed and writing %scompressed\n", taketime()-start_time, (is_compressed ? "" : "un"), (compress ? "" : "un"));
+  
+  } // end of EXAMPLE_FIFTEEN
 
   // unload LASzip DLL
 

@@ -13,7 +13,7 @@
 
   COPYRIGHT:
 
-    (c) 2007-2012, martin isenburg, rapidlasso - fast tools to catch reality
+    (c) 2007-2017, martin isenburg, rapidlasso - fast tools to catch reality
 
     This is free software; you can redistribute and/or modify it under the
     terms of the GNU Lesser General Licence as published by the Free Software
@@ -44,11 +44,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-BOOL LASreaderLAS::open(const char* file_name, I32 io_buffer_size, BOOL peek_only)
+BOOL LASreaderLAS::open(const char* file_name, I32 io_buffer_size, BOOL peek_only, U32 decompress_selective)
 {
   if (file_name == 0)
   {
-    fprintf(stderr,"ERROR: fine name pointer is zero\n");
+    fprintf(stderr,"ERROR: file name pointer is zero\n");
     return FALSE;
   }
 
@@ -71,10 +71,10 @@ BOOL LASreaderLAS::open(const char* file_name, I32 io_buffer_size, BOOL peek_onl
   else
     in = new ByteStreamInFileBE(file);
 
-  return open(in, peek_only);
+  return open(in, peek_only, decompress_selective);
 }
 
-BOOL LASreaderLAS::open(FILE* file, BOOL peek_only)
+BOOL LASreaderLAS::open(FILE* file, BOOL peek_only, U32 decompress_selective)
 {
   if (file == 0)
   {
@@ -100,10 +100,10 @@ BOOL LASreaderLAS::open(FILE* file, BOOL peek_only)
   else
     in = new ByteStreamInFileBE(file);
 
-  return open(in);
+  return open(in, peek_only, decompress_selective);
 }
 
-BOOL LASreaderLAS::open(istream& stream, BOOL peek_only)
+BOOL LASreaderLAS::open(istream& stream, BOOL peek_only, U32 decompress_selective)
 {
   // create input
   ByteStreamIn* in;
@@ -112,10 +112,10 @@ BOOL LASreaderLAS::open(istream& stream, BOOL peek_only)
   else
     in = new ByteStreamInIstreamBE(stream);
 
-  return open(in, peek_only);
+  return open(in, peek_only, decompress_selective);
 }
 
-BOOL LASreaderLAS::open(ByteStreamIn* stream, BOOL peek_only)
+BOOL LASreaderLAS::open(ByteStreamIn* stream, BOOL peek_only, U32 decompress_selective)
 {
   U32 i,j;
 
@@ -723,7 +723,7 @@ BOOL LASreaderLAS::open(ByteStreamIn* stream, BOOL peek_only)
           {
             if (header.vlr_geo_double_params)
             {
-              fprintf(stderr,"WARNING: variable length records contain more than one GeoF64ParamsTag\n");
+              fprintf(stderr,"WARNING: variable length records contain more than one GeoDoubleParamsTag\n");
             }
             header.vlr_geo_double_params = (F64*)header.vlrs[i].data;
           }
@@ -735,12 +735,28 @@ BOOL LASreaderLAS::open(ByteStreamIn* stream, BOOL peek_only)
             }
             header.vlr_geo_ascii_params = (CHAR*)header.vlrs[i].data;
           }
-          else if ((header.vlrs[i].record_id != 2111) && (header.vlrs[i].record_id != 2112)) // WKT OGC MATH TRANSFORM or WKT OGC COORDINATE SYSTEM
+          else if (header.vlrs[i].record_id == 2111) // WKT OGC MATH TRANSFORM
+          {
+            if (header.vlr_geo_ogc_wkt_math)
+            {
+              fprintf(stderr,"WARNING: variable length records contain more than one WKT OGC MATH TRANSFORM\n");
+            }
+            header.vlr_geo_ogc_wkt_math = (CHAR*)header.vlrs[i].data;
+          }
+          else if (header.vlrs[i].record_id == 2112) // WKT OGC COORDINATE SYSTEM
+          {
+            if (header.vlr_geo_ogc_wkt)
+            {
+              fprintf(stderr,"WARNING: variable length records contain more than one WKT OGC COORDINATE SYSTEM\n");
+            }
+            header.vlr_geo_ogc_wkt = (CHAR*)header.vlrs[i].data;
+          }
+          else
           {
             fprintf(stderr,"WARNING: unknown LASF_Projection VLR with record_id %d.\n", header.vlrs[i].record_id);
           } 
         }
-        else if (header.vlrs[i].record_id != 2112) // GeoAsciiParamsTag
+        else
         {
           fprintf(stderr,"WARNING: no payload for LASF_Projection VLR with record_id %d.\n", header.vlrs[i].record_id);
         }
@@ -1090,7 +1106,7 @@ BOOL LASreaderLAS::open(ByteStreamIn* stream, BOOL peek_only)
             {
               if (header.vlr_geo_keys)
               {
-                fprintf(stderr,"WARNING: variable length records contain more than one GeoKeyDirectoryTag\n");
+                fprintf(stderr,"WARNING: extended variable length records contain more than one GeoKeyDirectoryTag\n");
               }
               header.vlr_geo_keys = (LASvlr_geo_keys*)header.evlrs[i].data;
 
@@ -1098,15 +1114,15 @@ BOOL LASreaderLAS::open(ByteStreamIn* stream, BOOL peek_only)
 
               if (header.vlr_geo_keys->key_directory_version != 1)
               {
-                fprintf(stderr,"WARNING: wrong vlr_geo_keys->key_directory_version: %d != 1\n",header.vlr_geo_keys->key_directory_version);
+                fprintf(stderr,"WARNING: wrong evlr_geo_keys->key_directory_version: %d != 1\n",header.vlr_geo_keys->key_directory_version);
               }
               if (header.vlr_geo_keys->key_revision != 1)
               {
-                fprintf(stderr,"WARNING: wrong vlr_geo_keys->key_revision: %d != 1\n",header.vlr_geo_keys->key_revision);
+                fprintf(stderr,"WARNING: wrong evlr_geo_keys->key_revision: %d != 1\n",header.vlr_geo_keys->key_revision);
               }
               if (header.vlr_geo_keys->minor_revision != 0)
               {
-                fprintf(stderr,"WARNING: wrong vlr_geo_keys->minor_revision: %d != 0\n",header.vlr_geo_keys->minor_revision);
+                fprintf(stderr,"WARNING: wrong evlr_geo_keys->minor_revision: %d != 0\n",header.vlr_geo_keys->minor_revision);
               }
               header.vlr_geo_key_entries = (LASvlr_key_entry*)&header.vlr_geo_keys[1];
             }
@@ -1114,7 +1130,7 @@ BOOL LASreaderLAS::open(ByteStreamIn* stream, BOOL peek_only)
             {
               if (header.vlr_geo_double_params)
               {
-                fprintf(stderr,"WARNING: variable length records contain more than one GeoF64ParamsTag\n");
+                fprintf(stderr,"WARNING: extended variable length records contain more than one GeoF64ParamsTag\n");
               }
               header.vlr_geo_double_params = (F64*)header.evlrs[i].data;
             }
@@ -1122,9 +1138,29 @@ BOOL LASreaderLAS::open(ByteStreamIn* stream, BOOL peek_only)
             {
               if (header.vlr_geo_ascii_params)
               {
-                fprintf(stderr,"WARNING: variable length records contain more than one GeoAsciiParamsTag\n");
+                fprintf(stderr,"WARNING: extended variable length records contain more than one GeoAsciiParamsTag\n");
               }
               header.vlr_geo_ascii_params = (CHAR*)header.evlrs[i].data;
+            }
+            else if (header.evlrs[i].record_id == 2111) // WKT OGC MATH TRANSFORM
+            {
+              if (header.vlr_geo_ogc_wkt_math)
+              {
+                fprintf(stderr,"WARNING: extended variable length records contain more than one WKT OGC MATH TRANSFORM\n");
+              }
+              header.vlr_geo_ogc_wkt_math = (CHAR*)header.evlrs[i].data;
+            }
+            else if (header.evlrs[i].record_id == 2112) // WKT OGC COORDINATE SYSTEM
+            {
+              if (header.vlr_geo_ogc_wkt)
+              {
+                fprintf(stderr,"WARNING: extended variable length records contain more than one WKT OGC COORDINATE SYSTEM\n");
+              }
+              header.vlr_geo_ogc_wkt = (CHAR*)header.evlrs[i].data;
+            }
+            else
+            {
+              fprintf(stderr,"WARNING: unknown LASF_Projection EVLR with record_id %d.\n", header.evlrs[i].record_id);
             }
           }
           else if (strcmp(header.evlrs[i].user_id, "LASF_Spec") == 0)
@@ -1133,7 +1169,7 @@ BOOL LASreaderLAS::open(ByteStreamIn* stream, BOOL peek_only)
             {
               if (header.vlr_classification)
               {
-                fprintf(stderr,"WARNING: variable length records contain more than one ClassificationLookup\n");
+                fprintf(stderr,"WARNING: extended variable length records contain more than one ClassificationLookup\n");
               }
               header.vlr_classification = (LASvlr_classification*)header.evlrs[i].data;
             }
@@ -1180,7 +1216,7 @@ BOOL LASreaderLAS::open(ByteStreamIn* stream, BOOL peek_only)
 
   if (header.laszip)
   {
-    if (!header.laszip->check())
+    if (!header.laszip->check(header.point_data_record_length))
     {
       fprintf(stderr,"ERROR: %s\n", header.laszip->get_error());
       fprintf(stderr,"       please upgrade to the latest release of LAStools (with LASzip)\n");
@@ -1204,7 +1240,7 @@ BOOL LASreaderLAS::open(ByteStreamIn* stream, BOOL peek_only)
 
   // create the point reader
 
-  reader = new LASreadPoint();
+  reader = new LASreadPoint(decompress_selective);
 
   // initialize point and the reader
 
@@ -1375,7 +1411,10 @@ void LASreaderLAS::close(BOOL close_stream)
   {
     if (stream)
     {
-      delete stream;
+      if (delete_stream)
+      {
+        delete stream;
+      }
       stream = 0;
     }
     if (file)
@@ -1390,6 +1429,7 @@ LASreaderLAS::LASreaderLAS()
 {
   file = 0;
   stream = 0;
+  delete_stream = TRUE;
   reader = 0;
 }
 
@@ -1427,10 +1467,10 @@ BOOL LASreaderLASrescale::read_point_default()
   return TRUE;
 }
 
-BOOL LASreaderLASrescale::open(ByteStreamIn* stream, BOOL peek_only)
+BOOL LASreaderLASrescale::open(ByteStreamIn* stream, BOOL peek_only, U32 decompress_selective)
 {
   LASquantizer quantizer = header;
-  if (!LASreaderLAS::open(stream, peek_only)) return FALSE;
+  if (!LASreaderLAS::open(stream, peek_only, decompress_selective)) return FALSE;
   // do we need to change anything
   rescale_x = rescale_y = rescale_z = FALSE;
   orig_x_scale_factor = header.x_scale_factor;
@@ -1551,10 +1591,10 @@ BOOL LASreaderLASreoffset::read_point_default()
   return TRUE;
 }
 
-BOOL LASreaderLASreoffset::open(ByteStreamIn* stream, BOOL peek_only)
+BOOL LASreaderLASreoffset::open(ByteStreamIn* stream, BOOL peek_only, U32 decompress_selective)
 {
   LASquantizer quantizer = header;
-  if (!LASreaderLAS::open(stream, peek_only)) return FALSE;
+  if (!LASreaderLAS::open(stream, peek_only, decompress_selective)) return FALSE;
   // maybe auto reoffset
   if (auto_reoffset)
   {
@@ -1700,10 +1740,10 @@ BOOL LASreaderLASrescalereoffset::read_point_default()
   return TRUE;
 }
 
-BOOL LASreaderLASrescalereoffset::open(ByteStreamIn* stream, BOOL peek_only)
+BOOL LASreaderLASrescalereoffset::open(ByteStreamIn* stream, BOOL peek_only, U32 decompress_selective)
 {
   LASquantizer quantizer = header;
-  if (!LASreaderLASrescale::open(stream, peek_only)) return FALSE;
+  if (!LASreaderLASrescale::open(stream, peek_only, decompress_selective)) return FALSE;
   // maybe auto reoffset
   if (auto_reoffset)
   {

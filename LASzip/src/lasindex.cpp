@@ -13,7 +13,7 @@
 
   COPYRIGHT:
 
-    (c) 2011-2015, martin isenburg, rapidlasso - fast tools to catch reality
+    (c) 2011-2017, martin isenburg, rapidlasso - fast tools to catch reality
 
     This is free software; you can redistribute and/or modify it under the
     terms of the GNU Lesser General Licence as published by the Free Software
@@ -45,21 +45,31 @@
 #include "bytestreamout_file.hpp"
 
 #ifdef UNORDERED
-  // Check if on OS X and using cland (unordered map isn't part of tr1 namespace)
-  #if defined(__APPLE__) && defined(__clang__)
-    #include <unordered_map>
-    using namespace std;
-  #else
-    #include <tr1/unordered_map>
+   // Figure out whether <unordered_map> is in tr1
+#  ifdef __has_include
+#    if __has_include(<unordered_map>)
+#     include <unordered_map>
+      using namespace std;
+#     define UNORDERED_FOUND
+#    endif
+#  endif
+#  ifdef HAVE_UNORDERED_MAP
+#     include <unordered_map>
+      using namespace std;
+#  elif defined(UNORDERED_FOUND)
+#    include <tr1/unordered_map>
     using namespace std;
     using namespace tr1;
-  #endif
+#  endif
 typedef unordered_map<I32,U32> my_cell_hash;
-#else
+#elif defined(LZ_WIN32_VC6)
 #include <hash_map>
-
 using namespace std;
-typedef __gnu_cxx::hash_map<I32,U32> my_cell_hash;
+typedef hash_map<I32,U32> my_cell_hash;
+#else
+#include <unordered_map>
+using namespace std;
+typedef unordered_map<I32, U32> my_cell_hash;
 #endif
 
 LASindex::LASindex()
@@ -280,6 +290,40 @@ BOOL LASindex::has_intervals()
   return FALSE;
 }
 
+BOOL LASindex::read(FILE* file)
+{
+  if (file == 0) return FALSE;
+  ByteStreamIn* stream;
+  if (IS_LITTLE_ENDIAN())
+    stream = new ByteStreamInFileLE(file);
+  else
+    stream = new ByteStreamInFileBE(file);
+  if (!read(stream))
+  {
+    delete stream;
+    return FALSE;
+  }
+  delete stream;
+  return TRUE;
+}
+
+BOOL LASindex::write(FILE* file) const
+{
+  if (file == 0) return FALSE;
+  ByteStreamOut* stream;
+  if (IS_LITTLE_ENDIAN())
+    stream = new ByteStreamOutFileLE(file);
+  else
+    stream = new ByteStreamOutFileBE(file);
+  if (!write(stream))
+  {
+    delete stream;
+    return FALSE;
+  }
+  delete stream;
+  return TRUE;
+}
+
 BOOL LASindex::read(const char* file_name)
 {
   if (file_name == 0) return FALSE;
@@ -299,25 +343,20 @@ BOOL LASindex::read(const char* file_name)
     name[strlen(name)-1] = 'x';
   }
   FILE* file = fopen(name, "rb");
-  free(name);
   if (file == 0)
   {
+    free(name);
     return FALSE;
   }
-  ByteStreamIn* stream;
-  if (IS_LITTLE_ENDIAN())
-    stream = new ByteStreamInFileLE(file);
-  else
-    stream = new ByteStreamInFileBE(file);
-  if (!read(stream))
+  if (!read(file))
   {
     fprintf(stderr,"ERROR (LASindex): cannot read '%s'\n", name);
-    delete stream;
     fclose(file);
+    free(name);
     return FALSE;
   }
-  delete stream;
   fclose(file);
+  free(name);
   return TRUE;
 }
 
@@ -485,20 +524,13 @@ BOOL LASindex::write(const char* file_name) const
     free(name);
     return FALSE;
   }
-  ByteStreamOut* stream;
-  if (IS_LITTLE_ENDIAN())
-    stream = new ByteStreamOutFileLE(file);
-  else
-    stream = new ByteStreamOutFileBE(file);
-  if (!write(stream))
+  if (!write(file))
   {
     fprintf(stderr,"ERROR (LASindex): cannot write '%s'\n", name);
-    delete stream;
     fclose(file);
     free(name);
     return FALSE;
   }
-  delete stream;
   fclose(file);
   free(name);
   return TRUE;

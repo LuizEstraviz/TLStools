@@ -13,7 +13,7 @@
 
   COPYRIGHT:
 
-    (c) 2007-2013, martin isenburg, rapidlasso - fast tools to catch reality
+    (c) 2007-2017, martin isenburg, rapidlasso - fast tools to catch reality
 
     This is free software; you can redistribute and/or modify it under the
     terms of the GNU Lesser General Licence as published by the Free Software
@@ -38,6 +38,8 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 #ifdef _WIN32
 #define DIRECTORY_SLASH '\\'
@@ -440,36 +442,127 @@ void LASwriteOpener::set_file_name(const CHAR* file_name)
   if (this->file_name) free(this->file_name);
   if (file_name)
   {
-    if (!specified)
+    this->file_name = strdup(file_name);
+
+    // get length of file name
+    int len = strlen(this->file_name);
+
+    // remove tailing white spaces
+    while (len && (this->file_name[len-1] == ' '))
     {
-      int len = strlen(file_name);
-      const CHAR* format = file_name + len - 4;
-      if (strstr(format, ".laz") || strstr(format, ".LAZ"))
+      len--;
+      this->file_name[len] = '\0';
+    }
+
+    // does file name have extension???
+    int ext = len;
+
+    while (ext && (this->file_name[ext-1] != '.'))
+    {
+      ext--;
+      if ((len - ext) > 3)
       {
-        this->format = LAS_TOOLS_FORMAT_LAZ;
+        ext = 0;
+        break;
       }
-      else if (strstr(format, ".las") || strstr(format, ".LAS"))
+    }
+
+    if (ext) // file name has extension!!!
+    {
+      if (specified)
       {
-        this->format = LAS_TOOLS_FORMAT_LAS;
       }
-      else if (strstr(format, ".bin") || strstr(format, ".BIN")) // terrasolid
+      else
       {
-        this->format = LAS_TOOLS_FORMAT_BIN;
+        const CHAR* extension = this->file_name + ext;
+        if (strstr(extension, "laz") || strstr(extension, "LAZ"))
+        {
+          format = LAS_TOOLS_FORMAT_LAZ;
+        }
+        else if (strstr(extension, "las") || strstr(extension, "LAS"))
+        {
+          format = LAS_TOOLS_FORMAT_LAS;
+        }
+        else if (strstr(extension, "bin") || strstr(extension, "BIN")) // terrasolid
+        {
+          format = LAS_TOOLS_FORMAT_BIN;
+        }
+        else if (strstr(extension, "qi") || strstr(extension, "QI")) // QFIT
+        {
+          format = LAS_TOOLS_FORMAT_QFIT;
+        }
+        else if (strstr(extension, "wrl") || strstr(extension, "WRL")) // VRML
+        {
+          format = LAS_TOOLS_FORMAT_VRML;
+        }
+        else // assume ascii output
+        {
+          format = LAS_TOOLS_FORMAT_TXT;
+        }
       }
-      else if (strstr(format, ".qi") || strstr(format, ".QI")) // QFIT
+    }
+    else
+    {
+      CHAR* temp_file_name = (CHAR*)malloc(len + (format == LAS_TOOLS_FORMAT_QFIT ? 4 : 5));
+      strcpy(temp_file_name, this->file_name);
+      free(this->file_name);
+      this->file_name = temp_file_name;
+      this->file_name[len] = '.';
+      if (format == LAS_TOOLS_FORMAT_LAZ)
       {
-        this->format = LAS_TOOLS_FORMAT_QFIT;
+        len++;
+        this->file_name[len] = 'l';
+        len++;
+        this->file_name[len] = 'a';
+        len++;
+        this->file_name[len] = 'z';
       }
-      else if (strstr(format, ".wrl") || strstr(format, ".WRL")) // VRML
+      else if (format == LAS_TOOLS_FORMAT_LAS)
       {
-        this->format = LAS_TOOLS_FORMAT_VRML;
+        len++;
+        this->file_name[len] = 'l';
+        len++;
+        this->file_name[len] = 'a';
+        len++;
+        this->file_name[len] = 's';
+      }
+      else if (format == LAS_TOOLS_FORMAT_BIN) // terrasolid
+      {
+        len++;
+        this->file_name[len] = 'b';
+        len++;
+        this->file_name[len] = 'i';
+        len++;
+        this->file_name[len] = 'n';
+      }
+      else if (format == LAS_TOOLS_FORMAT_QFIT) // QFIT
+      {
+        len++;
+        this->file_name[len] = 'q';
+        len++;
+        this->file_name[len] = 'i';       ;
+      }
+      else if (format == LAS_TOOLS_FORMAT_VRML) // VRML
+      {
+        len++;
+        this->file_name[len] = 'w';
+        len++;
+        this->file_name[len] = 'r';
+        len++;
+        this->file_name[len] = 'l';
       }
       else // assume ascii output
       {
-        this->format = LAS_TOOLS_FORMAT_TXT;
+        len++;
+        this->file_name[len] = 't';
+        len++;
+        this->file_name[len] = 'x';
+        len++;
+        this->file_name[len] = 't';
       }
+      len++;
+      this->file_name[len] = '\0';
     }
-    this->file_name = strdup(file_name);
 
     if (directory) add_directory();
     if (cut) cut_characters();

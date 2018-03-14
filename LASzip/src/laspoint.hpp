@@ -14,7 +14,7 @@
 
   COPYRIGHT:
 
-    (c) 2007-2015, martin isenburg, rapidlasso - fast tools to catch reality
+    (c) 2007-2017, martin isenburg, rapidlasso - fast tools to catch reality
 
     This is free software; you can redistribute and/or modify it under the
     terms of the GNU Lesser General Licence as published by the Free Software
@@ -25,6 +25,8 @@
   
   CHANGE HISTORY:
   
+    10 March 2017 -- fix in copy_to() and copy_from() new LAS 1.4 point types
+    10 October 2016 -- small fixes for NIR and extended scanner channel
     19 July 2015 -- created after FOSS4GE in the train back from Lake Como
   
 ===============================================================================
@@ -201,9 +203,24 @@ public:
 
   void copy_to(U8* buffer) const
   {
+    if (extended_point_type)
+    {
+      memcpy(buffer, &X, 14);
+      buffer[14] = ((U8*)&X)[24]; // extended return number and number of returns
+      buffer[15] = (((U8*)&X)[14] & 0xC0) | (extended_scanner_channel << 4) | (extended_classification_flags & 0x08) | ((((U8*)&X)[15]) >> 5);
+      buffer[16] = ((U8*)&X)[23]; // extended classification
+      buffer[17] = ((U8*)&X)[17]; // user data
+      ((I16*)buffer)[9] = ((I16*)&X)[10]; // extended scan angle
+      ((U16*)buffer)[10] = ((U16*)&X)[9]; // point source ID
+      memcpy(buffer+22, &gps_time, 8);
+    }
+    else
+    {
+      memcpy(buffer, &X, 20);
+    }
     U32 i;
-    U32 b = 0;
-    for (i = 0; i < num_items; i++)
+    U32 b = items[0].size;
+    for (i = 1; i < num_items; i++)
     {
       memcpy(&buffer[b], point[i], items[i].size);
       b += items[i].size;
@@ -212,9 +229,29 @@ public:
 
   void copy_from(const U8* buffer)
   {
+    if (extended_point_type)
+    {
+      memcpy(&X, buffer, 14);
+      ((U8*)&X)[24] = buffer[14]; // extended return number and number of returns
+      extended_classification_flags = buffer[15] & 0x0F;
+      ((U8*)&X)[15] = (buffer[15] & 0x07) << 5; // legacy classification flags
+      extended_scanner_channel = (buffer[15] >> 4) & 0x03;
+      scan_direction_flag = (buffer[15] >> 6) & 0x01;
+      edge_of_flight_line = (buffer[15] >> 7) & 0x01;
+      ((U8*)&X)[23] = buffer[16]; // extended classification
+      if (extended_classification < 32) classification = extended_classification;
+      ((U8*)&X)[17] = buffer[17]; // user data
+      ((I16*)&X)[10] = ((I16*)buffer)[9]; // extended scan angle
+      ((U16*)&X)[9] = ((U16*)buffer)[10]; // point source ID
+      memcpy(&gps_time, buffer+22, 8);
+    }
+    else
+    {
+      memcpy(&X, buffer, 20);
+    }
     U32 i;
-    U32 b = 0;
-    for (i = 0; i < num_items; i++)
+    U32 b = items[0].size;
+    for (i = 1; i < num_items; i++)
     {
       memcpy(point[i], &buffer[b], items[i].size);
       b += items[i].size;
@@ -260,14 +297,17 @@ public:
       case LASitem::RGBNIR14:
         have_nir = TRUE;
       case LASitem::RGB12:
+      case LASitem::RGB14:
         have_rgb = TRUE;
         this->point[i] = (U8*)(this->rgb);
         break;
       case LASitem::WAVEPACKET13:
+      case LASitem::WAVEPACKET14:
         have_wavepacket = TRUE;
         this->point[i] = (U8*)&(this->wavepacket);
         break;
       case LASitem::BYTE:
+      case LASitem::BYTE14:
         extra_bytes_number = items[i].size;
         extra_bytes = new U8[extra_bytes_number];
         this->point[i] = extra_bytes;
@@ -316,14 +356,17 @@ public:
       case LASitem::RGBNIR14:
         have_nir = TRUE;
       case LASitem::RGB12:
+      case LASitem::RGB14:
         have_rgb = TRUE;
         this->point[i] = (U8*)(this->rgb);
         break;
       case LASitem::WAVEPACKET13:
+      case LASitem::WAVEPACKET14:
         have_wavepacket = TRUE;
         this->point[i] = (U8*)&(this->wavepacket);
         break;
       case LASitem::BYTE:
+      case LASitem::BYTE14:
         extra_bytes_number = items[i].size;
         extra_bytes = new U8[extra_bytes_number];
         this->point[i] = extra_bytes;
@@ -478,7 +521,6 @@ public:
 
     // LAS 1.4 only
     extended_point_type = 0;
-
   };
 
   LASpoint()
@@ -520,7 +562,7 @@ public:
   inline U16 get_B() const { return rgb[2]; };
   inline U16 get_I() const { return rgb[3]; };
   inline U16 get_NIR() const { return rgb[3]; };
-
+  
   inline void set_X(const I32 X) { this->X = X; };
   inline void set_Y(const I32 Y) { this->Y = Y; };
   inline void set_Z(const I32 Z) { this->Z = Z; };
@@ -529,10 +571,10 @@ public:
   inline void set_number_of_returns(const U8 number_of_returns) { this->number_of_returns = (number_of_returns > 7 ? 7 : number_of_returns); };
   inline void set_scan_direction_flag(const U8 scan_direction_flag) { this->scan_direction_flag = scan_direction_flag; };
   inline void set_edge_of_flight_line(const U8 edge_of_flight_line) { this->edge_of_flight_line = edge_of_flight_line; };
-  inline void set_classification(U8 classification) { this->classification = (classification & 31); };
-  inline void set_synthetic_flag(U8 synthetic_flag) { this->synthetic_flag = synthetic_flag; };
-  inline void set_keypoint_flag(U8 keypoint_flag) { this->keypoint_flag = keypoint_flag; };
-  inline void set_withheld_flag(U8 withheld_flag) { this->withheld_flag = withheld_flag; };
+  inline void set_classification(U8 classification) { if (classification < 32) { this->classification = classification; this->extended_classification = classification; } };
+  inline void set_synthetic_flag(U8 synthetic_flag) { if (synthetic_flag) { this->synthetic_flag = 1; this->extended_classification_flags |= 0x01; } else { this->synthetic_flag = 0; this->extended_classification_flags &= 0x0E; } };
+  inline void set_keypoint_flag(U8 keypoint_flag) { if (keypoint_flag) { this->keypoint_flag = 1; this->extended_classification_flags |= 0x02; } else { this->keypoint_flag = 0; this->extended_classification_flags &= 0x0D; } };
+  inline void set_withheld_flag(U8 withheld_flag) { if (withheld_flag) { this->withheld_flag = 1; this->extended_classification_flags |= 0x04; } else { this->withheld_flag = 0; this->extended_classification_flags &= 0x0B; } };
   inline void set_scan_angle_rank(I8 scan_angle_rank) { this->scan_angle_rank = scan_angle_rank; };
   inline void set_user_data(U8 user_data) { this->user_data = user_data; };
   inline void set_point_source_ID(U16 point_source_ID) { this->point_source_ID = point_source_ID; };
@@ -561,8 +603,10 @@ public:
   inline U8 get_extended_overlap_flag() const { return (extended_classification_flags >> 3); };
   inline U8 get_extended_scanner_channel() const { return extended_scanner_channel; };
 
-  inline void set_extended_classification(U8 extended_classification) { this->extended_classification = extended_classification; };
-  inline void set_extended_scan_angle(U16 extended_scan_angle) { this->extended_scan_angle = extended_scan_angle; };
+  inline void set_extended_classification(U8 extended_classification) { this->extended_classification = extended_classification; if (extended_classification > 31) this->classification = 0; else this->classification = extended_classification; };
+  inline void set_extended_return_number(U8 extended_return_number) { this->extended_return_number = extended_return_number; };
+  inline void set_extended_number_of_returns(U8 extended_number_of_returns) { this->extended_number_of_returns = extended_number_of_returns; };
+  inline void set_extended_scan_angle(I16 extended_scan_angle) { this->extended_scan_angle = extended_scan_angle; };
   inline void set_extended_overlap_flag(U8 extended_overlap_flag) { this->extended_classification_flags = (extended_overlap_flag << 3) | (this->extended_classification_flags & 7); };
   inline void set_extended_scanner_channel(U8 extended_scanner_channel) { this->extended_scanner_channel = extended_scanner_channel; };
 

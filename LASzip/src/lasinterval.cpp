@@ -29,6 +29,7 @@
 ===============================================================================
 */
 #include "lasinterval.hpp"
+#include "laszip.hpp"
 
 #include "bytestreamin.hpp"
 #include "bytestreamout.hpp"
@@ -43,18 +44,31 @@
 using namespace std;
 
 #ifdef UNORDERED
-  // Check if on OS X and using cland (unordered map isn't part of tr1 namespace)
-  #if defined(__APPLE__) && defined(__clang__)
-    #include <unordered_map>
-  #else
-    #include <tr1/unordered_map>
+   // Figure out whether <unordered_map> is in tr1
+#  ifdef __has_include
+#    if __has_include(<unordered_map>)
+#     include <unordered_map>
+      using namespace std;
+#     define UNORDERED_FOUND
+#    endif
+#  endif
+#  ifdef HAVE_UNORDERED_MAP
+#     include <unordered_map>
+      using namespace std;
+#  elif defined(UNORDERED_FOUND)
+#    include <tr1/unordered_map>
+    using namespace std;
     using namespace tr1;
-  #endif
+#  endif
 typedef unordered_map<I32, LASintervalStartCell*> my_cell_hash;
-#else
+#elif defined(LZ_WIN32_VC6)
 #include <hash_map>
 using namespace std;
-typedef __gnu_cxx::hash_map<I32, LASintervalStartCell*> my_cell_hash;
+typedef hash_map<I32, LASintervalStartCell*> my_cell_hash;
+#else
+#include <unordered_map>
+using namespace std;
+typedef unordered_map<I32, LASintervalStartCell*> my_cell_hash;
 #endif
 
 typedef multimap<U32, LASintervalCell*> my_cell_map;
@@ -231,7 +245,17 @@ void LASinterval::merge_intervals(U32 maximum_intervals, const BOOL verbose)
   // maybe nothing to do
   if (map.size() <= maximum_intervals)
   {
-    if (verbose) fprintf(stderr,"next largest interval gap is %u\n", diff);
+    if (verbose)
+    {
+      if (map.size() == 0)
+      {
+        fprintf(stderr,"maximum_intervals: %u number of interval gaps: 0 \n", maximum_intervals);
+      }
+      else
+      {
+        fprintf(stderr,"maximum_intervals: %u number of interval gaps: %u next largest interval gap %u\n", maximum_intervals, (U32)map.size(), diff);
+      }
+    }
     return;
   }
 
