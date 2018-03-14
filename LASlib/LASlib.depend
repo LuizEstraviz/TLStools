@@ -1,4 +1,24 @@
 # depslib dependency file v1.0
+1519337360 source:c:\work\tlstools\laszip\src\arithmeticdecoder.cpp
+	"arithmeticdecoder.hpp"
+	<string.h>
+	<assert.h>
+	"arithmeticmodel.hpp"
+
+1519337360 c:\work\tlstools\laszip\src\arithmeticdecoder.hpp
+	"mydefs.hpp"
+	"bytestreamin.hpp"
+
+1519337361 c:\work\tlstools\laszip\src\mydefs.hpp
+
+1519337360 c:\work\tlstools\laszip\src\bytestreamin.hpp
+	"mydefs.hpp"
+
+1519337360 c:\work\tlstools\laszip\src\arithmeticmodel.hpp
+	<stdio.h>
+	<stdlib.h>
+	"mydefs.hpp"
+
 1519337360 source:c:\work\tlstools\laszip\src\arithmeticencoder.cpp
 	"arithmeticencoder.hpp"
 	<string.h>
@@ -10,14 +30,7 @@
 	"mydefs.hpp"
 	"bytestreamout.hpp"
 
-1519337361 c:\work\tlstools\laszip\src\mydefs.hpp
-
 1519337360 c:\work\tlstools\laszip\src\bytestreamout.hpp
-	"mydefs.hpp"
-
-1519337360 c:\work\tlstools\laszip\src\arithmeticmodel.hpp
-	<stdio.h>
-	<stdlib.h>
 	"mydefs.hpp"
 
 1519337360 source:c:\work\tlstools\laszip\src\arithmeticmodel.cpp
@@ -35,11 +48,16 @@
 	"arithmeticencoder.hpp"
 	"arithmeticdecoder.hpp"
 
-1519337360 c:\work\tlstools\laszip\src\arithmeticdecoder.hpp
-	"mydefs.hpp"
+1519337360 source:c:\work\tlstools\laszip\src\lasquadtree.cpp
+	"lasquadtree.hpp"
 	"bytestreamin.hpp"
+	"bytestreamout.hpp"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<vector>
 
-1519337360 c:\work\tlstools\laszip\src\bytestreamin.hpp
+1519337360 c:\work\tlstools\laszip\src\lasquadtree.hpp
 	"mydefs.hpp"
 
 1519337360 source:c:\work\tlstools\laszip\src\lasreaditemcompressed_v1.cpp
@@ -59,6 +77,28 @@
 1519337360 c:\work\tlstools\laszip\src\laszip_common_v1.hpp
 	"mydefs.hpp"
 
+1519337360 source:c:\work\tlstools\laszip\src\lasinterval.cpp
+	"lasinterval.hpp"
+	"laszip.hpp"
+	"bytestreamin.hpp"
+	"bytestreamout.hpp"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<map>
+	<set>
+	<unordered_map>
+	<unordered_map>
+	<tr1/unordered_map>
+	<hash_map>
+	<unordered_map>
+
+1519337360 c:\work\tlstools\laszip\src\lasinterval.hpp
+	"mydefs.hpp"
+
+1519337360 c:\work\tlstools\laszip\src\laszip.hpp
+
 1519337360 source:c:\work\tlstools\laszip\src\lasreaditemcompressed_v2.cpp
 	"lasreaditemcompressed_v2.hpp"
 	<assert.h>
@@ -72,675 +112,29 @@
 
 1519337360 c:\work\tlstools\laszip\src\laszip_common_v2.hpp
 
-1520296997 source:c:\work\tlstools\laszip\src\laswriteitemcompressed_v1.cpp
-	"laswriteitemcompressed_v1.hpp"
-	"laszip_common_v1.hpp"
-	<assert.h>
-	<string.h>
-
-1520296997 c:\work\tlstools\laszip\src\laswriteitemcompressed_v1.hpp
-	"laswriteitem.hpp"
-	"arithmeticencoder.hpp"
-	"integercompressor.hpp"
-
-1520815711 c:\work\tlstools\laszip\src\laswriteitem.hpp
-	"mydefs.hpp"
-
-1520296997 source:c:\work\tlstools\laszip\src\laswriteitemcompressed_v2.cpp
-	"laswriteitemcompressed_v2.hpp"
-	<assert.h>
-	<string.h>
-
-1520296997 c:\work\tlstools\laszip\src\laswriteitemcompressed_v2.hpp
-	"laswriteitem.hpp"
-	"arithmeticencoder.hpp"
-	"integercompressor.hpp"
-	"laszip_common_v2.hpp"
-
-1519337360 source:c:\work\tlstools\laszip\src\arithmeticdecoder.cpp
-	"arithmeticdecoder.hpp"
-	<string.h>
-	<assert.h>
-	"arithmeticmodel.hpp"
-
-1520815711 source:c:\work\tlstools\laszip\src\lasindex.cpp
-	"lasindex.hpp"
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
-	"lasquadtree.hpp"
-	"lasinterval.hpp"
-	"lasreadpoint.hpp"
-	"lasreader.hpp"
-	"bytestreamin_file.hpp"
-	"bytestreamout_file.hpp"
-	<unordered_map>
-	<tr1/unordered_map>
-	<hash_map>
-
-1520815711 c:\work\tlstools\laszip\src\lasindex.hpp
-	"mydefs.hpp"
-
-1519337360 c:\work\tlstools\laszip\src\lasquadtree.hpp
-	"mydefs.hpp"
-
-1520296997 c:\work\tlstools\laszip\src\lasinterval.hpp
-	"mydefs.hpp"
-
-1520815711 c:\work\tlstools\laszip\src\lasreadpoint.hpp
-	"mydefs.hpp"
-	"laszip.hpp"
-	"bytestreamin.hpp"
-
-1520815711 c:\work\tlstools\laszip\src\laszip.hpp
-
-1520815711 c:\work\tlstools\laslib\inc\lasreader.hpp
-	"lasdefinitions.hpp"
-	"laswaveform13reader.hpp"
-
-1520815711 c:\work\tlstools\laslib\inc\lasdefinitions.hpp
-	<stdio.h>
-	<string.h>
-	<stdlib.h>
-	<assert.h>
-	"mydefs.hpp"
-	"laszip.hpp"
-	"laspoint.hpp"
-
-1520815711 c:\work\tlstools\laszip\src\laspoint.hpp
-	"lasquantizer.hpp"
-	"lasattributer.hpp"
-
-1520296997 c:\work\tlstools\laszip\src\lasquantizer.hpp
-	"mydefs.hpp"
-
-1520296997 c:\work\tlstools\laszip\src\lasattributer.hpp
-	"mydefs.hpp"
-
-1520296997 c:\work\tlstools\laslib\inc\laswaveform13reader.hpp
-	"lasdefinitions.hpp"
-
-1520296997 c:\work\tlstools\laszip\src\bytestreamin_file.hpp
-	"bytestreamin.hpp"
-	<stdio.h>
-
-1520296997 c:\work\tlstools\laszip\src\bytestreamout_file.hpp
-	"bytestreamout.hpp"
-	<stdio.h>
-
-1520815711 source:c:\work\tlstools\laszip\src\lasinterval.cpp
-	"lasinterval.hpp"
-	"bytestreamin.hpp"
-	"bytestreamout.hpp"
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
-	<assert.h>
-	<map>
-	<set>
-	<unordered_map>
-	<tr1/unordered_map>
-	<hash_map>
-
-1519337360 source:c:\work\tlstools\laszip\src\lasquadtree.cpp
-	"lasquadtree.hpp"
-	"bytestreamin.hpp"
-	"bytestreamout.hpp"
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
-	<vector>
-
-1520815711 source:c:\work\tlstools\laszip\src\lasreadpoint.cpp
+1519337360 source:c:\work\tlstools\laszip\src\lasreadpoint.cpp
 	"lasreadpoint.hpp"
 	"arithmeticdecoder.hpp"
 	"lasreaditemraw.hpp"
 	"lasreaditemcompressed_v1.hpp"
 	"lasreaditemcompressed_v2.hpp"
+	"lasreaditemcompressed_v3.hpp"
+	"lasreaditemcompressed_v4.hpp"
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 
-1520815711 c:\work\tlstools\laszip\src\lasreaditemraw.hpp
-	"lasreaditem.hpp"
-	<assert.h>
-
-1520815711 source:c:\work\tlstools\laszip\src\laswritepoint.cpp
-	"laswritepoint.hpp"
-	"arithmeticencoder.hpp"
-	"laswriteitemraw.hpp"
-	"laswriteitemcompressed_v1.hpp"
-	"laswriteitemcompressed_v2.hpp"
-	<string.h>
-	<stdlib.h>
-
-1520815711 c:\work\tlstools\laszip\src\laswritepoint.hpp
+1519337360 c:\work\tlstools\laszip\src\lasreadpoint.hpp
 	"mydefs.hpp"
 	"laszip.hpp"
-	"bytestreamout.hpp"
-
-1520815711 c:\work\tlstools\laszip\src\laswriteitemraw.hpp
-	"laswriteitem.hpp"
-	<assert.h>
-
-1520296997 source:c:\work\tlstools\laszip\src\laszip.cpp
-	"laszip.hpp"
-	"mydefs.hpp"
-	<assert.h>
-	<string.h>
-	<stdlib.h>
-	<stdio.h>
-
-1520296997 source:c:\work\tlstools\laslib\src\fopen_compressed.cpp
-	<stdio.h>
-	<string.h>
-	<io.h>
-	<fcntl.h>
-	<process.h>
-	<windows.h>
-
-1520815711 source:c:\work\tlstools\laslib\src\lasfilter.cpp
-	"lasfilter.hpp"
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
-	<map>
-
-1520296997 c:\work\tlstools\laslib\inc\lasfilter.hpp
-	"lasdefinitions.hpp"
-
-1520815711 source:c:\work\tlstools\laslib\src\lasreader.cpp
-	"lasreader.hpp"
-	"lasindex.hpp"
-	"lasfilter.hpp"
-	"lastransform.hpp"
-	"lasreader_las.hpp"
-	"lasreader_bin.hpp"
-	"lasreader_shp.hpp"
-	"lasreader_qfit.hpp"
-	"lasreader_asc.hpp"
-	"lasreader_bil.hpp"
-	"lasreader_dtm.hpp"
-	"lasreader_txt.hpp"
-	"lasreadermerged.hpp"
-	"lasreaderbuffered.hpp"
-	"lasreaderpipeon.hpp"
-	<stdlib.h>
-	<string.h>
-	<windows.h>
-	<windows.h>
-
-1520815711 c:\work\tlstools\laslib\inc\lastransform.hpp
-	"lasdefinitions.hpp"
-
-1520815711 c:\work\tlstools\laslib\inc\lasreader_las.hpp
-	"lasreader.hpp"
-	<stdio.h>
-	<fstream.h>
-	<istream>
-	<fstream>
-
-1520296997 c:\work\tlstools\laslib\inc\lasreader_bin.hpp
-	"lasreader.hpp"
-	<stdio.h>
-
-1520296997 c:\work\tlstools\laslib\inc\lasreader_shp.hpp
-	"lasreader.hpp"
-	<stdio.h>
-
-1520296997 c:\work\tlstools\laslib\inc\lasreader_qfit.hpp
-	"lasreader.hpp"
-	<stdio.h>
-
-1520296997 c:\work\tlstools\laslib\inc\lasreader_asc.hpp
-	"lasreader.hpp"
-	<stdio.h>
-
-1520296997 c:\work\tlstools\laslib\inc\lasreader_bil.hpp
-	"lasreader.hpp"
-	<stdio.h>
-
-1520296997 c:\work\tlstools\laslib\inc\lasreader_dtm.hpp
-	"lasreader.hpp"
-	<stdio.h>
-
-1520815711 c:\work\tlstools\laslib\inc\lasreader_txt.hpp
-	"lasreader.hpp"
-	<stdio.h>
-
-1520296997 c:\work\tlstools\laslib\inc\lasreadermerged.hpp
-	"lasreader_las.hpp"
-	"lasreader_bin.hpp"
-	"lasreader_shp.hpp"
-	"lasreader_qfit.hpp"
-	"lasreader_asc.hpp"
-	"lasreader_bil.hpp"
-	"lasreader_dtm.hpp"
-	"lasreader_txt.hpp"
-
-1520296997 c:\work\tlstools\laslib\inc\lasreaderbuffered.hpp
-	"lasreader.hpp"
-
-1520296997 c:\work\tlstools\laslib\inc\lasreaderpipeon.hpp
-	"lasreader.hpp"
-	"laswriter.hpp"
-
-1520815711 c:\work\tlstools\laslib\inc\laswriter.hpp
-	"lasdefinitions.hpp"
-	"lasutility.hpp"
-	"laswaveform13writer.hpp"
-
-1520296997 c:\work\tlstools\laslib\inc\lasutility.hpp
-	"lasdefinitions.hpp"
-
-1520296997 c:\work\tlstools\laslib\inc\laswaveform13writer.hpp
-	"lasdefinitions.hpp"
-
-1520815711 source:c:\work\tlstools\laslib\src\lasreader_asc.cpp
-	"lasreader_asc.hpp"
-	<stdlib.h>
-	<string.h>
-	<windows.h>
-
-1520815711 source:c:\work\tlstools\laslib\src\lasreader_bil.cpp
-	"lasreader_bil.hpp"
-	<stdlib.h>
-	<string.h>
-	<windows.h>
-
-1520815711 source:c:\work\tlstools\laslib\src\lasreader_bin.cpp
-	"lasreader_bin.hpp"
-	"bytestreamin.hpp"
-	"bytestreamin_file.hpp"
-	<stdlib.h>
-	<string.h>
-	<windows.h>
-
-1520815711 source:c:\work\tlstools\laslib\src\lasreader_dtm.cpp
-	"lasreader_dtm.hpp"
-	<stdlib.h>
-	<string.h>
-	<windows.h>
-
-1520815711 source:c:\work\tlstools\laslib\src\lasreader_las.cpp
-	"lasreader_las.hpp"
-	"bytestreamin.hpp"
-	"bytestreamin_file.hpp"
-	"bytestreamin_istream.hpp"
-	"lasreadpoint.hpp"
-	"lasindex.hpp"
-	<fcntl.h>
-	<io.h>
-	<stdlib.h>
-	<string.h>
-
-1520296997 c:\work\tlstools\laszip\src\bytestreamin_istream.hpp
-	"bytestreamin.hpp"
-	<fstream.h>
-	<istream>
-	<fstream>
-
-1520815711 source:c:\work\tlstools\laslib\src\lasreader_qfit.cpp
-	"lasreader_qfit.hpp"
-	"bytestreamin.hpp"
-	"bytestreamin_file.hpp"
-	<stdlib.h>
-	<string.h>
-	<windows.h>
-
-1520815711 source:c:\work\tlstools\laslib\src\lasreader_shp.cpp
-	"lasreader_shp.hpp"
-	<stdlib.h>
-	<string.h>
-	<windows.h>
-
-1520815711 source:c:\work\tlstools\laslib\src\lasreader_txt.cpp
-	"lasreader_txt.hpp"
-	<stdlib.h>
-	<string.h>
-	<windows.h>
-
-1520296997 source:c:\work\tlstools\laslib\src\lasreaderbuffered.cpp
-	"lasreaderbuffered.hpp"
-	"lasindex.hpp"
-	"lasfilter.hpp"
-	"lastransform.hpp"
-	<stdlib.h>
-	<string.h>
-
-1520296997 source:c:\work\tlstools\laslib\src\lasreadermerged.cpp
-	"lasreadermerged.hpp"
-	"lasindex.hpp"
-	"lasfilter.hpp"
-	"lastransform.hpp"
-	<stdlib.h>
-	<string.h>
-
-1520296997 source:c:\work\tlstools\laslib\src\lasreaderpipeon.cpp
-	"lasreaderpipeon.hpp"
-	"lasindex.hpp"
-	"lasfilter.hpp"
-	"lastransform.hpp"
-	"laswriter_las.hpp"
-	<stdlib.h>
-	<string.h>
-
-1520296997 c:\work\tlstools\laslib\inc\laswriter_las.hpp
-	"laswriter.hpp"
-	<stdio.h>
-	<fstream.h>
-	<istream>
-	<fstream>
-
-1520815711 source:c:\work\tlstools\laslib\src\lastransform.cpp
-	"lastransform.hpp"
-	"lasfilter.hpp"
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
-	<math.h>
-
-1520296997 source:c:\work\tlstools\laslib\src\lasutility.cpp
-	"lasutility.hpp"
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
-
-1520296997 source:c:\work\tlstools\laslib\src\laswaveform13reader.cpp
-	"laswaveform13reader.hpp"
-	"bytestreamin_file.hpp"
-	"arithmeticdecoder.hpp"
-	"integercompressor.hpp"
-
-1520296997 source:c:\work\tlstools\laslib\src\laswaveform13writer.cpp
-	"laswaveform13writer.hpp"
-	"bytestreamout_file.hpp"
-	"arithmeticencoder.hpp"
-	"integercompressor.hpp"
-
-1520815711 source:c:\work\tlstools\laslib\src\laswriter.cpp
-	"laswriter.hpp"
-	"laswriter_las.hpp"
-	"laswriter_bin.hpp"
-	"laswriter_qfit.hpp"
-	"laswriter_wrl.hpp"
-	"laswriter_txt.hpp"
-	<stdlib.h>
-	<string.h>
-
-1520296997 c:\work\tlstools\laslib\inc\laswriter_bin.hpp
-	"laswriter.hpp"
-	<stdio.h>
-
-1520296997 c:\work\tlstools\laslib\inc\laswriter_qfit.hpp
-	"laswriter.hpp"
-	<stdio.h>
-
-1520296997 c:\work\tlstools\laslib\inc\laswriter_wrl.hpp
-	"laswriter.hpp"
-	<stdio.h>
-
-1520296997 c:\work\tlstools\laslib\inc\laswriter_txt.hpp
-	"laswriter.hpp"
-	<stdio.h>
-
-1520296997 source:c:\work\tlstools\laslib\src\laswriter_bin.cpp
-	"laswriter_bin.hpp"
-	"bytestreamout_file.hpp"
-	<fcntl.h>
-	<io.h>
-	<stdlib.h>
-	<string.h>
-
-1520815711 source:c:\work\tlstools\laslib\src\laswriter_las.cpp
-	"laswriter_las.hpp"
-	"bytestreamout_nil.hpp"
-	"bytestreamout_file.hpp"
-	"bytestreamout_ostream.hpp"
-	"laswritepoint.hpp"
-	<fcntl.h>
-	<io.h>
-	<stdlib.h>
-	<string.h>
-
-1520296997 c:\work\tlstools\laszip\src\bytestreamout_nil.hpp
-	"bytestreamout.hpp"
-	<stdio.h>
-
-1520296997 c:\work\tlstools\laszip\src\bytestreamout_ostream.hpp
-	"bytestreamout.hpp"
-	<fstream.h>
-	<istream>
-	<fstream>
-
-1520296997 source:c:\work\tlstools\laslib\src\laswriter_qfit.cpp
-	"laswriter_qfit.hpp"
-	"bytestreamout_file.hpp"
-	<fcntl.h>
-	<io.h>
-	<stdlib.h>
-	<string.h>
-
-1520296997 source:c:\work\tlstools\laslib\src\laswriter_txt.cpp
-	"laswriter_txt.hpp"
-	<stdlib.h>
-	<string.h>
-
-1520296997 source:c:\work\tlstools\laslib\src\laswriter_wrl.cpp
-	"laswriter_wrl.hpp"
-	<stdlib.h>
-	<string.h>
-
-1520815711 source:c:\work\tlstools\laslib\src\laswritercompatible.cpp
-	"laswritercompatible.hpp"
-	"bytestreamout_array.hpp"
-	"bytestreamin_array.hpp"
-
-1520296997 c:\work\tlstools\laslib\inc\laswritercompatible.hpp
-	"laswriter.hpp"
-
-1520815711 c:\work\tlstools\laszip\src\bytestreamout_array.hpp
-	"bytestreamout.hpp"
-	<stdlib.h>
-	<string.h>
-
-1520815711 c:\work\tlstools\laszip\src\bytestreamin_array.hpp
+	"laszip_decompress_selective_v3.hpp"
 	"bytestreamin.hpp"
 
 1519337361 c:\work\tlstools\laszip\src\laszip_decompress_selective_v3.hpp
 
-1519337361 c:\work\tlstools\laszip\stl\hash_map
-	<stl_hashtable.h>
-	<stl_hash_map.h>
-
-1519337361 c:\work\tlstools\laszip\stl\stl_hashtable.h
-	<stl_algobase.h>
-	<stl_alloc.h>
-	<stl_construct.h>
-	<stl_tempbuf.h>
-	<stl_algo.h>
-	<stl_uninitialized.h>
-	<stl_function.h>
-	<stl_vector.h>
-	<stl_hash_fun.h>
-
-1519337361 c:\work\tlstools\laszip\stl\stl_algobase.h
-	<stl_config.h>
-	<stl_relops.h>
-	<stl_pair.h>
-	<type_traits.h>
-	<string.h>
-	<limits.h>
-	<stdlib.h>
-	<stddef.h>
-	<new.h>
-	<iosfwd>
-	<iostream.h>
-	<stl_iterator_base.h>
-	<stl_iterator.h>
-
-1519337361 c:\work\tlstools\laszip\stl\stl_config.h
-	<standards.h>
-	<yvals.h>
-	<stdio.h>
-
-1519337361 c:\work\tlstools\laszip\stl\stl_relops.h
-
-1519337361 c:\work\tlstools\laszip\stl\stl_pair.h
-
-1519337361 c:\work\tlstools\laszip\stl\type_traits.h
-	<stl_config.h>
-
-1519337361 c:\work\tlstools\laszip\stl\stl_iterator_base.h
-	<concept_checks.h>
-
-1519337361 c:\work\tlstools\laszip\stl\concept_checks.h
-
-1519337361 c:\work\tlstools\laszip\stl\stl_iterator.h
-
-1519337361 c:\work\tlstools\laszip\stl\stl_alloc.h
-	<stdio.h>
-	<stdlib.h>
-	<new>
-	<stddef.h>
-	<stdlib.h>
-	<string.h>
+1519337360 c:\work\tlstools\laszip\src\lasreaditemraw.hpp
+	"lasreaditem.hpp"
 	<assert.h>
-	<stl_threads.h>
-
-1519337361 c:\work\tlstools\laszip\stl\stl_threads.h
-	<mutex.h>
-	<time.h>
-	<pthread.h>
-	<thread.h>
-	<synch.h>
-	<windows.h>
-
-1519337361 c:\work\tlstools\laszip\stl\stl_construct.h
-	<new.h>
-
-1519337361 c:\work\tlstools\laszip\stl\stl_tempbuf.h
-
-1519337361 c:\work\tlstools\laszip\stl\stl_algo.h
-	<stl_heap.h>
-
-1519337361 c:\work\tlstools\laszip\stl\stl_heap.h
-
-1519337361 c:\work\tlstools\laszip\stl\stl_uninitialized.h
-
-1519337361 c:\work\tlstools\laszip\stl\stl_function.h
-
-1519337361 c:\work\tlstools\laszip\stl\stl_vector.h
-	<concept_checks.h>
-
-1519337361 c:\work\tlstools\laszip\stl\stl_hash_fun.h
-	<stddef.h>
-
-1519337361 c:\work\tlstools\laszip\stl\stl_hash_map.h
-	<concept_checks.h>
-
-1519337361 c:\work\tlstools\laszip\stl\map
-	<stl_tree.h>
-	<stl_map.h>
-	<stl_multimap.h>
-
-1519337361 c:\work\tlstools\laszip\stl\stl_tree.h
-	<stl_algobase.h>
-	<stl_alloc.h>
-	<stl_construct.h>
-	<stl_function.h>
-
-1519337361 c:\work\tlstools\laszip\stl\stl_map.h
-	<concept_checks.h>
-
-1519337361 c:\work\tlstools\laszip\stl\stl_multimap.h
-	<concept_checks.h>
-
-1519337361 c:\work\tlstools\laszip\stl\set
-	<stl_tree.h>
-	<stl_set.h>
-	<stl_multiset.h>
-
-1519337361 c:\work\tlstools\laszip\stl\stl_set.h
-	<concept_checks.h>
-
-1519337361 c:\work\tlstools\laszip\stl\stl_multiset.h
-	<concept_checks.h>
-
-1519337361 c:\work\tlstools\laszip\stl\vector
-	<stl_range_errors.h>
-	<stl_algobase.h>
-	<stl_alloc.h>
-	<stl_construct.h>
-	<stl_uninitialized.h>
-	<stl_vector.h>
-	<stl_bvector.h>
-
-1519337361 c:\work\tlstools\laszip\stl\stl_range_errors.h
-	<stl_config.h>
-	<stdexcept>
-
-1519337361 c:\work\tlstools\laszip\stl\stdexcept
-	<stl_exception.h>
-	<stl_string_fwd.h>
-	<string>
-
-1519337361 c:\work\tlstools\laszip\stl\stl_exception.h
-	<stl_config.h>
-	<exception>
-
-1519337361 c:\work\tlstools\laszip\stl\stl_string_fwd.h
-	<stddef.h>
-	<stl_config.h>
-	<stl_alloc.h>
-	<char_traits.h>
-
-1519337361 c:\work\tlstools\laszip\stl\char_traits.h
-	<string.h>
-	<wchar.h>
-	<iosfwd>
-
-1519337361 c:\work\tlstools\laszip\stl\string
-	<stl_config.h>
-	<stl_string_fwd.h>
-	<ctype.h>
-	<functional>
-	<stl_ctraits_fns.h>
-	<stdexcept>
-	<stl_iterator_base.h>
-	<memory>
-	<algorithm>
-	<iosfwd>
-	<char_traits.h>
-	<iostream.h>
-	<stl_hash_fun.h>
-
-1519337361 c:\work\tlstools\laszip\stl\functional
-	<stl_config.h>
-	<stddef.h>
-	<stl_function.h>
-
-1519337361 c:\work\tlstools\laszip\stl\stl_ctraits_fns.h
-
-1519337361 c:\work\tlstools\laszip\stl\memory
-	<stl_algobase.h>
-	<stl_alloc.h>
-	<stl_construct.h>
-	<stl_tempbuf.h>
-	<stl_uninitialized.h>
-	<stl_raw_storage_iter.h>
-
-1519337361 c:\work\tlstools\laszip\stl\stl_raw_storage_iter.h
-
-1519337361 c:\work\tlstools\laszip\stl\algorithm
-	<stl_algobase.h>
-	<stl_construct.h>
-	<stl_uninitialized.h>
-	<stl_tempbuf.h>
-	<stl_algo.h>
-
-1519337361 c:\work\tlstools\laszip\stl\stl_bvector.h
-	<stl_vector.h>
 
 1519337360 c:\work\tlstools\laszip\src\lasreaditemcompressed_v3.hpp
 	"lasreaditem.hpp"
@@ -749,6 +143,11 @@
 	"bytestreamin_array.hpp"
 	"laszip_common_v3.hpp"
 	"laszip_decompress_selective_v3.hpp"
+
+1519337360 c:\work\tlstools\laszip\src\bytestreamin_array.hpp
+	"bytestreamin.hpp"
+	<stdio.h>
+	<string.h>
 
 1519337361 c:\work\tlstools\laszip\src\laszip_common_v3.hpp
 	"laszip_common_v1.hpp"
@@ -762,12 +161,63 @@
 	"laszip_common_v3.hpp"
 	"laszip_decompress_selective_v3.hpp"
 
+1519337360 source:c:\work\tlstools\laszip\src\laswriteitemcompressed_v1.cpp
+	"laswriteitemcompressed_v1.hpp"
+	"laszip_common_v1.hpp"
+	<assert.h>
+	<string.h>
+
+1519337360 c:\work\tlstools\laszip\src\laswriteitemcompressed_v1.hpp
+	"laswriteitem.hpp"
+	"arithmeticencoder.hpp"
+	"integercompressor.hpp"
+
+1519337360 c:\work\tlstools\laszip\src\laswriteitem.hpp
+	"mydefs.hpp"
+
+1519337360 source:c:\work\tlstools\laszip\src\laswriteitemcompressed_v2.cpp
+	"laswriteitemcompressed_v2.hpp"
+	<assert.h>
+	<string.h>
+
+1519337360 c:\work\tlstools\laszip\src\laswriteitemcompressed_v2.hpp
+	"laswriteitem.hpp"
+	"arithmeticencoder.hpp"
+	"integercompressor.hpp"
+	"laszip_common_v2.hpp"
+
+1519337360 source:c:\work\tlstools\laszip\src\laswritepoint.cpp
+	"laswritepoint.hpp"
+	"arithmeticencoder.hpp"
+	"laswriteitemraw.hpp"
+	"laswriteitemcompressed_v1.hpp"
+	"laswriteitemcompressed_v2.hpp"
+	"laswriteitemcompressed_v3.hpp"
+	"laswriteitemcompressed_v4.hpp"
+	<string.h>
+	<stdlib.h>
+	<stdio.h>
+
+1519337360 c:\work\tlstools\laszip\src\laswritepoint.hpp
+	"mydefs.hpp"
+	"laszip.hpp"
+	"bytestreamout.hpp"
+
+1519337360 c:\work\tlstools\laszip\src\laswriteitemraw.hpp
+	"laswriteitem.hpp"
+	<assert.h>
+
 1519337360 c:\work\tlstools\laszip\src\laswriteitemcompressed_v3.hpp
 	"laswriteitem.hpp"
 	"arithmeticencoder.hpp"
 	"integercompressor.hpp"
 	"bytestreamout_array.hpp"
 	"laszip_common_v3.hpp"
+
+1519337360 c:\work\tlstools\laszip\src\bytestreamout_array.hpp
+	"bytestreamout.hpp"
+	<stdlib.h>
+	<string.h>
 
 1519337360 c:\work\tlstools\laszip\src\laswriteitemcompressed_v4.hpp
 	"laswriteitem.hpp"
@@ -776,56 +226,38 @@
 	"bytestreamout_array.hpp"
 	"laszip_common_v3.hpp"
 
-1520815711 source:c:\work\laslib\laszip\src\arithmeticdecoder.cpp
-	"arithmeticdecoder.hpp"
+1519337360 source:c:\work\tlstools\laslib\src\lasfilter.cpp
+	"lasfilter.hpp"
+	"laszip_decompress_selective_v3.hpp"
+	<stdio.h>
+	<stdlib.h>
 	<string.h>
-	<assert.h>
-	"arithmeticmodel.hpp"
+	<map>
+	<set>
 
-1520815711 c:\work\laslib\laszip\src\arithmeticdecoder.hpp
-	"mydefs.hpp"
-	"bytestreamin.hpp"
+1519337360 c:\work\tlstools\laslib\inc\lasfilter.hpp
+	"lasdefinitions.hpp"
 
-1520815711 c:\work\laslib\laszip\src\mydefs.hpp
-
-1520296997 c:\work\laslib\laszip\src\bytestreamin.hpp
-	"mydefs.hpp"
-
-1520296997 c:\work\laslib\laszip\src\arithmeticmodel.hpp
+1520816209 c:\work\tlstools\laslib\inc\lasdefinitions.hpp
 	<stdio.h>
-	<stdlib.h>
-	"mydefs.hpp"
-
-1520296997 source:c:\work\laslib\laszip\src\arithmeticencoder.cpp
-	"arithmeticencoder.hpp"
 	<string.h>
-	<assert.h>
-	<stdio.h>
-	"arithmeticmodel.hpp"
-
-1520815711 c:\work\laslib\laszip\src\arithmeticencoder.hpp
-	"mydefs.hpp"
-	"bytestreamout.hpp"
-
-1520296997 c:\work\laslib\laszip\src\bytestreamout.hpp
-	"mydefs.hpp"
-
-1520296997 source:c:\work\laslib\laszip\src\arithmeticmodel.cpp
-	"arithmeticmodel.hpp"
-	<stdio.h>
-	<stdlib.h>
-
-1520296997 source:c:\work\laslib\laszip\src\integercompressor.cpp
-	"integercompressor.hpp"
 	<stdlib.h>
 	<assert.h>
-	<math.h>
+	"mydefs.hpp"
+	"laszip.hpp"
+	"laspoint.hpp"
 
-1520296997 c:\work\laslib\laszip\src\integercompressor.hpp
-	"arithmeticencoder.hpp"
-	"arithmeticdecoder.hpp"
+1519337360 c:\work\tlstools\laszip\src\laspoint.hpp
+	"lasquantizer.hpp"
+	"lasattributer.hpp"
 
-1520815711 source:c:\work\laslib\laszip\src\lasindex.cpp
+1519337360 c:\work\tlstools\laszip\src\lasquantizer.hpp
+	"mydefs.hpp"
+
+1519337360 c:\work\tlstools\laszip\src\lasattributer.hpp
+	"mydefs.hpp"
+
+1519337360 source:c:\work\tlstools\laszip\src\lasindex.cpp
 	"lasindex.hpp"
 	<stdio.h>
 	<stdlib.h>
@@ -837,170 +269,31 @@
 	"bytestreamin_file.hpp"
 	"bytestreamout_file.hpp"
 	<unordered_map>
-	<tr1/unordered_map>
-	<hash_map>
-
-1520815711 c:\work\laslib\laszip\src\lasindex.hpp
-	"mydefs.hpp"
-
-1520296997 c:\work\laslib\laszip\src\lasquadtree.hpp
-	"mydefs.hpp"
-
-1520296997 c:\work\laslib\laszip\src\lasinterval.hpp
-	"mydefs.hpp"
-
-1520815711 c:\work\laslib\laszip\src\lasreadpoint.hpp
-	"mydefs.hpp"
-	"laszip.hpp"
-	"bytestreamin.hpp"
-
-1520815711 c:\work\laslib\laszip\src\laszip.hpp
-
-1520815711 c:\work\laslib\laslib\inc\lasreader.hpp
-	"lasdefinitions.hpp"
-	"laswaveform13reader.hpp"
-
-1520816209 c:\work\laslib\laslib\inc\lasdefinitions.hpp
-	<stdio.h>
-	<string.h>
-	<stdlib.h>
-	<assert.h>
-	"mydefs.hpp"
-	"laszip.hpp"
-	"laspoint.hpp"
-
-1520815711 c:\work\laslib\laszip\src\laspoint.hpp
-	"lasquantizer.hpp"
-	"lasattributer.hpp"
-
-1520296997 c:\work\laslib\laszip\src\lasquantizer.hpp
-	"mydefs.hpp"
-
-1520296997 c:\work\laslib\laszip\src\lasattributer.hpp
-	"mydefs.hpp"
-
-1520296997 c:\work\laslib\laslib\inc\laswaveform13reader.hpp
-	"lasdefinitions.hpp"
-
-1520296997 c:\work\laslib\laszip\src\bytestreamin_file.hpp
-	"bytestreamin.hpp"
-	<stdio.h>
-
-1520296997 c:\work\laslib\laszip\src\bytestreamout_file.hpp
-	"bytestreamout.hpp"
-	<stdio.h>
-
-1520815711 source:c:\work\laslib\laszip\src\lasinterval.cpp
-	"lasinterval.hpp"
-	"bytestreamin.hpp"
-	"bytestreamout.hpp"
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
-	<assert.h>
-	<map>
-	<set>
 	<unordered_map>
 	<tr1/unordered_map>
 	<hash_map>
+	<unordered_map>
 
-1520296997 source:c:\work\laslib\laszip\src\lasquadtree.cpp
-	"lasquadtree.hpp"
+1519337360 c:\work\tlstools\laszip\src\lasindex.hpp
+	<stdio.h>
+	"mydefs.hpp"
+
+1519337360 c:\work\tlstools\laslib\inc\lasreader.hpp
+	"lasdefinitions.hpp"
+	"laswaveform13reader.hpp"
+
+1519337360 c:\work\tlstools\laslib\inc\laswaveform13reader.hpp
+	"lasdefinitions.hpp"
+
+1521006210 c:\work\tlstools\laszip\src\bytestreamin_file.hpp
 	"bytestreamin.hpp"
+	<stdio.h>
+
+1519337360 c:\work\tlstools\laszip\src\bytestreamout_file.hpp
 	"bytestreamout.hpp"
 	<stdio.h>
-	<stdlib.h>
-	<string.h>
-	<vector>
 
-1520296997 source:c:\work\laslib\laszip\src\lasreaditemcompressed_v1.cpp
-	"lasreaditemcompressed_v1.hpp"
-	"laszip_common_v1.hpp"
-	<assert.h>
-	<string.h>
-
-1520296997 c:\work\laslib\laszip\src\lasreaditemcompressed_v1.hpp
-	"lasreaditem.hpp"
-	"arithmeticdecoder.hpp"
-	"integercompressor.hpp"
-
-1520815711 c:\work\laslib\laszip\src\lasreaditem.hpp
-	"mydefs.hpp"
-
-1520296997 c:\work\laslib\laszip\src\laszip_common_v1.hpp
-	"mydefs.hpp"
-
-1520296997 source:c:\work\laslib\laszip\src\lasreaditemcompressed_v2.cpp
-	"lasreaditemcompressed_v2.hpp"
-	<assert.h>
-	<string.h>
-
-1520296997 c:\work\laslib\laszip\src\lasreaditemcompressed_v2.hpp
-	"lasreaditem.hpp"
-	"arithmeticdecoder.hpp"
-	"integercompressor.hpp"
-	"laszip_common_v2.hpp"
-
-1520296997 c:\work\laslib\laszip\src\laszip_common_v2.hpp
-
-1520815711 source:c:\work\laslib\laszip\src\lasreadpoint.cpp
-	"lasreadpoint.hpp"
-	"arithmeticdecoder.hpp"
-	"lasreaditemraw.hpp"
-	"lasreaditemcompressed_v1.hpp"
-	"lasreaditemcompressed_v2.hpp"
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
-
-1520815711 c:\work\laslib\laszip\src\lasreaditemraw.hpp
-	"lasreaditem.hpp"
-	<assert.h>
-
-1520296997 source:c:\work\laslib\laszip\src\laswriteitemcompressed_v1.cpp
-	"laswriteitemcompressed_v1.hpp"
-	"laszip_common_v1.hpp"
-	<assert.h>
-	<string.h>
-
-1520296997 c:\work\laslib\laszip\src\laswriteitemcompressed_v1.hpp
-	"laswriteitem.hpp"
-	"arithmeticencoder.hpp"
-	"integercompressor.hpp"
-
-1520815711 c:\work\laslib\laszip\src\laswriteitem.hpp
-	"mydefs.hpp"
-
-1520296997 source:c:\work\laslib\laszip\src\laswriteitemcompressed_v2.cpp
-	"laswriteitemcompressed_v2.hpp"
-	<assert.h>
-	<string.h>
-
-1520296997 c:\work\laslib\laszip\src\laswriteitemcompressed_v2.hpp
-	"laswriteitem.hpp"
-	"arithmeticencoder.hpp"
-	"integercompressor.hpp"
-	"laszip_common_v2.hpp"
-
-1520815711 source:c:\work\laslib\laszip\src\laswritepoint.cpp
-	"laswritepoint.hpp"
-	"arithmeticencoder.hpp"
-	"laswriteitemraw.hpp"
-	"laswriteitemcompressed_v1.hpp"
-	"laswriteitemcompressed_v2.hpp"
-	<string.h>
-	<stdlib.h>
-
-1520815711 c:\work\laslib\laszip\src\laswritepoint.hpp
-	"mydefs.hpp"
-	"laszip.hpp"
-	"bytestreamout.hpp"
-
-1520815711 c:\work\laslib\laszip\src\laswriteitemraw.hpp
-	"laswriteitem.hpp"
-	<assert.h>
-
-1520296997 source:c:\work\laslib\laszip\src\laszip.cpp
+1519337360 source:c:\work\tlstools\laszip\src\laszip.cpp
 	"laszip.hpp"
 	"mydefs.hpp"
 	<assert.h>
@@ -1008,7 +301,7 @@
 	<stdlib.h>
 	<stdio.h>
 
-1520296997 source:c:\work\laslib\laslib\src\fopen_compressed.cpp
+1519337360 source:c:\work\tlstools\laslib\src\fopen_compressed.cpp
 	<stdio.h>
 	<string.h>
 	<io.h>
@@ -1016,17 +309,7 @@
 	<process.h>
 	<windows.h>
 
-1520815711 source:c:\work\laslib\laslib\src\lasfilter.cpp
-	"lasfilter.hpp"
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
-	<map>
-
-1520296997 c:\work\laslib\laslib\inc\lasfilter.hpp
-	"lasdefinitions.hpp"
-
-1520815711 source:c:\work\laslib\laslib\src\lasreader.cpp
+1519337360 source:c:\work\tlstools\laslib\src\lasreader.cpp
 	"lasreader.hpp"
 	"lasindex.hpp"
 	"lasfilter.hpp"
@@ -1041,51 +324,53 @@
 	"lasreader_txt.hpp"
 	"lasreadermerged.hpp"
 	"lasreaderbuffered.hpp"
+	"lasreaderstored.hpp"
 	"lasreaderpipeon.hpp"
 	<stdlib.h>
 	<string.h>
 	<windows.h>
 	<windows.h>
 
-1520816209 c:\work\laslib\laslib\inc\lastransform.hpp
+1520816209 c:\work\tlstools\laslib\inc\lastransform.hpp
 	"lasdefinitions.hpp"
 
-1520815711 c:\work\laslib\laslib\inc\lasreader_las.hpp
+1519337360 c:\work\tlstools\laslib\inc\lasreader_las.hpp
 	"lasreader.hpp"
+	"laszip_decompress_selective_v3.hpp"
 	<stdio.h>
 	<fstream.h>
 	<istream>
 	<fstream>
 
-1520296997 c:\work\laslib\laslib\inc\lasreader_bin.hpp
+1519337360 c:\work\tlstools\laslib\inc\lasreader_bin.hpp
 	"lasreader.hpp"
 	<stdio.h>
 
-1520296997 c:\work\laslib\laslib\inc\lasreader_shp.hpp
+1519337360 c:\work\tlstools\laslib\inc\lasreader_shp.hpp
 	"lasreader.hpp"
 	<stdio.h>
 
-1520296997 c:\work\laslib\laslib\inc\lasreader_qfit.hpp
+1519337360 c:\work\tlstools\laslib\inc\lasreader_qfit.hpp
 	"lasreader.hpp"
 	<stdio.h>
 
-1520296997 c:\work\laslib\laslib\inc\lasreader_asc.hpp
+1519337360 c:\work\tlstools\laslib\inc\lasreader_asc.hpp
 	"lasreader.hpp"
 	<stdio.h>
 
-1520296997 c:\work\laslib\laslib\inc\lasreader_bil.hpp
+1519337360 c:\work\tlstools\laslib\inc\lasreader_bil.hpp
 	"lasreader.hpp"
 	<stdio.h>
 
-1520296997 c:\work\laslib\laslib\inc\lasreader_dtm.hpp
+1519337360 c:\work\tlstools\laslib\inc\lasreader_dtm.hpp
 	"lasreader.hpp"
 	<stdio.h>
 
-1520815711 c:\work\laslib\laslib\inc\lasreader_txt.hpp
+1519337360 c:\work\tlstools\laslib\inc\lasreader_txt.hpp
 	"lasreader.hpp"
 	<stdio.h>
 
-1520296997 c:\work\laslib\laslib\inc\lasreadermerged.hpp
+1519337360 c:\work\tlstools\laslib\inc\lasreadermerged.hpp
 	"lasreader_las.hpp"
 	"lasreader_bin.hpp"
 	"lasreader_shp.hpp"
@@ -1095,37 +380,43 @@
 	"lasreader_dtm.hpp"
 	"lasreader_txt.hpp"
 
-1520296997 c:\work\laslib\laslib\inc\lasreaderbuffered.hpp
+1519337360 c:\work\tlstools\laslib\inc\lasreaderbuffered.hpp
 	"lasreader.hpp"
 
-1520296997 c:\work\laslib\laslib\inc\lasreaderpipeon.hpp
+1519337360 c:\work\tlstools\laslib\inc\lasreaderstored.hpp
 	"lasreader.hpp"
 	"laswriter.hpp"
+	"bytestreamin_array.hpp"
+	"bytestreamout_array.hpp"
 
-1520815711 c:\work\laslib\laslib\inc\laswriter.hpp
+1519337360 c:\work\tlstools\laslib\inc\laswriter.hpp
 	"lasdefinitions.hpp"
 	"lasutility.hpp"
 	"laswaveform13writer.hpp"
 
-1520296997 c:\work\laslib\laslib\inc\lasutility.hpp
+1519337360 c:\work\tlstools\laslib\inc\lasutility.hpp
 	"lasdefinitions.hpp"
 
-1520296997 c:\work\laslib\laslib\inc\laswaveform13writer.hpp
+1519337360 c:\work\tlstools\laslib\inc\laswaveform13writer.hpp
 	"lasdefinitions.hpp"
 
-1520815711 source:c:\work\laslib\laslib\src\lasreader_asc.cpp
+1519337360 c:\work\tlstools\laslib\inc\lasreaderpipeon.hpp
+	"lasreader.hpp"
+	"laswriter.hpp"
+
+1519337360 source:c:\work\tlstools\laslib\src\lasreader_asc.cpp
 	"lasreader_asc.hpp"
 	<stdlib.h>
 	<string.h>
 	<windows.h>
 
-1520815711 source:c:\work\laslib\laslib\src\lasreader_bil.cpp
+1519337360 source:c:\work\tlstools\laslib\src\lasreader_bil.cpp
 	"lasreader_bil.hpp"
 	<stdlib.h>
 	<string.h>
 	<windows.h>
 
-1520815711 source:c:\work\laslib\laslib\src\lasreader_bin.cpp
+1519337360 source:c:\work\tlstools\laslib\src\lasreader_bin.cpp
 	"lasreader_bin.hpp"
 	"bytestreamin.hpp"
 	"bytestreamin_file.hpp"
@@ -1133,13 +424,13 @@
 	<string.h>
 	<windows.h>
 
-1520815711 source:c:\work\laslib\laslib\src\lasreader_dtm.cpp
+1519337360 source:c:\work\tlstools\laslib\src\lasreader_dtm.cpp
 	"lasreader_dtm.hpp"
 	<stdlib.h>
 	<string.h>
 	<windows.h>
 
-1520815711 source:c:\work\laslib\laslib\src\lasreader_las.cpp
+1519337360 source:c:\work\tlstools\laslib\src\lasreader_las.cpp
 	"lasreader_las.hpp"
 	"bytestreamin.hpp"
 	"bytestreamin_file.hpp"
@@ -1151,13 +442,13 @@
 	<stdlib.h>
 	<string.h>
 
-1520296997 c:\work\laslib\laszip\src\bytestreamin_istream.hpp
+1519337360 c:\work\tlstools\laszip\src\bytestreamin_istream.hpp
 	"bytestreamin.hpp"
 	<fstream.h>
 	<istream>
 	<fstream>
 
-1520815711 source:c:\work\laslib\laslib\src\lasreader_qfit.cpp
+1519337360 source:c:\work\tlstools\laslib\src\lasreader_qfit.cpp
 	"lasreader_qfit.hpp"
 	"bytestreamin.hpp"
 	"bytestreamin_file.hpp"
@@ -1165,19 +456,19 @@
 	<string.h>
 	<windows.h>
 
-1520815711 source:c:\work\laslib\laslib\src\lasreader_shp.cpp
+1519337360 source:c:\work\tlstools\laslib\src\lasreader_shp.cpp
 	"lasreader_shp.hpp"
 	<stdlib.h>
 	<string.h>
 	<windows.h>
 
-1520815711 source:c:\work\laslib\laslib\src\lasreader_txt.cpp
+1519337360 source:c:\work\tlstools\laslib\src\lasreader_txt.cpp
 	"lasreader_txt.hpp"
 	<stdlib.h>
 	<string.h>
 	<windows.h>
 
-1520296997 source:c:\work\laslib\laslib\src\lasreaderbuffered.cpp
+1519337360 source:c:\work\tlstools\laslib\src\lasreaderbuffered.cpp
 	"lasreaderbuffered.hpp"
 	"lasindex.hpp"
 	"lasfilter.hpp"
@@ -1185,7 +476,7 @@
 	<stdlib.h>
 	<string.h>
 
-1520296997 source:c:\work\laslib\laslib\src\lasreadermerged.cpp
+1519337360 source:c:\work\tlstools\laslib\src\lasreadermerged.cpp
 	"lasreadermerged.hpp"
 	"lasindex.hpp"
 	"lasfilter.hpp"
@@ -1193,7 +484,7 @@
 	<stdlib.h>
 	<string.h>
 
-1520296997 source:c:\work\laslib\laslib\src\lasreaderpipeon.cpp
+1519337360 source:c:\work\tlstools\laslib\src\lasreaderpipeon.cpp
 	"lasreaderpipeon.hpp"
 	"lasindex.hpp"
 	"lasfilter.hpp"
@@ -1202,14 +493,14 @@
 	<stdlib.h>
 	<string.h>
 
-1520296997 c:\work\laslib\laslib\inc\laswriter_las.hpp
+1519337360 c:\work\tlstools\laslib\inc\laswriter_las.hpp
 	"laswriter.hpp"
 	<stdio.h>
 	<fstream.h>
 	<istream>
 	<fstream>
 
-1520816209 source:c:\work\laslib\laslib\src\lastransform.cpp
+1520816209 source:c:\work\tlstools\laslib\src\lastransform.cpp
 	"lastransform.hpp"
 	"lasfilter.hpp"
 	<stdio.h>
@@ -1217,25 +508,25 @@
 	<string.h>
 	<math.h>
 
-1520296997 source:c:\work\laslib\laslib\src\lasutility.cpp
+1519337360 source:c:\work\tlstools\laslib\src\lasutility.cpp
 	"lasutility.hpp"
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 
-1520296997 source:c:\work\laslib\laslib\src\laswaveform13reader.cpp
+1519337360 source:c:\work\tlstools\laslib\src\laswaveform13reader.cpp
 	"laswaveform13reader.hpp"
 	"bytestreamin_file.hpp"
 	"arithmeticdecoder.hpp"
 	"integercompressor.hpp"
 
-1520296997 source:c:\work\laslib\laslib\src\laswaveform13writer.cpp
+1519337360 source:c:\work\tlstools\laslib\src\laswaveform13writer.cpp
 	"laswaveform13writer.hpp"
 	"bytestreamout_file.hpp"
 	"arithmeticencoder.hpp"
 	"integercompressor.hpp"
 
-1520815711 source:c:\work\laslib\laslib\src\laswriter.cpp
+1520816209 source:c:\work\tlstools\laslib\src\laswriter.cpp
 	"laswriter.hpp"
 	"laswriter_las.hpp"
 	"laswriter_bin.hpp"
@@ -1244,24 +535,26 @@
 	"laswriter_txt.hpp"
 	<stdlib.h>
 	<string.h>
+	<sys/types.h>
+	<sys/stat.h>
 
-1520296997 c:\work\laslib\laslib\inc\laswriter_bin.hpp
+1519337360 c:\work\tlstools\laslib\inc\laswriter_bin.hpp
 	"laswriter.hpp"
 	<stdio.h>
 
-1520296997 c:\work\laslib\laslib\inc\laswriter_qfit.hpp
+1519337360 c:\work\tlstools\laslib\inc\laswriter_qfit.hpp
 	"laswriter.hpp"
 	<stdio.h>
 
-1520296997 c:\work\laslib\laslib\inc\laswriter_wrl.hpp
+1519337360 c:\work\tlstools\laslib\inc\laswriter_wrl.hpp
 	"laswriter.hpp"
 	<stdio.h>
 
-1520296997 c:\work\laslib\laslib\inc\laswriter_txt.hpp
+1519337360 c:\work\tlstools\laslib\inc\laswriter_txt.hpp
 	"laswriter.hpp"
 	<stdio.h>
 
-1520296997 source:c:\work\laslib\laslib\src\laswriter_bin.cpp
+1519337360 source:c:\work\tlstools\laslib\src\laswriter_bin.cpp
 	"laswriter_bin.hpp"
 	"bytestreamout_file.hpp"
 	<fcntl.h>
@@ -1269,7 +562,7 @@
 	<stdlib.h>
 	<string.h>
 
-1520815711 source:c:\work\laslib\laslib\src\laswriter_las.cpp
+1519337360 source:c:\work\tlstools\laslib\src\laswriter_las.cpp
 	"laswriter_las.hpp"
 	"bytestreamout_nil.hpp"
 	"bytestreamout_file.hpp"
@@ -1280,17 +573,17 @@
 	<stdlib.h>
 	<string.h>
 
-1520296997 c:\work\laslib\laszip\src\bytestreamout_nil.hpp
+1519337360 c:\work\tlstools\laszip\src\bytestreamout_nil.hpp
 	"bytestreamout.hpp"
 	<stdio.h>
 
-1520296997 c:\work\laslib\laszip\src\bytestreamout_ostream.hpp
+1519337360 c:\work\tlstools\laszip\src\bytestreamout_ostream.hpp
 	"bytestreamout.hpp"
 	<fstream.h>
 	<istream>
 	<fstream>
 
-1520296997 source:c:\work\laslib\laslib\src\laswriter_qfit.cpp
+1519337360 source:c:\work\tlstools\laslib\src\laswriter_qfit.cpp
 	"laswriter_qfit.hpp"
 	"bytestreamout_file.hpp"
 	<fcntl.h>
@@ -1298,29 +591,21 @@
 	<stdlib.h>
 	<string.h>
 
-1520296997 source:c:\work\laslib\laslib\src\laswriter_txt.cpp
+1519337360 source:c:\work\tlstools\laslib\src\laswriter_txt.cpp
 	"laswriter_txt.hpp"
 	<stdlib.h>
 	<string.h>
 
-1520296997 source:c:\work\laslib\laslib\src\laswriter_wrl.cpp
+1519337360 source:c:\work\tlstools\laslib\src\laswriter_wrl.cpp
 	"laswriter_wrl.hpp"
 	<stdlib.h>
 	<string.h>
 
-1520815711 source:c:\work\laslib\laslib\src\laswritercompatible.cpp
+1519337360 source:c:\work\tlstools\laslib\src\laswritercompatible.cpp
 	"laswritercompatible.hpp"
 	"bytestreamout_array.hpp"
 	"bytestreamin_array.hpp"
 
-1520296997 c:\work\laslib\laslib\inc\laswritercompatible.hpp
+1519337360 c:\work\tlstools\laslib\inc\laswritercompatible.hpp
 	"laswriter.hpp"
-
-1520815711 c:\work\laslib\laszip\src\bytestreamout_array.hpp
-	"bytestreamout.hpp"
-	<stdlib.h>
-	<string.h>
-
-1520815711 c:\work\laslib\laszip\src\bytestreamin_array.hpp
-	"bytestreamin.hpp"
 

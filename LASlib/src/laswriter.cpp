@@ -57,7 +57,7 @@ LASwriter* LASwriteOpener::open(const LASheader* header)
   if (use_nil)
   {
     LASwriterLAS* laswriterlas = new LASwriterLAS();
-    if (!laswriterlas->open(header, (format == LAS_TOOLS_FORMAT_LAZ ? LASZIP_COMPRESSOR_CHUNKED : LASZIP_COMPRESSOR_NONE), 2, chunk_size))
+    if (!laswriterlas->open(header, (format == LAS_TOOLS_FORMAT_LAZ ? (native ? LASZIP_COMPRESSOR_LAYERED_CHUNKED : LASZIP_COMPRESSOR_CHUNKED) : LASZIP_COMPRESSOR_NONE), 2, chunk_size))
     {
       fprintf(stderr,"ERROR: cannot open laswriterlas to NULL\n");
       delete laswriterlas;
@@ -70,7 +70,7 @@ LASwriter* LASwriteOpener::open(const LASheader* header)
     if (format <= LAS_TOOLS_FORMAT_LAZ)
     {
       LASwriterLAS* laswriterlas = new LASwriterLAS();
-      if (!laswriterlas->open(file_name, header, (format == LAS_TOOLS_FORMAT_LAZ ? LASZIP_COMPRESSOR_CHUNKED : LASZIP_COMPRESSOR_NONE), 2, chunk_size, io_obuffer_size))
+      if (!laswriterlas->open(file_name, header, (format == LAS_TOOLS_FORMAT_LAZ ? (native ? LASZIP_COMPRESSOR_LAYERED_CHUNKED : LASZIP_COMPRESSOR_CHUNKED) : LASZIP_COMPRESSOR_NONE), 2, chunk_size, io_obuffer_size))
       {
         fprintf(stderr,"ERROR: cannot open laswriterlas with file name '%s'\n", file_name);
         delete laswriterlas;
@@ -136,7 +136,7 @@ LASwriter* LASwriteOpener::open(const LASheader* header)
     if (format <= LAS_TOOLS_FORMAT_LAZ)
     {
       LASwriterLAS* laswriterlas = new LASwriterLAS();
-      if (!laswriterlas->open(stdout, header, (format == LAS_TOOLS_FORMAT_LAZ ? LASZIP_COMPRESSOR_CHUNKED : LASZIP_COMPRESSOR_NONE), 2, chunk_size))
+      if (!laswriterlas->open(stdout, header, (format == LAS_TOOLS_FORMAT_LAZ ? (native ? LASZIP_COMPRESSOR_LAYERED_CHUNKED : LASZIP_COMPRESSOR_CHUNKED) : LASZIP_COMPRESSOR_NONE), 2, chunk_size))
       {
         fprintf(stderr,"ERROR: cannot open laswriterlas to stdout\n");
         delete laswriterlas;
@@ -266,7 +266,11 @@ BOOL LASwriteOpener::parse(int argc, char* argv[])
         fprintf(stderr,"ERROR: '%s' needs 1 argument: directory\n", argv[i]);
         return FALSE;
       }
-      set_directory(argv[i+1]);
+      if (!set_directory(argv[i+1]))
+      {
+        fprintf(stderr,"ERROR: '%s' is not a valid directory\n", argv[i+1]);
+        return FALSE;
+      }
       *argv[i]='\0'; *argv[i+1]='\0'; i+=1;
     }
     else if (strcmp(argv[i],"-odix") == 0)
@@ -292,6 +296,16 @@ BOOL LASwriteOpener::parse(int argc, char* argv[])
     else if (strcmp(argv[i],"-oforce") == 0)
     {
       set_force(TRUE);
+      *argv[i]='\0';
+    }
+    else if (strcmp(argv[i],"-native") == 0)
+    {
+      set_native(TRUE);
+      *argv[i]='\0';
+    }
+    else if (strcmp(argv[i],"-no_native") == 0)
+    {
+      set_native(FALSE);
       *argv[i]='\0';
     }
     else if (strcmp(argv[i],"-olas") == 0)
@@ -411,7 +425,7 @@ void LASwriteOpener::set_io_obuffer_size(I32 io_obuffer_size)
   this->io_obuffer_size = io_obuffer_size;
 }
 
-void LASwriteOpener::set_directory(const CHAR* directory)
+BOOL LASwriteOpener::set_directory(const CHAR* directory)
 {
   if (this->directory) free(this->directory);
   if (directory)
@@ -425,16 +439,33 @@ void LASwriteOpener::set_directory(const CHAR* directory)
     }
     this->directory = strdup(directory);
     int len = strlen(this->directory);
-    if ((len > 0) && ((this->directory[len-1] == '\\') || (this->directory[len-1] == '/') || (this->directory[len-1] == ':')))
+    if ((len > 0) && ((this->directory[len-1] == '\\') || (this->directory[len-1] == '/')))
     {
       this->directory[len-1] = '\0';
     }
     if (file_name) add_directory();
+
+    // return FALSE if it does not exist or is no directory
+
+    if ((len > 0) && (this->directory[len-1] != ':'))
+    {
+      struct stat info;
+
+      if (stat(this->directory, &info) != 0)
+      {
+        return FALSE;
+      }
+      else if (!(info.st_mode & S_IFDIR))
+      {
+        return FALSE;
+      }
+    }
   }
   else
   {
     this->directory = 0;
   }
+  return TRUE;
 }
 
 void LASwriteOpener::set_file_name(const CHAR* file_name)
@@ -592,6 +623,11 @@ void LASwriteOpener::set_cut(U32 cut)
 {
   this->cut = cut;
   if (cut && file_name) cut_characters();
+}
+
+void LASwriteOpener::set_native(BOOL native)
+{
+  this->native = native;
 }
 
 BOOL LASwriteOpener::set_format(I32 format)
@@ -956,6 +992,11 @@ U32 LASwriteOpener::get_cut() const
   return cut;
 }
 
+BOOL LASwriteOpener::get_native() const
+{
+  return native;
+}
+
 BOOL LASwriteOpener::format_was_specified() const
 {
   return specified;
@@ -1116,6 +1157,7 @@ LASwriteOpener::LASwriteOpener()
   parse_string = 0;
   separator = 0;
   scale_rgb = 1.0f;
+  native = TRUE;
   format = LAS_TOOLS_FORMAT_DEFAULT;
   specified = FALSE;
   force = FALSE;

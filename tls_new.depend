@@ -8696,7 +8696,7 @@
 	"classes.hpp"
 	"methods.hpp"
 
-1520815999 source:c:\work\tlstools\main.cpp
+1521009850 source:c:\work\tlstools\main.cpp
 	<iostream>
 	"lasreader.hpp"
 	"laswriter.hpp"
@@ -8717,7 +8717,7 @@
 	"classes.hpp"
 	"methods.hpp"
 
-1520815711 c:\work\tlstools\laslib\inc\lasreader.hpp
+1519337360 c:\work\tlstools\laslib\inc\lasreader.hpp
 	"lasdefinitions.hpp"
 	"laswaveform13reader.hpp"
 
@@ -8730,47 +8730,47 @@
 	"laszip.hpp"
 	"laspoint.hpp"
 
-1520815711 c:\work\tlstools\laszip\src\mydefs.hpp
+1519337361 c:\work\tlstools\laszip\src\mydefs.hpp
 
-1520815711 c:\work\tlstools\laszip\src\laszip.hpp
+1519337360 c:\work\tlstools\laszip\src\laszip.hpp
 
-1520815711 c:\work\tlstools\laszip\src\laspoint.hpp
+1519337360 c:\work\tlstools\laszip\src\laspoint.hpp
 	"lasquantizer.hpp"
 	"lasattributer.hpp"
 
-1520296997 c:\work\tlstools\laszip\src\lasquantizer.hpp
+1519337360 c:\work\tlstools\laszip\src\lasquantizer.hpp
 	"mydefs.hpp"
 
-1520296997 c:\work\tlstools\laszip\src\lasattributer.hpp
+1519337360 c:\work\tlstools\laszip\src\lasattributer.hpp
 	"mydefs.hpp"
 
-1520296997 c:\work\tlstools\laslib\inc\laswaveform13reader.hpp
+1519337360 c:\work\tlstools\laslib\inc\laswaveform13reader.hpp
 	"lasdefinitions.hpp"
 
-1520815711 c:\work\tlstools\laslib\inc\laswriter.hpp
+1519337360 c:\work\tlstools\laslib\inc\laswriter.hpp
 	"lasdefinitions.hpp"
 	"lasutility.hpp"
 	"laswaveform13writer.hpp"
 
-1520296997 c:\work\tlstools\laslib\inc\lasutility.hpp
+1519337360 c:\work\tlstools\laslib\inc\lasutility.hpp
 	"lasdefinitions.hpp"
 
-1520296997 c:\work\tlstools\laslib\inc\laswaveform13writer.hpp
+1519337360 c:\work\tlstools\laslib\inc\laswaveform13writer.hpp
 	"lasdefinitions.hpp"
 
-1520296997 c:\work\tlstools\laslib\inc\lasfilter.hpp
+1519337360 c:\work\tlstools\laslib\inc\lasfilter.hpp
 	"lasdefinitions.hpp"
 
-1520815999 c:\work\tlstools\classes.hpp
+1520999886 c:\work\tlstools\classes.hpp
 	<vector>
 	<string.h>
 
-1520815999 c:\work\tlstools\methods.hpp
+1520999887 c:\work\tlstools\methods.hpp
 	<vector>
 	<string>
 	"classes.hpp"
 
-1520815999 source:c:\work\tlstools\methods.cpp
+1520999887 source:c:\work\tlstools\methods.cpp
 	<iostream>
 	"lasreader.hpp"
 	"laswriter.hpp"

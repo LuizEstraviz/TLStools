@@ -194,7 +194,7 @@ BOOL LASwritePoint::setup(const U32 num_items, const LASitem* items, const LASzi
         else
           return FALSE;
         break;
-      case LASitem::POINT14:
+      /*case LASitem::POINT14:
         if (items[i].version == 3)
           writers_compressed[i] = new LASwriteItemCompressed_POINT14_v3(enc);
         else if (items[i].version == 4)
@@ -225,21 +225,21 @@ BOOL LASwritePoint::setup(const U32 num_items, const LASitem* items, const LASzi
           writers_compressed[i] = new LASwriteItemCompressed_BYTE14_v4(enc, items[i].size);
         else
           return FALSE;
-        break;
+        break;*/
       case LASitem::WAVEPACKET13:
         if (items[i].version == 1)
          writers_compressed[i] = new LASwriteItemCompressed_WAVEPACKET13_v1(enc);
         else
           return FALSE;
         break;
-      case LASitem::WAVEPACKET14:
+      /*case LASitem::WAVEPACKET14:
         if (items[i].version == 3)
           writers_compressed[i] = new LASwriteItemCompressed_WAVEPACKET14_v3(enc);
         else if (items[i].version == 4)
           writers_compressed[i] = new LASwriteItemCompressed_WAVEPACKET14_v4(enc);
         else
           return FALSE;
-        break;
+        break;*/
       default:
         return FALSE;
       }

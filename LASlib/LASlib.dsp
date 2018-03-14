@@ -177,11 +177,23 @@ SOURCE=.\src\lasreaderpipeon.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\src\lasreaderstored.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\LASzip\src\lasreaditemcompressed_v1.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=..\LASzip\src\lasreaditemcompressed_v2.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\LASzip\src\lasreaditemcompressed_v3.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\LASzip\src\lasreaditemcompressed_v4.cpp
 # End Source File
 # Begin Source File
 
@@ -210,6 +222,14 @@ SOURCE=..\LASzip\src\laswriteitemcompressed_v1.cpp
 # Begin Source File
 
 SOURCE=..\LASzip\src\laswriteitemcompressed_v2.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\LASzip\src\laswriteitemcompressed_v3.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\LASzip\src\laswriteitemcompressed_v4.cpp
 # End Source File
 # Begin Source File
 
@@ -385,6 +405,10 @@ SOURCE=.\inc\lasreaderpipeon.hpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\inc\lasreaderstored.hpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\LASzip\src\lasreaditem.hpp
 # End Source File
 # Begin Source File
@@ -394,6 +418,14 @@ SOURCE=..\LASzip\src\lasreaditemcompressed_v1.hpp
 # Begin Source File
 
 SOURCE=..\LASzip\src\lasreaditemcompressed_v2.hpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\LASzip\src\lasreaditemcompressed_v3.hpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\LASzip\src\lasreaditemcompressed_v4.hpp
 # End Source File
 # Begin Source File
 
@@ -430,6 +462,14 @@ SOURCE=..\LASzip\src\laswriteitemcompressed_v1.hpp
 # Begin Source File
 
 SOURCE=..\LASzip\src\laswriteitemcompressed_v2.hpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\LASzip\src\laswriteitemcompressed_v3.hpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\LASzip\src\laswriteitemcompressed_v4.hpp
 # End Source File
 # Begin Source File
 
@@ -478,6 +518,14 @@ SOURCE=..\LASzip\src\laszip_common_v1.hpp
 # Begin Source File
 
 SOURCE=..\LASzip\src\laszip_common_v2.hpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\LASzip\src\laszip_common_v3.hpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\LASzip\src\laszip_decompress_selective_v3.hpp
 # End Source File
 # Begin Source File
 

@@ -503,7 +503,7 @@ void saveCloud(vector<HoughCenters>* coordinates, string file_path){
 
 }
 
-void saveStemsOnly(vector<vector<StemSegment>>& stemsList, string input_path, string file_path, string cloud_path){
+void saveStemsOnly(vector<vector<StemSegment>>& stemsList, float pixel, string input_path, string file_path, string cloud_path){
 
     //TXT writer
     ofstream result_file(file_path);
@@ -543,7 +543,14 @@ void saveStemsOnly(vector<vector<StemSegment>>& stemsList, string input_path, st
 
     LASwriteOpener laswriteopener;
     laswriteopener.set_file_name(cloud_path.c_str());
-    LASwriter* laswriter = laswriteopener.open(&lasreader->header);
+    laswriteopener.set_format(LAS_TOOLS_FORMAT_LAZ);
+
+    LASheader lasheader;
+    lasheader.point_data_format = 0;
+    lasheader.point_data_record_length = 20;
+    LASpoint laspoint;
+    laspoint.init(&lasheader, lasheader.point_data_format, lasheader.point_data_record_length, &lasheader);
+    LASwriter* laswriter = laswriteopener.open(&lasheader);
 
     while (lasreader->read_point()){
 
@@ -560,10 +567,18 @@ void saveStemsOnly(vector<vector<StemSegment>>& stemsList, string input_path, st
 
                     float pointDist = sqrt( pow(tempX - j->model_circle.x_center, 2) + pow(tempY - j->model_circle.y_center, 2) );
 
-                    if(pointDist <= j->model_circle.radius){
-                        laswriter->write_point(&lasreader->point);
-                        breakList = true;
-                        break;
+                    if(pointDist <= j->model_circle.radius + pixel){
+                       laspoint.set_x( tempX );
+                       laspoint.set_y( tempY );
+                       laspoint.set_z( tempZ );
+
+                       //cout << tempX << ", " << tempY << ", " << tempZ << endl;
+
+                       laswriter->write_point(&laspoint);
+                       laswriter->update_inventory(&laspoint);
+
+                       breakList = true;
+                       break;
                     }
 
                 }

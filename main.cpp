@@ -180,52 +180,11 @@ void plotProcess(CommandLine global){
     cout << endl;
 
     cout << "# writing tree-wise statistics to " << global.output_path << " and stem point cloud to " << global.output_las << endl;
-    saveStemsOnly(trees, global.file_path, global.output_path, global.output_las);
+    saveStemsOnly(trees, global.pixel_size, global.file_path, global.output_path, global.output_las);
 
     cout << "# done" << endl;
 
 }
-
-/*
-//tree-wise
-void treeProcess(CommandLine global){
-
-    cout << "# getting cloud statistics" << endl;
-    CloudStats stats = getStats(globalArgs.file_path);
-
-    cout << "# getting baseline segment" << endl;
-    StemSegment base = baselineStats(stats, global);
-
-    cout << "# slicing cloud" << endl;
-    vector<Slice> pieces = sliceList(global.file_path, stats, global.height_interval);
-
-    cout << "# finding stem segments" << endl;
-
-    float xt = base.model_circle.x_center;
-    float yt = base.model_circle.y_center;
-    float dt = base.model_circle.radius + global.pixel_size*4;
-
-    vector<StemSegment> stem_sections = {};
-
-    for( unsigned i = 0; i < pieces.size(); ++i){
-        StemSegment temp = getSegment(pieces[i], global, xt, yt, dt);
-        xt = temp.model_circle.x_center;
-        yt = temp.model_circle.y_center;
-        dt = (temp.model_circle.radius >= (dt + global.pixel_size) ) ? dt : (temp.model_circle.radius + global.pixel_size*3);
-
-        stem_sections.push_back(temp);
-    }
-
-    cout << "# writing results: " << global.output_path << endl;
-    saveStemReport(stem_sections, global.output_path);
-
-    cout << "# writing cloud: " << global.output_las << endl;
-    saveStemCloud(stem_sections, pieces, global.pixel_size, global.output_las);
-
-    cout << "# done" << endl;
-
-}
-*/
 
 int main(int argc, char *argv[])
 {
@@ -331,9 +290,9 @@ int main(int argc, char *argv[])
         printHelp();
         return 0;
     }
-/**/
+/*
     globalArgs.file_path = "test_clouds/spain.laz";
-/**/
+*/
     if(globalArgs.file_path == " "){
         cout << "\n# input file (-i) missing." << endl;
         //printHelp();

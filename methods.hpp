@@ -56,7 +56,7 @@ void saveStemCloud(vector<StemSegment>& stem, vector<Slice>& tree, double pixel_
 
 vector<StemSegment> stemPoints(StemSegment& base, vector<Slice>& pieces, CommandLine global);
 
-void saveStemsOnly(vector<vector<StemSegment>>& stemsList, string input_path, string file_path = "teste.txt", string cloud_path = "teste.laz");
+void saveStemsOnly(vector<vector<StemSegment>>& stemsList, float pixel, string input_path, string file_path = "teste.txt", string cloud_path = "teste.laz");
 
 vector<vector<HoughCircle*>> isolateSingleTrees(vector<HoughCenters>& roughTreeMap, float maxDist = 0.5, int minLayers = 3);
 

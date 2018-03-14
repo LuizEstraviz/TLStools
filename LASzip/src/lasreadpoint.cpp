@@ -228,7 +228,7 @@ BOOL LASreadPoint::setup(U32 num_items, const LASitem* items, const LASzip* lasz
         else
           return FALSE;
         break;
-      case LASitem::POINT14:
+      /*case LASitem::POINT14:
         if ((items[i].version == 3) || (items[i].version == 2)) // version == 2 from lasproto
           readers_compressed[i] = new LASreadItemCompressed_POINT14_v3(dec, decompress_selective);
         else if (items[i].version == 4)
@@ -259,21 +259,21 @@ BOOL LASreadPoint::setup(U32 num_items, const LASitem* items, const LASzip* lasz
           readers_compressed[i] = new LASreadItemCompressed_BYTE14_v4(dec, items[i].size, decompress_selective);
         else
           return FALSE;
-        break;
+        break;*/
       case LASitem::WAVEPACKET13:
         if (items[i].version == 1)
           readers_compressed[i] = new LASreadItemCompressed_WAVEPACKET13_v1(dec);
         else
           return FALSE;
         break;
-      case LASitem::WAVEPACKET14:
+      /*case LASitem::WAVEPACKET14:
         if (items[i].version == 3)
           readers_compressed[i] = new LASreadItemCompressed_WAVEPACKET14_v3(dec, decompress_selective);
         else if (items[i].version == 4)
           readers_compressed[i] = new LASreadItemCompressed_WAVEPACKET14_v4(dec, decompress_selective);
         else
           return FALSE;
-        break;
+        break;*/
       default:
         return FALSE;
       }
