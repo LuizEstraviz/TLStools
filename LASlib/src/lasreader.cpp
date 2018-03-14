@@ -2,11 +2,11 @@
 ===============================================================================
 
   FILE:  lasreader.cpp
-  
+
   CONTENTS:
-  
+
     see corresponding header file
-  
+
   PROGRAMMERS:
 
     martin.isenburg@rapidlasso.com  -  http://rapidlasso.com
@@ -21,11 +21,11 @@
 
     This software is distributed WITHOUT ANY WARRANTY and without even the
     implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-  
+
   CHANGE HISTORY:
-  
+
     see corresponding header file
-  
+
 ===============================================================================
 */
 #include "lasreader.hpp"
@@ -78,7 +78,7 @@ LASreader::LASreader()
   orig_max_x = 0;
   orig_max_y = 0;
 }
-  
+
 LASreader::~LASreader()
 {
   if (index) delete index;
@@ -707,7 +707,7 @@ LASreader* LASreadOpener::open(const CHAR* other_file_name, BOOL reset_after_oth
           lasreaderlas = new LASreaderLASrescalereoffset(scale_factor[0], scale_factor[1], scale_factor[2], offset[0], offset[1], offset[2]);
         if (!lasreaderlas->open(file_name, io_ibuffer_size, FALSE, decompress_selective))
         {
-          fprintf(stderr,"ERROR: cannot open lasreaderlas with file name '%s'\n", file_name);
+          fprintf(stderr,"ERROR: cannot open lasreaderlas with file name '%s'.\nTry downgrading the file to a previous version (LAS/LAZ < 1.4)\n", file_name);
           delete lasreaderlas;
           return 0;
         }
@@ -1037,7 +1037,7 @@ LASreader* LASreadOpener::open(const CHAR* other_file_name, BOOL reset_after_oth
           lasreader = lasreaderbil;
         }*/
           lasreader = lasreaderbil;
-        
+
         if (pipe_on)
         {
           LASreaderPipeOn* lasreaderpipeon = new LASreaderPipeOn();
@@ -1620,7 +1620,7 @@ BOOL LASreadOpener::parse(int argc, char* argv[])
           return FALSE;
         }
         set_inside_tile((F32)atof(argv[i+1]), (F32)atof(argv[i+2]), (F32)atof(argv[i+3]));
-        *argv[i]='\0'; *argv[i+1]='\0'; *argv[i+2]='\0'; *argv[i+3]='\0'; i+=3; 
+        *argv[i]='\0'; *argv[i+1]='\0'; *argv[i+2]='\0'; *argv[i+3]='\0'; i+=3;
       }
       else if (strcmp(argv[i],"-inside_circle") == 0)
       {
@@ -1640,7 +1640,7 @@ BOOL LASreadOpener::parse(int argc, char* argv[])
           return FALSE;
         }
         set_inside_rectangle(atof(argv[i+1]), atof(argv[i+2]), atof(argv[i+3]), atof(argv[i+4]));
-        *argv[i]='\0'; *argv[i+1]='\0'; *argv[i+2]='\0'; *argv[i+3]='\0'; *argv[i+4]='\0'; i+=4; 
+        *argv[i]='\0'; *argv[i+1]='\0'; *argv[i+2]='\0'; *argv[i+3]='\0'; *argv[i+4]='\0'; i+=4;
       }
       else
       {
@@ -1936,7 +1936,7 @@ BOOL LASreadOpener::parse(int argc, char* argv[])
       {
         // find end of line
         int len = strlen(line) - 1;
-        // remove extra white spaces and line return at the end 
+        // remove extra white spaces and line return at the end
         while (len > 0 && ((line[len] == '\n') || (line[len] == ' ') || (line[len] == '\t') || (line[len] == '\012')))
         {
           line[len] = '\0';
@@ -2302,7 +2302,7 @@ BOOL LASreadOpener::add_list_of_files(const CHAR* list_of_files, BOOL unique)
   {
     // find end of line
     int len = strlen(line) - 1;
-    // remove extra white spaces and line return at the end 
+    // remove extra white spaces and line return at the end
     while (len > 0 && ((line[len] == '\n') || (line[len] == ' ') || (line[len] == '\t') || (line[len] == '\012')))
     {
       line[len] = '\0';

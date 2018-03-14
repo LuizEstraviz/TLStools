@@ -34,6 +34,17 @@ string outputNameAppend(string path, string suffix){
     return new_path;
 }
 
+//check file
+void checkInput(string filePath){
+
+  LASreadOpener lasreadopener;
+  lasreadopener.set_file_name(filePath.c_str());
+  LASreader* lasreader = lasreadopener.open();
+  lasreader->close();
+  delete lasreader;
+
+}
+
 //get cloud statistics
 CloudStats getStats(string file){
 

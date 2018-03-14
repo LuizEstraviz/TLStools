@@ -15,6 +15,9 @@ float text2float(string number);
 //output suffix
 string outputNameAppend(string path, string suffix = "_reslt.txt");
 
+//check input file
+void checkInput(string filePath);
+
 //get cloud statistics
 CloudStats getStats(string file);
 

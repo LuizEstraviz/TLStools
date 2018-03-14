@@ -344,6 +344,7 @@ int main(int argc, char *argv[])
 
     /*** process ***/
 
+    checkInput(globalArgs.file_path);
     plotProcess(globalArgs);
 
     return 0;

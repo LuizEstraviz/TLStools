@@ -4855,7 +4855,7 @@
 1487243502 c:\users\tiago\desktop\parallel\laslib\inc\lasfilter.hpp
 	"lasdefinitions.hpp"
 
-1520520471 source:c:\users\tiago\desktop\tlstools\main.cpp
+1521057531 source:c:\users\tiago\desktop\tlstools\main.cpp
 	<iostream>
 	"lasreader.hpp"
 	"laswriter.hpp"
@@ -4876,11 +4876,11 @@
 	"classes.hpp"
 	"methods.hpp"
 
-1506632233 c:\users\tiago\desktop\tlstools\laslib\inc\lasreader.hpp
+1521051725 c:\users\tiago\desktop\tlstools\laslib\inc\lasreader.hpp
 	"lasdefinitions.hpp"
 	"laswaveform13reader.hpp"
 
-1506632233 c:\users\tiago\desktop\tlstools\laslib\inc\lasdefinitions.hpp
+1521051725 c:\users\tiago\desktop\tlstools\laslib\inc\lasdefinitions.hpp
 	<stdio.h>
 	<string.h>
 	<stdlib.h>
@@ -4891,33 +4891,33 @@
 
 1506632233 c:\users\tiago\desktop\tlstools\laszip\src\mydefs.hpp
 
-1506632233 c:\users\tiago\desktop\tlstools\laszip\src\laszip.hpp
+1521051725 c:\users\tiago\desktop\tlstools\laszip\src\laszip.hpp
 
-1506632233 c:\users\tiago\desktop\tlstools\laszip\src\laspoint.hpp
+1521051725 c:\users\tiago\desktop\tlstools\laszip\src\laspoint.hpp
 	"lasquantizer.hpp"
 	"lasattributer.hpp"
 
 1506632233 c:\users\tiago\desktop\tlstools\laszip\src\lasquantizer.hpp
 	"mydefs.hpp"
 
-1506632233 c:\users\tiago\desktop\tlstools\laszip\src\lasattributer.hpp
+1521051725 c:\users\tiago\desktop\tlstools\laszip\src\lasattributer.hpp
 	"mydefs.hpp"
 
 1506632233 c:\users\tiago\desktop\tlstools\laslib\inc\laswaveform13reader.hpp
 	"lasdefinitions.hpp"
 
-1506632233 c:\users\tiago\desktop\tlstools\laslib\inc\laswriter.hpp
+1521051725 c:\users\tiago\desktop\tlstools\laslib\inc\laswriter.hpp
 	"lasdefinitions.hpp"
 	"lasutility.hpp"
 	"laswaveform13writer.hpp"
 
-1506632233 c:\users\tiago\desktop\tlstools\laslib\inc\lasutility.hpp
+1521051725 c:\users\tiago\desktop\tlstools\laslib\inc\lasutility.hpp
 	"lasdefinitions.hpp"
 
 1506632233 c:\users\tiago\desktop\tlstools\laslib\inc\laswaveform13writer.hpp
 	"lasdefinitions.hpp"
 
-1506632233 c:\users\tiago\desktop\tlstools\laslib\inc\lasfilter.hpp
+1521051725 c:\users\tiago\desktop\tlstools\laslib\inc\lasfilter.hpp
 	"lasdefinitions.hpp"
 
 1496935821 source:c:\users\tiago\desktop\tlstools\classes.cpp
@@ -8575,7 +8575,7 @@
 1331091352 c:\program files\pcl 1.6.0\include\pcl-1.6\pcl\common\impl\common.hpp
 	<pcl/point_types.h>
 
-1520269271 source:c:\users\tiago\desktop\tlstools\methods.cpp
+1521058241 source:c:\users\tiago\desktop\tlstools\methods.cpp
 	<iostream>
 	"lasreader.hpp"
 	"laswriter.hpp"
@@ -8596,7 +8596,7 @@
 	"classes.hpp"
 	"methods.hpp"
 
-1520269271 c:\users\tiago\desktop\tlstools\methods.hpp
+1521057484 c:\users\tiago\desktop\tlstools\methods.hpp
 	<vector>
 	<string>
 	"classes.hpp"
