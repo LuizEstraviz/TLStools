@@ -18,7 +18,6 @@
 #include "classes.hpp"
 #include "methods.hpp"
 
-
 using namespace std;
 
 /*************************************************************************************************************/
@@ -163,16 +162,10 @@ void plotProcess(CommandLine global){
         cout << "center: " << xBase << " , " << yBase << endl;
 
         StemSegment base = baselineStats(cstats, global, true, xBase, yBase, 1.2);
-        /*cout << "props: " <<
-        base.model_circle.x_center << " , " <<
-        base.model_circle.y_center << " , " <<
-        base.model_circle.radius << " , " <<
-        base.model_circle.n_votes << endl;*/
 
         vector<Slice> pieces = sliceList(global.file_path, cstats, global.height_interval, true, xBase, yBase, global.max_radius*3);
         cout << "segments: " << pieces.size() << endl;
 
-        //cout << "## points" << endl;
         vector<StemSegment> bole = stemPoints(base, pieces, global);
         trees.push_back(bole);
     }
@@ -188,6 +181,7 @@ void plotProcess(CommandLine global){
 
 int main(int argc, char *argv[])
 {
+
     /** define global variables **/
     globalArgs.file_path = " ";
     globalArgs.help = false;
@@ -291,7 +285,7 @@ int main(int argc, char *argv[])
         return 0;
     }
 /*
-    globalArgs.file_path = "test_clouds/spain.laz";
+    globalArgs.file_path = "sample_data/square.las";
 */
     if(globalArgs.file_path == " "){
         cout << "\n# input file (-i) missing." << endl;

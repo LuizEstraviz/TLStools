@@ -85,7 +85,6 @@ class HoughCircle{
         int n_votes;
 };
 
-
 class HoughCenters{
     public:
         vector<HoughCircle> circles;
@@ -114,6 +113,14 @@ class HoughCenters{
         HoughCircle getMainCircle(){
             return circles[main_circle];
         }
+};
+
+class ransacCircle{
+    public:
+        float x_center;
+        float y_center;
+        float radius;
+        float error;
 };
 
 class StemSegment{

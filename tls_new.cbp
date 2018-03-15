@@ -34,10 +34,11 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add option="-std=c++1z" />
+			<Add option="-std=c++11" />
 			<Add option="-fexceptions" />
 			<Add directory="LASlib/inc" />
 			<Add directory="LASzip/src" />
+			<Add directory="Eigen" />
 		</Compiler>
 		<Linker>
 			<Add library="lib/libLASlib.a" />

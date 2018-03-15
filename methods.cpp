@@ -17,13 +17,14 @@
 #include <sstream>
 #include "classes.hpp"
 #include "methods.hpp"
+#include <Eigen/Dense>
 
+using namespace Eigen;
 using namespace std;
 
-//---------------------
+////////////////////////
 //general methods
-//---------------------
-
+////////////////////////
 
 //output suffix
 string outputNameAppend(string path, string suffix){
@@ -161,9 +162,35 @@ float text2float(string number){
 }
 
 
-//---------------------
+////////////////////////
+//eigen conversions
+////////////////////////
+void sliceMatrix(Slice& treeSlice, float pixelSize, float xCenter, float yCenter, float keepRadius){
+
+    Matrix<float, Dynamic, 3> pointMatrix;
+
+    for(vvec::iterator ts = treeSlice.slice.begin(); ts != treeSlice.slice.end(); ++ts){
+
+        float centerDistance = sqrt(pow((*ts)[0] - xCenter,2) + pow((*ts)[1] - yCenter,2));
+
+        if(centerDistance < keepRadius + pixelSize){
+            pointMatrix.conservativeResize( pointMatrix.rows()+1 , pointMatrix.cols());
+
+            pointMatrix(pointMatrix.rows()-1, 0) = (*ts)[0];
+            pointMatrix(pointMatrix.rows()-1, 1) = (*ts)[1];
+            pointMatrix(pointMatrix.rows()-1, 2) = (*ts)[2];
+        }
+
+    }
+
+    //cout << "\n\n" << pointMatrix << endl;
+
+}
+
+
+////////////////////////
 //plot and tree methods
-//---------------------
+////////////////////////
 
 //returns all points in between two heights and their x,y range
 Slice getSlice(string file, string lower, string upper, float zfloor, bool clipTree, float xCenter, float yCenter, float centerRadius){
@@ -604,7 +631,8 @@ void saveStemsOnly(vector<vector<StemSegment>>& stemsList, float pixel, string i
 
     }
 
-    laswriter->close();
+    laswriter->update_header(&lasheader, TRUE);
+    laswriter->close(TRUE);
     delete laswriter;
 
     lasreader->close();
@@ -656,6 +684,7 @@ vector<vector<HoughCircle*>> isolateSingleTrees(vector<HoughCenters>& roughTreeM
     return circleClusters;
 }
 
+
 ////////////////////////
 // single tree functions
 ////////////////////////
@@ -688,7 +717,6 @@ vector<Slice> sliceList(string file, CloudStats& props, float z_interval, bool c
 
     double x, y, z;
     double xyDist;
-
 
     while(lasreader->read_point()){
 
@@ -934,6 +962,11 @@ vector<StemSegment> stemPoints(StemSegment& base, vector<Slice>& pieces, Command
         mainBolePiece.z_min        = ras.min_z;
 
         stem_sections.push_back(mainBolePiece);
+
+
+        /// Eigen matrix test
+        sliceMatrix(pieces[i], global.pixel_size, mainBolePiece.model_circle.x_center, mainBolePiece.model_circle.y_center, mainBolePiece.model_circle.radius);
+
     }
 
     return stem_sections;
