@@ -183,7 +183,7 @@ void sliceMatrix(Slice& treeSlice, float pixelSize, float xCenter, float yCenter
 
     }
 
-    //cout << "\n\n" << pointMatrix << endl;
+    cout << "\n\n" << pointMatrix << endl;
 
 }
 
