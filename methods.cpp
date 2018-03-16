@@ -13,6 +13,8 @@
 #include <typeinfo>
 #include <fstream>
 #include <algorithm>
+#include <random>
+#include <iterator>
 #include <string.h>
 #include <sstream>
 #include "classes.hpp"
@@ -163,8 +165,52 @@ float text2float(string number){
 
 
 ////////////////////////
-//eigen conversions
+//eigen methods
 ////////////////////////
+void fitRansacCircle(Matrix<float, Dynamic, 3> pointMatrix, int nSamples = 3, float pConfidence = 0.99, float wInliers = 0.8){
+
+    if(pointMatrix.rows() < nSamples) return;
+
+    int kIterations = log( 1 - pConfidence ) / log( 1 - pow( wInliers, nSamples) );
+    Matrix<float, Dynamic, 3> tempMatrix;
+    tempMatrix.resize(nSamples, 3);
+
+    Matrix<float, Dynamic, 1> rhsVector;
+    rhsVector.resize(nSamples, 1);
+
+    // Random seed
+    random_device rd;
+    // Initialize Mersenne Twister pseudo-random number generator
+    mt19937 gen(rd());
+    // Generate pseudo-random numbers
+    uniform_int_distribution<> dis(0, pointMatrix.rows()-1);
+
+    set<int> nStore;
+
+    for(int i = 0; i <= kIterations; ++i){
+
+        nStore.clear();
+
+        do{
+            int temp = dis(gen);
+            nStore.insert(temp);
+        }while(nStore.size() < nSamples);
+
+        set<int>::iterator nr = nStore.begin();
+
+        for(int j = 0; j < tempMatrix.rows(); ++j){
+            tempMatrix.row(j) = pointMatrix.row( *nr );
+            tempMatrix(j,2) = 1;
+            rhsVector(j,0) = pow( tempMatrix(j,0), 2) + pow( tempMatrix(j,1), 2);
+            advance(nr, 1);
+        }
+
+        //cout << tempMatrix.colPivHouseholderQr().solve(rhsVector) << endl;
+
+    }
+
+}
+
 void sliceMatrix(Slice& treeSlice, float pixelSize, float xCenter, float yCenter, float keepRadius){
 
     Matrix<float, Dynamic, 3> pointMatrix;
@@ -182,8 +228,10 @@ void sliceMatrix(Slice& treeSlice, float pixelSize, float xCenter, float yCenter
         }
 
     }
+    cout << pointMatrix.rows() << " rows" << endl;
+    fitRansacCircle(pointMatrix);
 
-    cout << "\n\n" << pointMatrix << endl;
+    //cout << "\n\n" << pointMatrix << endl;
 
 }
 

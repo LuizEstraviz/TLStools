@@ -284,9 +284,9 @@ int main(int argc, char *argv[])
         printHelp();
         return 0;
     }
-/*
+/**/
     globalArgs.file_path = "sample_data/square.las";
-*/
+/**/
     if(globalArgs.file_path == " "){
         cout << "\n# input file (-i) missing." << endl;
         //printHelp();
@@ -337,7 +337,6 @@ int main(int argc, char *argv[])
     globalArgs.output_stack_coordinates = globalArgs.reports_directory + globalArgs.output_stack_coordinates;
 
     /*** process ***/
-
     checkInput(globalArgs.file_path);
     plotProcess(globalArgs);
 
