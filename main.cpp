@@ -167,6 +167,7 @@ void plotProcess(CommandLine global){
         cout << "segments: " << pieces.size() << endl;
 
         vector<StemSegment> bole = stemPoints(base, pieces, global);
+
         trees.push_back(bole);
     }
 
@@ -285,7 +286,7 @@ int main(int argc, char *argv[])
         return 0;
     }
 /*
-    globalArgs.file_path = "sample_data/square.las";
+    globalArgs.file_path = "test_clouds/duratex_filtered.laz";
 */
     if(globalArgs.file_path == " "){
         cout << "\n# input file (-i) missing." << endl;

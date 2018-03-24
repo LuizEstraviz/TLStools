@@ -473,23 +473,28 @@ vector<HoughCenters> getCenters(Raster* raster, float max_radius, float min_den,
     }
 
     for(auto& rad : radii){
-    votes = empty_raster.matrix;
-    hc.radius = rad;
-    pixel_set = {};
+        votes = empty_raster.matrix;
+        hc.radius = rad;
+        pixel_set = {};
 
         for(unsigned i = 0; i < pixels.size(); ++i){
+
             center = absCenter(pixels[i][0], pixels[i][1], raster->min_x, raster->min_y, raster->pixel_size);
             h_circle = rasterCircle(rad, empty_raster.pixel_size, center[0], center[1], empty_raster.min_x, empty_raster.min_y);
 
             for(unsigned j = 0; j < h_circle.size(); ++j){
                 vx = h_circle[j][0];
                 vy = h_circle[j][1];
+
+                if( vx >= votes.size() || vy >= votes[0].size() ) continue;
+
                 votes[ vx ][ vy ] += 1;
 
                 if(votes[ vx ][ vy ] >= min_votes){
                     pixel_set.insert( 100000*vx + vy );
                 }
             }
+
         }
 
         for(auto& k : pixel_set){
@@ -520,6 +525,7 @@ vector<HoughCenters> getCenters(Raster* raster, float max_radius, float min_den,
         }
 
     }
+
     return g_circles;
 
 }
@@ -1043,7 +1049,6 @@ vector<StemSegment> stemPoints(StemSegment& base, vector<Slice>& pieces, Command
         mainBolePiece.z_min        = ras.min_z;
 
         stem_sections.push_back(mainBolePiece);
-
 
         /// Eigen matrix conversion & RANSAC estimation
         sliceMatrix(pieces[i], mainBolePiece, global.pixel_size);

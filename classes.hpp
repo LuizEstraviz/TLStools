@@ -19,9 +19,9 @@ struct CommandLine {
     string output_path;               // -o option, output file
     string lower_slice;               // -l option, lower height
     string upper_slice;               // -u option, upper height
-    double  pixel_size;               // -p option, pixel size in meters
-    double  max_radius;               // -r option, maximum radius to test
-    double  min_density;              // -d option, minimum density to consider on the Hough transform
+    float  pixel_size;               // -p option, pixel size in meters
+    float  max_radius;               // -r option, maximum radius to test
+    float  min_density;              // -d option, minimum density to consider on the Hough transform
     int  min_votes;                   // -v option, minimum votes count at the output
     string output_las;                // -O option, save a las/laz/txt output
     bool help;                        // -h/? option, get help
