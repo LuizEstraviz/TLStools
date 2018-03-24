@@ -4,7 +4,9 @@
 #include <vector>
 #include <string>
 #include "classes.hpp"
+#include <Eigen/Dense>
 
+using namespace Eigen;
 using namespace std;
 
 template <typename NumberType>
@@ -26,6 +28,12 @@ vector<double> absCenter(int x, int y, double min_x, double min_y, float step);
 
 //calculate pixel based on absolute coordinate
 vector<int> pixPosition(double x, double y, double min_x, double min_y, float step);
+
+//transform vector of points into an Eigen matrix
+void sliceMatrix(Slice& treeSlice, StemSegment& currentPars, float pixelSize);
+
+//perform RANSAC circle estimation
+void fitRansacCircle(Matrix<float, Dynamic, 3>& pointMatrix, StemSegment& updateSegment, int nSamples = 3, float pConfidence = 0.99, float wInliers = 0.8);
 
 //returns all points in between two heights and their x,y range
 Slice getSlice(string file, string lower = "1.0", string upper = "2.0", float zfloor = 0, bool clipTree = false, float xCenter = 0, float yCenter = 0, float centerRadius = 1.2);
@@ -59,7 +67,7 @@ void saveStemCloud(vector<StemSegment>& stem, vector<Slice>& tree, double pixel_
 
 vector<StemSegment> stemPoints(StemSegment& base, vector<Slice>& pieces, CommandLine global);
 
-void saveStemsOnly(vector<vector<StemSegment>>& stemsList, float pixel, string input_path, string file_path = "teste.txt", string cloud_path = "teste.laz");
+void saveStemsOnly(vector<vector<StemSegment>>& stemsList, float pixel, string input_path, string file_path = "teste.txt", string cloud_path = "teste.laz", float max_rad = 0.25);
 
 vector<vector<HoughCircle*>> isolateSingleTrees(vector<HoughCenters>& roughTreeMap, float maxDist = 0.5, int minLayers = 3);
 

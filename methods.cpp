@@ -34,6 +34,8 @@ string outputNameAppend(string path, string suffix){
     unsigned last_dot = path.find_last_of(".");
     string new_path = path.substr(0, last_dot) + suffix;
 
+    if(new_path[0] == '/') new_path = "." + new_path;
+
     return new_path;
 }
 
@@ -167,51 +169,75 @@ float text2float(string number){
 ////////////////////////
 //eigen methods
 ////////////////////////
-void fitRansacCircle(Matrix<float, Dynamic, 3> pointMatrix, int nSamples = 3, float pConfidence = 0.99, float wInliers = 0.8){
+void fitRansacCircle(Matrix<float, Dynamic, 3>& pointMatrix, StemSegment& updateSegment, int nSamples, float pConfidence, float wInliers){
 
     if(pointMatrix.rows() < nSamples) return;
 
-    int kIterations = log( 1 - pConfidence ) / log( 1 - pow( wInliers, nSamples) );
+    int kIterations = 5 * log( 1 - pConfidence ) / log( 1 - pow( wInliers, nSamples) );
     Matrix<float, Dynamic, 3> tempMatrix;
     tempMatrix.resize(nSamples, 3);
 
     Matrix<float, Dynamic, 1> rhsVector;
     rhsVector.resize(nSamples, 1);
 
-    // Random seed
-    random_device rd;
-    // Initialize Mersenne Twister pseudo-random number generator
-    mt19937 gen(rd());
-    // Generate pseudo-random numbers
-    uniform_int_distribution<> dis(0, pointMatrix.rows()-1);
-
-    set<int> nStore;
+    //vector< Matrix<float, 3, 1> > circlePars;
+    ransacCircle bestFit;
 
     for(int i = 0; i <= kIterations; ++i){
 
-        nStore.clear();
-
-        do{
-            int temp = dis(gen);
-            nStore.insert(temp);
-        }while(nStore.size() < nSamples);
-
-        set<int>::iterator nr = nStore.begin();
+        PermutationMatrix<Dynamic,Dynamic> perm(pointMatrix.rows());
+        perm.setIdentity();
+        std::random_shuffle(perm.indices().data(), perm.indices().data()+perm.indices().size());
+        pointMatrix = perm * pointMatrix;
 
         for(int j = 0; j < tempMatrix.rows(); ++j){
-            tempMatrix.row(j) = pointMatrix.row( *nr );
+            tempMatrix.row(j) = pointMatrix.row( j );
             tempMatrix(j,2) = 1;
             rhsVector(j,0) = pow( tempMatrix(j,0), 2) + pow( tempMatrix(j,1), 2);
-            advance(nr, 1);
         }
 
-        //cout << tempMatrix.colPivHouseholderQr().solve(rhsVector) << endl;
+        Matrix<float, 3, 1> tempRansacResult = tempMatrix.colPivHouseholderQr().solve(rhsVector);
 
+        Matrix<float, 3, 1> xyr;
+        xyr(0,0) =  tempRansacResult(0,0) / 2;
+        xyr(1,0) =  tempRansacResult(1,0) / 2;
+        xyr(2,0) =  sqrt( ((pow( tempRansacResult(0,0) ,2) + pow( tempRansacResult(1,0) ,2)) / 4) + tempRansacResult(2,0) );
+
+        //circlePars.push_back( xyr );
+
+        float sumOfSquares = 0;
+        for(int k = 0; k < pointMatrix.rows(); ++k){
+            float tempX = pow( pointMatrix(k,0) - xyr(0,0) , 2);
+            float tempY = pow( pointMatrix(k,1) - xyr(1,0) , 2);
+            float tempExp = pow( sqrt( tempX + tempY ) - xyr(2,0) , 2);
+
+            sumOfSquares += tempExp;
+        }
+
+        float circleError = sqrt(sumOfSquares / pointMatrix.rows());
+
+        if(i == 0){
+            bestFit.error = circleError;
+            bestFit.x_center = xyr(0,0);
+            bestFit.y_center = xyr(1,0);
+            bestFit.radius = xyr(2,0);
+        }else if(circleError < bestFit.error){
+            bestFit.error = circleError;
+            bestFit.x_center = xyr(0,0);
+            bestFit.y_center = xyr(1,0);
+            bestFit.radius = xyr(2,0);
+        }
     }
+
+    updateSegment.ransac_circle = bestFit;
 
 }
 
-void sliceMatrix(Slice& treeSlice, float pixelSize, float xCenter, float yCenter, float keepRadius){
+void sliceMatrix(Slice& treeSlice, StemSegment& currentPars, float pixelSize){
+
+    float xCenter = currentPars.model_circle.x_center;
+    float yCenter = currentPars.model_circle.y_center;
+    float keepRadius = currentPars.model_circle.radius + pixelSize;
 
     Matrix<float, Dynamic, 3> pointMatrix;
 
@@ -219,7 +245,7 @@ void sliceMatrix(Slice& treeSlice, float pixelSize, float xCenter, float yCenter
 
         float centerDistance = sqrt(pow((*ts)[0] - xCenter,2) + pow((*ts)[1] - yCenter,2));
 
-        if(centerDistance < keepRadius + pixelSize){
+        if(centerDistance < keepRadius){
             pointMatrix.conservativeResize( pointMatrix.rows()+1 , pointMatrix.cols());
 
             pointMatrix(pointMatrix.rows()-1, 0) = (*ts)[0];
@@ -228,10 +254,8 @@ void sliceMatrix(Slice& treeSlice, float pixelSize, float xCenter, float yCenter
         }
 
     }
-    cout << pointMatrix.rows() << " rows" << endl;
-    fitRansacCircle(pointMatrix);
 
-    //cout << "\n\n" << pointMatrix << endl;
+    fitRansacCircle(pointMatrix, currentPars);
 
 }
 
@@ -589,12 +613,12 @@ void saveCloud(vector<HoughCenters>* coordinates, string file_path){
 
 }
 
-void saveStemsOnly(vector<vector<StemSegment>>& stemsList, float pixel, string input_path, string file_path, string cloud_path){
+void saveStemsOnly(vector<vector<StemSegment>>& stemsList, float pixel, string input_path, string file_path, string cloud_path, float max_rad){
 
     //TXT writer
     ofstream result_file(file_path);
 
-    result_file << "tree   x   y   rad   votes   z_min   z_max   points" << endl;
+    result_file << "tree   x_hough   y_hough   rad_hough   votes_hough   x_ransac   y_ransac   rad_ransac   error_ransac   z_min   z_max   points" << endl;
 
 
     //write files
@@ -605,12 +629,19 @@ void saveStemsOnly(vector<vector<StemSegment>>& stemsList, float pixel, string i
         counter++;
 
         for(auto j = i->begin(); j != i->end(); ++j){
+
+           if(j->ransac_circle.error > 1 || j->ransac_circle.radius > max_rad || j->ransac_circle.radius < pixel) continue;
+
            result_file <<
                 counter << "   " <<
                 j->model_circle.x_center << "   " <<
                 j->model_circle.y_center << "   " <<
                 j->model_circle.radius << "   " <<
                 j->model_circle.n_votes << "   " <<
+                j->ransac_circle.x_center << "   " <<
+                j->ransac_circle.y_center << "   " <<
+                j->ransac_circle.radius << "   " <<
+                j->ransac_circle.error << "   " <<
                 j->z_min << "   " <<
                 j->z_max << "   " <<
                 j->n_points << "   "
@@ -649,11 +680,13 @@ void saveStemsOnly(vector<vector<StemSegment>>& stemsList, float pixel, string i
         for(auto i = stemsList.begin(); i != stemsList.end(); ++i){
             for(auto j = i->begin(); j != i->end(); ++j){
 
+                if(j->ransac_circle.error > 1 || j->ransac_circle.radius > max_rad || j->ransac_circle.radius < pixel) continue;
+
                 if(tempZ >= j->z_min && tempZ <= j->z_max){
 
-                    float pointDist = sqrt( pow(tempX - j->model_circle.x_center, 2) + pow(tempY - j->model_circle.y_center, 2) );
+                    float pointDist = sqrt( pow(tempX - j->ransac_circle.x_center, 2) + pow(tempY - j->ransac_circle.y_center, 2) );
 
-                    if(pointDist <= j->model_circle.radius + pixel){
+                    if(pointDist <= j->ransac_circle.radius + pixel){
                        laspoint.set_x( tempX );
                        laspoint.set_y( tempY );
                        laspoint.set_z( tempZ );
@@ -1012,8 +1045,8 @@ vector<StemSegment> stemPoints(StemSegment& base, vector<Slice>& pieces, Command
         stem_sections.push_back(mainBolePiece);
 
 
-        /// Eigen matrix test
-        sliceMatrix(pieces[i], global.pixel_size, mainBolePiece.model_circle.x_center, mainBolePiece.model_circle.y_center, mainBolePiece.model_circle.radius);
+        /// Eigen matrix conversion & RANSAC estimation
+        sliceMatrix(pieces[i], mainBolePiece, global.pixel_size);
 
     }
 

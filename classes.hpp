@@ -126,6 +126,7 @@ class ransacCircle{
 class StemSegment{
     public:
        HoughCircle model_circle;
+       ransacCircle ransac_circle;
        double z_min;
        double z_max;
        int n_points;

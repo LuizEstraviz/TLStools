@@ -173,7 +173,7 @@ void plotProcess(CommandLine global){
     cout << endl;
 
     cout << "# writing tree-wise statistics to " << global.output_path << " and stem point cloud to " << global.output_las << endl;
-    saveStemsOnly(trees, global.pixel_size, global.file_path, global.output_path, global.output_las);
+    saveStemsOnly(trees, global.pixel_size, global.file_path, global.output_path, global.output_las, global.max_radius);
 
     cout << "# done" << endl;
 
@@ -284,9 +284,9 @@ int main(int argc, char *argv[])
         printHelp();
         return 0;
     }
-/**/
+/*
     globalArgs.file_path = "sample_data/square.las";
-/**/
+*/
     if(globalArgs.file_path == " "){
         cout << "\n# input file (-i) missing." << endl;
         //printHelp();

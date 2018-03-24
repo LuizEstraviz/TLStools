@@ -35,8 +35,8 @@ cloudName = 'square.las'
 optionalParameters = ''
 
 # assemble the command and run las2rings over the point cloud
-las2rings = paste('TLStrees -i', cloudName, optionalParameters)
-system(las2rings)
+cmd = paste('TLStrees -i', cloudName, optionalParameters)
+system(cmd)
 
 
 # read the output files generated in the process
@@ -55,16 +55,16 @@ bg3d('black')
 rgl.points(layerStack@data, col='blue')
 
 # --load the stem points
-rgl.points(stemsCloud@data, col='darkred')
+rgl.points(stemsCloud@data, col='darkred', size=.5)
 
 # load the original point cloud
 rgl.points(cloud@data, col='white', size=.5)
 
 # fast - plot spheres with the corresponding diameters for every detected tree segment, at the right coordinates
-# with(treeStats, spheres3d(x, y, (z_min + z_max) / 2, rad, col='yellow') )
+with(treeStats, spheres3d(x_ransac, y_ransac, (z_min + z_max) / 2, rad_ransac, col='green') )
 
 # slow - plot cylinders instead of spheres
-apply(treeStats, 1, function(row) plotCylinder(row['x'], row['y'], row['z_min'], row['z_max'], row['rad'], 'yellow'))
+# apply(treeStats, 1, function(row) plotCylinder(row['x_ransac'], row['y_ransac'], row['z_min'], row['z_max'], row['rad_ransac']))
 
 # plot the axes
 axes3d()
