@@ -3,5 +3,6 @@
 	<Workspace title="Workspace">
 		<Project filename="TLStrees/tls_new.cbp" />
 		<Project filename="3rdParty/LASlib_GNU/LASlib/LASlib.cbp" />
+		<Project filename="TLSsample/TLSsample.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>
