@@ -189,6 +189,8 @@ void voxelSample(string path, string suffix, float voxelSize = 0.05){
     laswriteopener.set_file_name( sampled_file.c_str() );
     LASwriter* laswriter = laswriteopener.open(&lasreader->header);
 
+    cout << "## writing " << sampled_file << endl;
+
     while(lasreader->read_point()){
 
         float x = lasreader->get_x();
@@ -226,6 +228,8 @@ void randomSample(string path, string suffix, default_random_engine seed, float 
     LASwriteOpener laswriteopener;
     laswriteopener.set_file_name( sampled_file.c_str() );
     LASwriter* laswriter = laswriteopener.open(&lasreader->header);
+
+    cout << "## writing " << sampled_file << endl;
 
     while(lasreader->read_point()){
 
@@ -316,7 +320,7 @@ int main(int argc, char *argv[])
     if(globalArgs.random_proportion == 0){
         cout << "## applying voxel sampling" << endl;
 
-        voxelSample(globalArgs.file_path, globalArgs.suffix, 0.05);
+        voxelSample(globalArgs.file_path, globalArgs.suffix, globalArgs.voxel_size);
 
     }else{
         cout << "## applying random sampling" << endl;
