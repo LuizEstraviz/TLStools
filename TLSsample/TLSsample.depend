@@ -1,0 +1,57 @@
+# depslib dependency file v1.0
+1522475318 source:c:\work\tlstools\tlssample\main.cpp
+	<iostream>
+	<string>
+	<unordered_map>
+	<vector>
+	<math.h>
+	<sstream>
+	<getopt.h>
+	<random>
+	"lasreader.hpp"
+	"laswriter.hpp"
+
+1519337360 c:\work\tlstools\3rdparty\laslib_gnu\laslib\inc\lasreader.hpp
+	"lasdefinitions.hpp"
+	"laswaveform13reader.hpp"
+
+1520816209 c:\work\tlstools\3rdparty\laslib_gnu\laslib\inc\lasdefinitions.hpp
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<assert.h>
+	"mydefs.hpp"
+	"laszip.hpp"
+	"laspoint.hpp"
+
+1519337361 c:\work\tlstools\3rdparty\laslib_gnu\laszip\src\mydefs.hpp
+
+1519337360 c:\work\tlstools\3rdparty\laslib_gnu\laszip\src\laszip.hpp
+
+1519337360 c:\work\tlstools\3rdparty\laslib_gnu\laszip\src\laspoint.hpp
+	"lasquantizer.hpp"
+	"lasattributer.hpp"
+
+1519337360 c:\work\tlstools\3rdparty\laslib_gnu\laszip\src\lasquantizer.hpp
+	"mydefs.hpp"
+
+1519337360 c:\work\tlstools\3rdparty\laslib_gnu\laszip\src\lasattributer.hpp
+	"mydefs.hpp"
+
+1519337360 c:\work\tlstools\3rdparty\laslib_gnu\laslib\inc\laswaveform13reader.hpp
+	"lasdefinitions.hpp"
+
+1519337360 c:\work\tlstools\3rdparty\laslib_gnu\laslib\inc\laswriter.hpp
+	"lasdefinitions.hpp"
+	"lasutility.hpp"
+	"laswaveform13writer.hpp"
+
+1519337360 c:\work\tlstools\3rdparty\laslib_gnu\laslib\inc\lasutility.hpp
+	"lasdefinitions.hpp"
+
+1519337360 c:\work\tlstools\3rdparty\laslib_gnu\laslib\inc\laswaveform13writer.hpp
+	"lasdefinitions.hpp"
+
+1519337360 c:\work\tlstools\3rdparty\laslib_gnu\laslib\inc\lasfilter.hpp
+	"lasdefinitions.hpp"
+
