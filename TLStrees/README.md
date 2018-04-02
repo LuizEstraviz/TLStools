@@ -24,9 +24,9 @@ To run the executable just run `TLStrees -h` from shell and the following help p
 
 ``` 
 
-## Adopted method
+## Adopted methods
 
-The algorithm we used for detecting stem points is an adapted Hough transform. It filters cells from rasterized layers of the point cloud searching for circular patterns. More in depth descriptions of the method are given by [Olofsson et al. (2014)](http://www.mdpi.com/2072-4292/6/5/4323) and [Conto et al. (2017)](https://doi.org/10.1016/j.compag.2017.10.019).
+The algorithm we used for detecting stem points is an adapted Hough transform. It filters cells from rasterized layers of the point cloud searching for circular patterns. The final radii for tree segments is estimated through a least squares approach combined with the RANSAC algorithm. More in depth descriptions of the methods are given by [Olofsson et al. (2014)](http://www.mdpi.com/2072-4292/6/5/4323) and [Conto et al. (2017)](https://doi.org/10.1016/j.compag.2017.10.019).
 
 ### Further details and recommendations on the command line usage
 
@@ -77,6 +77,5 @@ circle selection criterion for the Hough transform. It indicates how many pixels
 * Main developer: [Tiago de Conto](https://github.com/tiagodc/)
 * Thanks to Martin Isenburg for the initial insights and for the [LASlib](https://github.com/LAStools/LAStools/tree/master/LASlib) API.
 * The system has been developed under the auspices of the [proLiDAR project](http://www.luizestraviz.com/pesquisa/), a cooperative research program led by [IPEF](http://www.ipef.br) and coordinated by [Luiz C. E. Rodriguez](http://www.researcherid.com/rid/D-7043-2012), forest management professor at the University of Sao Paulo, Brazil. Initial contributions by [Caio Hamamura](http://www.bv.fapesp.br/pt/pesquisador/103895/caio-hamamura/) are also acknowledged.
-* This project is compiled with GNU-GCC from inside CodeBlocks. The windows executables can be downloaded straight from the `bin` folder, and we have successfuly compiled the project on linux as well.
 * We provided a `R script` (**viewResults.R**) with a short 3D vizualisation routine.
 * A sample TLS forest plot is found at the `sample_data` folder, just run `TLStrees -i square.las` for a quick demo. 

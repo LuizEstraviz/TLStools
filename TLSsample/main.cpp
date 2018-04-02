@@ -15,6 +15,7 @@ using namespace std;
 struct CommandLine {
 
     string file_path;
+    string output_dir;
     string suffix;
     float voxel_size;
     bool help;
@@ -28,8 +29,9 @@ static const struct option longOpts[] = {
     { "input", required_argument, NULL, 'i' },
     { "voxel", required_argument, NULL, 'v' },
     { "help", no_argument, NULL, 'h' },
-    { "odix", required_argument, NULL, 'o'},
+    { "odir", required_argument, NULL, 'o'},
     { "random", required_argument, NULL, 'r'},
+    { "odix", required_argument, NULL, 0},
     {NULL, no_argument, NULL, 0}
 };
 
@@ -42,10 +44,11 @@ void printHelp(){
     cout <<
         "\n# /*** TLSsample ***/\n# /*** Command line arguments ***/\n\n"
         "# -i or --input         : input file path\n"
-        "# -o or --odix          : output suffix for the sampled point cloud (default = sample)\n"
+        "# -o or --odir          : output directory (defaults to the input file directory)\n"
         "# -v or --voxel         : (default method) voxel side length (default = 0.05 m)\n"
         "# -r or --random        : randomly sample a proportion (0-1] of the input cloud.\n"
         "                         *this method is applied only if the argument is explicitly given. Otherwise, voxel sampling is performed.\n"
+        "# --odix                : output suffix for the sampled point cloud (default = sample)\n"
         "# -? or -h or --help    : print this help\n"
         //random
     << endl;
@@ -81,9 +84,37 @@ string renameSuffix(string path, string suffix = "trim"){
     unsigned last_dot = path.find_last_of(".");
     string new_path = path.substr(0, last_dot) + "_" + suffix + path.substr(last_dot, path.length());
 
-    if(new_path[0] == '/') new_path = "." + new_path;
+    if(new_path[0] == '/' || new_path[0] == '\\') new_path = "." + new_path;
 
     return new_path;
+}
+
+string makeOutputPath(string inputFile, string outputDir, string suffix){
+
+        string outputPath;
+
+        if(outputDir == " "){
+            outputPath = renameSuffix(inputFile, suffix);
+        }else{
+
+            int lastSlash = inputFile.find_last_of("/");
+            string shortFileName = (lastSlash == -1) ? inputFile : inputFile.substr(lastSlash, inputFile.length());
+
+            string lastChar = outputDir.substr( outputDir.length() );
+            if(lastChar != "/"){
+                outputDir += "/";
+            }
+
+            outputPath = renameSuffix(outputDir + shortFileName, suffix);
+
+        }
+
+        #ifdef DEBUGMODE
+            cout << outputPath << endl;
+        #endif // DEBUGMODE
+
+        return outputPath;
+
 }
 
 minMax getLimits(string file, float voxelSize = 0.05){
@@ -168,10 +199,9 @@ string getVoxelString(float x, float y, float z, minMax& range, float voxelSize 
 
 }
 
-void voxelSample(string path, string suffix, float voxelSize = 0.05){
+void voxelSample(string path, string sampled_file, float voxelSize = 0.05){
 
     minMax cloudRange = getLimits(path, voxelSize);
-    string sampled_file = renameSuffix(path, suffix);
     unordered_map<string, short int> ledger;
 
     #ifdef DEBUGMODE
@@ -215,11 +245,9 @@ void voxelSample(string path, string suffix, float voxelSize = 0.05){
     delete lasreader;
 }
 
-void randomSample(string path, string suffix, default_random_engine seed, float proportion = 0.1){
+void randomSample(string path, string sampled_file, default_random_engine seed, float proportion = 0.1){
 
   uniform_real_distribution<float> distribution(0,1);
-
-  string sampled_file = renameSuffix(path, suffix);
 
     LASreadOpener lasreadopener;
     lasreadopener.set_file_name(path.c_str());
@@ -258,6 +286,7 @@ int main(int argc, char *argv[])
     globalArgs.voxel_size = 0.05;
     globalArgs.file_path = " ";
     globalArgs.random_proportion = 0;
+    globalArgs.output_dir = " ";
 
     int opt = 0;
 	int longIndex = 0;
@@ -270,7 +299,7 @@ int main(int argc, char *argv[])
                 break;
 
             case 'o':
-                globalArgs.suffix= std::string(optarg);
+                globalArgs.output_dir= std::string(optarg);
                 break;
 
             case 'v':
@@ -286,6 +315,12 @@ int main(int argc, char *argv[])
                 globalArgs.help = true;
                 break;
 
+            case 0:
+                if( strcmp( "odix", longOpts[longIndex].name ) == 0 ) {
+                    globalArgs.suffix = std::string(optarg);
+                }
+                break;
+
             default:
                 break;
         }
@@ -295,7 +330,7 @@ int main(int argc, char *argv[])
 
     /*** parse command line options ***/
 
-    //globalArgs.file_path = "../sample_data/square.las";
+    globalArgs.file_path = "../sample_data/square.las";
 
     if(globalArgs.help){
         printHelp();
@@ -317,16 +352,18 @@ int main(int argc, char *argv[])
         return 0;
     }
 
+    string outFile = makeOutputPath(globalArgs.file_path, globalArgs.output_dir, globalArgs.suffix);
+
     if(globalArgs.random_proportion == 0){
         cout << "## applying voxel sampling" << endl;
 
-        voxelSample(globalArgs.file_path, globalArgs.suffix, globalArgs.voxel_size);
+        voxelSample(globalArgs.file_path, outFile, globalArgs.voxel_size);
 
     }else{
         cout << "## applying random sampling" << endl;
 
         default_random_engine generator;
-        randomSample(globalArgs.file_path, globalArgs.suffix, generator, globalArgs.random_proportion);
+        randomSample(globalArgs.file_path, outFile, generator, globalArgs.random_proportion);
     }
 
     cout << "## done" << endl;

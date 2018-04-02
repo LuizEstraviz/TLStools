@@ -9536,11 +9536,11 @@
 	"classes.hpp"
 	"methods.hpp"
 
-1519337360 c:\work\tlstools\3rdparty\laslib_gnu\laslib\inc\lasreader.hpp
+1522475648 c:\work\tlstools\3rdparty\laslib_gnu\laslib\inc\lasreader.hpp
 	"lasdefinitions.hpp"
 	"laswaveform13reader.hpp"
 
-1520816209 c:\work\tlstools\3rdparty\laslib_gnu\laslib\inc\lasdefinitions.hpp
+1522475648 c:\work\tlstools\3rdparty\laslib_gnu\laslib\inc\lasdefinitions.hpp
 	<stdio.h>
 	<string.h>
 	<stdlib.h>
@@ -9549,48 +9549,48 @@
 	"laszip.hpp"
 	"laspoint.hpp"
 
-1519337361 c:\work\tlstools\3rdparty\laslib_gnu\laszip\src\mydefs.hpp
+1522475648 c:\work\tlstools\3rdparty\laslib_gnu\laszip\src\mydefs.hpp
 
-1519337360 c:\work\tlstools\3rdparty\laslib_gnu\laszip\src\laszip.hpp
+1522475648 c:\work\tlstools\3rdparty\laslib_gnu\laszip\src\laszip.hpp
 
-1519337360 c:\work\tlstools\3rdparty\laslib_gnu\laszip\src\laspoint.hpp
+1522475648 c:\work\tlstools\3rdparty\laslib_gnu\laszip\src\laspoint.hpp
 	"lasquantizer.hpp"
 	"lasattributer.hpp"
 
-1519337360 c:\work\tlstools\3rdparty\laslib_gnu\laszip\src\lasquantizer.hpp
+1522475648 c:\work\tlstools\3rdparty\laslib_gnu\laszip\src\lasquantizer.hpp
 	"mydefs.hpp"
 
-1519337360 c:\work\tlstools\3rdparty\laslib_gnu\laszip\src\lasattributer.hpp
+1522475648 c:\work\tlstools\3rdparty\laslib_gnu\laszip\src\lasattributer.hpp
 	"mydefs.hpp"
 
-1519337360 c:\work\tlstools\3rdparty\laslib_gnu\laslib\inc\laswaveform13reader.hpp
+1522475648 c:\work\tlstools\3rdparty\laslib_gnu\laslib\inc\laswaveform13reader.hpp
 	"lasdefinitions.hpp"
 
-1519337360 c:\work\tlstools\3rdparty\laslib_gnu\laslib\inc\laswriter.hpp
+1522475648 c:\work\tlstools\3rdparty\laslib_gnu\laslib\inc\laswriter.hpp
 	"lasdefinitions.hpp"
 	"lasutility.hpp"
 	"laswaveform13writer.hpp"
 
-1519337360 c:\work\tlstools\3rdparty\laslib_gnu\laslib\inc\lasutility.hpp
+1522475648 c:\work\tlstools\3rdparty\laslib_gnu\laslib\inc\lasutility.hpp
 	"lasdefinitions.hpp"
 
-1519337360 c:\work\tlstools\3rdparty\laslib_gnu\laslib\inc\laswaveform13writer.hpp
+1522475648 c:\work\tlstools\3rdparty\laslib_gnu\laslib\inc\laswaveform13writer.hpp
 	"lasdefinitions.hpp"
 
-1519337360 c:\work\tlstools\3rdparty\laslib_gnu\laslib\inc\lasfilter.hpp
+1522475648 c:\work\tlstools\3rdparty\laslib_gnu\laslib\inc\lasfilter.hpp
 	"lasdefinitions.hpp"
 
-1521927928 c:\work\tlstools\tlstrees\classes.hpp
+1522475648 c:\work\tlstools\tlstrees\classes.hpp
 	<vector>
 	<string.h>
 
-1521927928 c:\work\tlstools\tlstrees\methods.hpp
+1522475648 c:\work\tlstools\tlstrees\methods.hpp
 	<vector>
 	<string>
 	"classes.hpp"
 	<Eigen/Dense>
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\dense
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\dense
 	"Core"
 	"LU"
 	"Cholesky"
@@ -9599,7 +9599,7 @@
 	"Geometry"
 	"Eigenvalues"
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\core
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\core
 	"src/Core/util/DisableStupidWarnings.h"
 	<math_functions.hpp>
 	<new>
@@ -9772,140 +9772,140 @@
 	"src/Core/GlobalFunctions.h"
 	"src/Core/util/ReenableStupidWarnings.h"
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\util\disablestupidwarnings.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\util\disablestupidwarnings.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\util\macros.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\util\macros.h
 	<cstdlib>
 	<iostream>
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\util\mkl_support.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\util\mkl_support.h
 	<mkl.h>
 	"../../misc/blas.h"
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\misc\blas.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\misc\blas.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\util\constants.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\util\constants.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\util\meta.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\util\meta.h
 	<cfloat>
 	<math_constants.h>
 	<cstdint>
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\util\forwarddeclarations.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\util\forwarddeclarations.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\util\staticassert.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\util\staticassert.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\util\xprhelper.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\util\xprhelper.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\util\memory.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\util\memory.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\numtraits.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\numtraits.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\mathfunctions.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\mathfunctions.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\genericpacketmath.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\genericpacketmath.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\mathfunctionsimpl.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\mathfunctionsimpl.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\sse\packetmath.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\sse\packetmath.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\avx\packetmath.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\avx\packetmath.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\avx512\packetmath.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\avx512\packetmath.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\avx512\mathfunctions.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\avx512\mathfunctions.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\sse\complex.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\sse\complex.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\sse\mathfunctions.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\sse\mathfunctions.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\avx\mathfunctions.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\avx\mathfunctions.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\avx\complex.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\avx\complex.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\avx\typecasting.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\avx\typecasting.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\sse\typecasting.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\sse\typecasting.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\altivec\packetmath.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\altivec\packetmath.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\altivec\mathfunctions.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\altivec\mathfunctions.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\altivec\complex.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\altivec\complex.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\neon\packetmath.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\neon\packetmath.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\neon\mathfunctions.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\neon\mathfunctions.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\neon\complex.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\neon\complex.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\zvector\packetmath.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\zvector\packetmath.h
 	<stdint.h>
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\zvector\mathfunctions.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\zvector\mathfunctions.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\zvector\complex.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\zvector\complex.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\cuda\half.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\cuda\half.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\cuda\packetmathhalf.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\cuda\packetmathhalf.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\cuda\typecasting.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\cuda\typecasting.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\cuda\packetmath.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\cuda\packetmath.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\cuda\mathfunctions.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\cuda\mathfunctions.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\default\settings.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\default\settings.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\functors\ternaryfunctors.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\functors\ternaryfunctors.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\functors\binaryfunctors.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\functors\binaryfunctors.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\functors\unaryfunctors.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\functors\unaryfunctors.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\functors\nullaryfunctors.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\functors\nullaryfunctors.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\functors\stlfunctors.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\functors\stlfunctors.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\functors\assignmentfunctors.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\functors\assignmentfunctors.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\cuda\complex.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arch\cuda\complex.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\io.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\io.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\densecoeffsbase.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\densecoeffsbase.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\densebase.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\densebase.h
 	"../plugins/BlockMethods.h"
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\plugins\blockmethods.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\plugins\blockmethods.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\matrixbase.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\matrixbase.h
 	"../plugins/CommonCwiseUnaryOps.h"
 	"../plugins/CommonCwiseBinaryOps.h"
 	"../plugins/MatrixCwiseUnaryOps.h"
 	"../plugins/MatrixCwiseBinaryOps.h"
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\plugins\commoncwiseunaryops.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\plugins\commoncwiseunaryops.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\plugins\commoncwisebinaryops.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\plugins\commoncwisebinaryops.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\plugins\matrixcwiseunaryops.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\plugins\matrixcwiseunaryops.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\plugins\matrixcwisebinaryops.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\plugins\matrixcwisebinaryops.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\eigenbase.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\eigenbase.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\product.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\product.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\coreevaluators.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\coreevaluators.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\assignevaluator.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\assignevaluator.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\assign.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\assign.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arraybase.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arraybase.h
 	"../plugins/CommonCwiseUnaryOps.h"
 	"../plugins/MatrixCwiseUnaryOps.h"
 	"../plugins/ArrayCwiseUnaryOps.h"
@@ -9913,161 +9913,161 @@
 	"../plugins/MatrixCwiseBinaryOps.h"
 	"../plugins/ArrayCwiseBinaryOps.h"
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\plugins\arraycwiseunaryops.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\plugins\arraycwiseunaryops.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\plugins\arraycwisebinaryops.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\plugins\arraycwisebinaryops.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\util\blasutil.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\util\blasutil.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\densestorage.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\densestorage.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\nestbyvalue.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\nestbyvalue.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\returnbyvalue.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\returnbyvalue.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\noalias.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\noalias.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\plainobjectbase.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\plainobjectbase.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\matrix.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\matrix.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\array.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\array.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\cwiseternaryop.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\cwiseternaryop.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\cwisebinaryop.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\cwisebinaryop.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\cwiseunaryop.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\cwiseunaryop.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\cwisenullaryop.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\cwisenullaryop.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\cwiseunaryview.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\cwiseunaryview.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\selfcwisebinaryop.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\selfcwisebinaryop.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\dot.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\dot.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\stablenorm.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\stablenorm.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\stride.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\stride.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\mapbase.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\mapbase.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\map.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\map.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\ref.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\ref.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\block.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\block.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\vectorblock.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\vectorblock.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\transpose.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\transpose.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\diagonalmatrix.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\diagonalmatrix.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\diagonal.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\diagonal.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\diagonalproduct.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\diagonalproduct.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\redux.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\redux.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\visitor.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\visitor.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\fuzzy.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\fuzzy.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\swap.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\swap.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\commainitializer.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\commainitializer.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\generalproduct.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\generalproduct.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\solve.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\solve.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\inverse.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\inverse.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\solverbase.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\solverbase.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\permutationmatrix.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\permutationmatrix.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\transpositions.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\transpositions.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\triangularmatrix.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\triangularmatrix.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\selfadjointview.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\selfadjointview.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\generalblockpanelkernel.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\generalblockpanelkernel.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\parallelizer.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\parallelizer.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\productevaluators.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\productevaluators.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\generalmatrixvector.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\generalmatrixvector.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\generalmatrixmatrix.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\generalmatrixmatrix.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\solvetriangular.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\solvetriangular.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\generalmatrixmatrixtriangular.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\generalmatrixmatrixtriangular.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\selfadjointmatrixvector.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\selfadjointmatrixvector.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\selfadjointmatrixmatrix.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\selfadjointmatrixmatrix.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\selfadjointproduct.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\selfadjointproduct.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\selfadjointrank2update.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\selfadjointrank2update.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\triangularmatrixvector.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\triangularmatrixvector.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\triangularmatrixmatrix.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\triangularmatrixmatrix.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\triangularsolvermatrix.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\triangularsolvermatrix.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\triangularsolvervector.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\triangularsolvervector.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\bandmatrix.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\bandmatrix.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\coreiterators.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\coreiterators.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\conditionestimator.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\conditionestimator.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\booleanredux.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\booleanredux.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\select.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\select.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\vectorwiseop.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\vectorwiseop.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\random.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\random.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\replicate.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\replicate.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\reverse.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\reverse.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arraywrapper.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\arraywrapper.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\generalmatrixmatrix_blas.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\generalmatrixmatrix_blas.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\generalmatrixvector_blas.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\generalmatrixvector_blas.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\generalmatrixmatrixtriangular_blas.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\generalmatrixmatrixtriangular_blas.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\selfadjointmatrixmatrix_blas.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\selfadjointmatrixmatrix_blas.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\selfadjointmatrixvector_blas.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\selfadjointmatrixvector_blas.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\triangularmatrixmatrix_blas.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\triangularmatrixmatrix_blas.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\triangularmatrixvector_blas.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\triangularmatrixvector_blas.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\triangularsolvermatrix_blas.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\products\triangularsolvermatrix_blas.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\assign_mkl.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\assign_mkl.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\globalfunctions.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\globalfunctions.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\core\util\reenablestupidwarnings.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\core\util\reenablestupidwarnings.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\lu
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\lu
 	"Core"
 	"src/Core/util/DisableStupidWarnings.h"
 	"src/misc/Kernel.h"
@@ -10081,32 +10081,32 @@
 	"src/LU/arch/Inverse_SSE.h"
 	"src/Core/util/ReenableStupidWarnings.h"
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\misc\kernel.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\misc\kernel.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\misc\image.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\misc\image.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\lu\fullpivlu.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\lu\fullpivlu.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\lu\partialpivlu.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\lu\partialpivlu.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\misc\lapacke.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\misc\lapacke.h
 	"lapacke_config.h"
 	<stdlib.h>
 	<complex.h>
 	<complex.h>
 	"lapacke_mangling.h"
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\misc\lapacke_mangling.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\misc\lapacke_mangling.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\lu\partialpivlu_lapacke.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\lu\partialpivlu_lapacke.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\lu\determinant.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\lu\determinant.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\lu\inverseimpl.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\lu\inverseimpl.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\lu\arch\inverse_sse.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\lu\arch\inverse_sse.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\cholesky
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\cholesky
 	"Core"
 	"src/Core/util/DisableStupidWarnings.h"
 	"src/Cholesky/LLT.h"
@@ -10115,13 +10115,13 @@
 	"src/Cholesky/LLT_LAPACKE.h"
 	"src/Core/util/ReenableStupidWarnings.h"
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\cholesky\llt.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\cholesky\llt.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\cholesky\ldlt.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\cholesky\ldlt.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\cholesky\llt_lapacke.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\cholesky\llt_lapacke.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\qr
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\qr
 	"Core"
 	"src/Core/util/DisableStupidWarnings.h"
 	"Cholesky"
@@ -10136,15 +10136,15 @@
 	"src/QR/ColPivHouseholderQR_LAPACKE.h"
 	"src/Core/util/ReenableStupidWarnings.h"
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\jacobi
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\jacobi
 	"Core"
 	"src/Core/util/DisableStupidWarnings.h"
 	"src/Jacobi/Jacobi.h"
 	"src/Core/util/ReenableStupidWarnings.h"
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\jacobi\jacobi.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\jacobi\jacobi.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\householder
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\householder
 	"Core"
 	"src/Core/util/DisableStupidWarnings.h"
 	"src/Householder/Householder.h"
@@ -10152,25 +10152,25 @@
 	"src/Householder/BlockHouseholder.h"
 	"src/Core/util/ReenableStupidWarnings.h"
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\householder\householder.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\householder\householder.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\householder\householdersequence.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\householder\householdersequence.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\householder\blockhouseholder.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\householder\blockhouseholder.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\qr\householderqr.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\qr\householderqr.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\qr\fullpivhouseholderqr.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\qr\fullpivhouseholderqr.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\qr\colpivhouseholderqr.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\qr\colpivhouseholderqr.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\qr\completeorthogonaldecomposition.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\qr\completeorthogonaldecomposition.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\qr\householderqr_lapacke.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\qr\householderqr_lapacke.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\qr\colpivhouseholderqr_lapacke.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\qr\colpivhouseholderqr_lapacke.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\svd
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\svd
 	"QR"
 	"Householder"
 	"Jacobi"
@@ -10184,19 +10184,19 @@
 	"src/SVD/JacobiSVD_LAPACKE.h"
 	"src/Core/util/ReenableStupidWarnings.h"
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\misc\realsvd2x2.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\misc\realsvd2x2.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\svd\upperbidiagonalization.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\svd\upperbidiagonalization.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\svd\svdbase.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\svd\svdbase.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\svd\jacobisvd.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\svd\jacobisvd.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\svd\bdcsvd.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\svd\bdcsvd.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\svd\jacobisvd_lapacke.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\svd\jacobisvd_lapacke.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\geometry
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\geometry
 	"Core"
 	"src/Core/util/DisableStupidWarnings.h"
 	"SVD"
@@ -10219,37 +10219,37 @@
 	"src/Geometry/arch/Geometry_SSE.h"
 	"src/Core/util/ReenableStupidWarnings.h"
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\orthomethods.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\orthomethods.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\eulerangles.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\eulerangles.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\homogeneous.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\homogeneous.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\rotationbase.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\rotationbase.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\rotation2d.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\rotation2d.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\quaternion.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\quaternion.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\angleaxis.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\angleaxis.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\transform.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\transform.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\translation.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\translation.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\scaling.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\scaling.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\hyperplane.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\hyperplane.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\parametrizedline.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\parametrizedline.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\alignedbox.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\alignedbox.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\umeyama.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\umeyama.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\arch\geometry_sse.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\geometry\arch\geometry_sse.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\eigenvalues
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\eigenvalues
 	"Core"
 	"src/Core/util/DisableStupidWarnings.h"
 	"Cholesky"
@@ -10275,42 +10275,42 @@
 	"src/Eigenvalues/SelfAdjointEigenSolver_LAPACKE.h"
 	"src/Core/util/ReenableStupidWarnings.h"
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\eigenvalues\tridiagonalization.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\eigenvalues\tridiagonalization.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\eigenvalues\realschur.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\eigenvalues\realschur.h
 	"./HessenbergDecomposition.h"
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\eigenvalues\hessenbergdecomposition.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\eigenvalues\hessenbergdecomposition.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\eigenvalues\eigensolver.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\eigenvalues\eigensolver.h
 	"./RealSchur.h"
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\eigenvalues\selfadjointeigensolver.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\eigenvalues\selfadjointeigensolver.h
 	"./Tridiagonalization.h"
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\eigenvalues\generalizedselfadjointeigensolver.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\eigenvalues\generalizedselfadjointeigensolver.h
 	"./Tridiagonalization.h"
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\eigenvalues\complexschur.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\eigenvalues\complexschur.h
 	"./HessenbergDecomposition.h"
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\eigenvalues\complexeigensolver.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\eigenvalues\complexeigensolver.h
 	"./ComplexSchur.h"
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\eigenvalues\realqz.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\eigenvalues\realqz.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\eigenvalues\generalizedeigensolver.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\eigenvalues\generalizedeigensolver.h
 	"./RealQZ.h"
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\eigenvalues\matrixbaseeigenvalues.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\eigenvalues\matrixbaseeigenvalues.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\eigenvalues\realschur_lapacke.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\eigenvalues\realschur_lapacke.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\eigenvalues\complexschur_lapacke.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\eigenvalues\complexschur_lapacke.h
 
-1497510620 c:\work\tlstools\3rdparty\eigen\eigen\src\eigenvalues\selfadjointeigensolver_lapacke.h
+1522475646 c:\work\tlstools\3rdparty\eigen\eigen\src\eigenvalues\selfadjointeigensolver_lapacke.h
 
-1521927928 source:c:\work\tlstools\tlstrees\methods.cpp
+1522475648 source:c:\work\tlstools\tlstrees\methods.cpp
 	<iostream>
 	"lasreader.hpp"
 	"laswriter.hpp"

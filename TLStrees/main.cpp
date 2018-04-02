@@ -53,8 +53,8 @@ void printHelp(){
     cout <<
         "\n# /*** TLStrees ***/\n# /*** Command line arguments ***/\n\n"
         "# -i or --input         : input file path\n"
-        "# -o or --otxtdir       : output directory for the report files (defaults to current directory)\n"
-        "# -O or --olazdir       : output directory for the point cloud files (defaults to current directory)\n"
+        "# -o or --otxtdir       : output directory for the report files (defaults to input file directory)\n"
+        "# -O or --olazdir       : output directory for the point cloud files (defaults to input file directory)\n"
         "# -l or --lower         : slice's lower height (default = 1.0 m)\n"
         "# -u or --upper         : slice's upper height (default = 3.0 m)\n"
         "# -z or --zheight       : height interval to search for stem segments (default = 0.5 m)\n"
