@@ -14,6 +14,6 @@ a tool for tree detection and stem segmentation based on point cloud pattern rec
 
 Each project has its own `README` file, summarizing the algorithms' work and how to use them. Just browse the directories and check it out!
 
-##Binaries
+## Binaries
 
 The released (windows) executables are found in the `bin` folder. The source code for every tool is open and available at the respective folders. The projects were compiled with the GNU-GCC compiler under CodeBlocks. The windows executables can be downloaded straight from the `bin` folder. The projects can also be compiled on linux based OS's (tested on Ubuntu Xenial).
