@@ -330,7 +330,7 @@ int main(int argc, char *argv[])
 
     /*** parse command line options ***/
 
-    globalArgs.file_path = "../sample_data/square.las";
+    //globalArgs.file_path = "../sample_data/square.las";
 
     if(globalArgs.help){
         printHelp();
