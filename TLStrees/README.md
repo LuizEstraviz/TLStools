@@ -11,8 +11,8 @@ To run the executable just run `TLStrees -h` from shell and the following help p
 # /*** Command line arguments ***/
 
 # -i or --input         : input file path
-# -o or --otxtdir       : output directory for the report files (defaults to current directory)
-# -O or --olazdir       : output directory for the point cloud files (defaults to current directory)
+# -o or --otxtdir       : output directory for the report files (defaults to input file directory)
+# -O or --olazdir       : output directory for the point cloud files (defaults to input file directory)
 # -l or --lower         : slice's lower height (default = 1.0 m)
 # -u or --upper         : slice's upper height (default = 3.0 m)
 # -z or --zheight       : height interval to search for stem segments (default = 0.5 m)
